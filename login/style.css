@@ -1,0 +1,70 @@
+h1{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2{
+    margin-bottom: 30px;
+}
+
+p{
+    margin: 40px;
+}
+
+.subtitle{
+    text-align: center;
+}
+
+.input_form table{
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
+}
+
+.input_form table td{
+    border: solid 1px;
+    padding: 25px;
+}
+
+.input_form p{
+    margin: 30px auto 0px;
+    text-align: center;
+    color: red;
+}
+
+.input_form .require{
+    color: red;
+    font-size: 0.6rem;
+    text-align: right;
+    width: 100%;
+}
+
+.input_form .error{
+    color: red;
+    font-size: 0.8rem;
+
+}
+.textbox{
+    width: 100%
+}
+
+.doui{
+    text-align: center;
+}
+
+.doui .btn{
+    width: 80%;
+    height: 50px;
+    font-size: 1.5rem;
+
+    background: #005183;
+}
+
+.doui label{
+    margin-bottom: 30px;
+}
+.kiyaku_doui{
+    margin-bottom: 50px;
+}
+
+
