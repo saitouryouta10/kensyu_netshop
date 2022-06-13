@@ -1,14 +1,17 @@
 <?php
 session_start();
-require('library.php');
+require('../library.php');
 
 //ログインしているか確認
-// if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
+// if (isset($_SESSION['login_id']) && isset($_SESSION['name'])) {
+//     $id = $_SESSION['login_id']
 //     $name = $_SESSION['name'];
 // } else {
 //     header('Location: login.php');
 //     exit();
 // }
+
+$_SESSION["id"] = 2;
 $name = "hogehoge";
 ?>
 
@@ -18,7 +21,7 @@ $name = "hogehoge";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kaiin_jouhou</title>
+    <title>会員情報</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -29,6 +32,7 @@ $name = "hogehoge";
         <button onclick="location.href='touroku_henkou.php'">会員情報を変更する</button>
         <button onclick="location.href='rireki.php'">注文履歴</button>
     </div>
+
 
 </body>
 </html>
