@@ -11,7 +11,7 @@ require('../library.php');
 //     exit();
 // }
 
-$_SESSION["id"] = 2;
+$_SESSION["id"] = 1;
 $name = "hogehoge";
 ?>
 

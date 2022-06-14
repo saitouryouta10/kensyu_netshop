@@ -4,21 +4,26 @@ $error = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $form['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     if ($form['name'] === '') {
+        $form['name'] = '';
         $error['name'] = 'blank';
     }
     $form['name_kana'] = filter_input(INPUT_POST, 'name_kana', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     if ($form['name_kana'] === '') {
+        $form['name_kana'] = '';
         $error['name_kana'] = 'blank';
     }
     $form['nickname'] = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     if ($form['nickname'] === '') {
+        $form['nickname'] = '';
         $error['nickname'] = 'blank';
     }
+    $form['sex'] = filter_input(INPUT_POST, 'sex', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
     $form['birthday'] = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     if ($form['birthday'] === '') {
         $error['birthday'] = 'blank';
     }
-    $form['zipcode'] = filter_input(INPUT_POST, 'zipcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $form['zipcode'] = $_POST['zipcode'];
     if ($form['zipcode'] === '') {
         $error['zipcode'] = 'blank';
     }
@@ -26,13 +31,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($form['address'] === '') {
         $error['address'] = 'blank';
     }
-    $form['tell'] = filter_input(INPUT_POST, 'tell', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $form['tell'] = $_POST['tell'];
     if ($form['tell'] === '') {
         $error['tell'] = 'blank';
     }
     $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     if ($form['email'] === '') {
         $error['email'] = 'blank';
+    }
+
+    if (empty($error)) {
+        session_start();
+        $_SESSION['name'] = $form['name'];
+        $_SESSION['name_kana'] = $form['name_kana'];
+        $_SESSION['nickname'] = $form['nickname'];
+        $_SESSION['sex'] = $form['sex'];
+        $_SESSION['birthday'] = $form['birthday'];
+        $_SESSION['zipcode'] = $form['zipcode'];
+        $_SESSION['address'] = $form['address'];
+        $_SESSION['tell'] = $form['tell'];
+        $_SESSION['email'] = $form['email'];
+
+        header("Location: check_update.php");
+        exit();
     }
 }
 session_start();
@@ -72,69 +93,129 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <?php while ( $stmt->fetch() ): ?>
     <form action="" method="post">
         <h3>名前</h3>
-        <input type="text" name="name" value="<?php echo h($name); ?>">
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <input type="text" name="name" value="<?php echo h($form['name']); ?>">
+        <?php else : ?>
+            <input type="text" name="name" value="<?php echo h($name); ?>">
+        <?php endif; ?>
         <?php if (isset($error['name']) && $error['name'] === 'blank'): ?>
-        <p>名前を入力してください</p>
+            <p>名前を入力してください</p>
         <? endif; ?>
+
         <h3>名前（フリガナ）</h3>
-        <input type="text" name="name_kana" value="<?php echo h($name_kana); ?>">
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <input type="text" name="name_kana" value="<?php echo h($form['name_kana']); ?>">
+        <?php else : ?>
+            <input type="text" name="name_kana" value="<?php echo h($name_kana); ?>">
+        <? endif; ?>
         <?php if (isset($error['name_kana']) && $error['name_kana'] === 'blank'): ?>
-        <p>フリガナを入力してください</p>
+            <p>フリガナを入力してください</p>
         <? endif; ?>
+
         <h3>ニックネーム</h3>
-        <input type="text" name="nickname" value="<?php echo h($nickname); ?>">
-        <?php if (isset($error['nickname']) && $error['nickname'] === 'blank'): ?>
-        <p>ニックネームを入力してください</p>
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <input type="text" name="nickname" value="<?php echo h($form['nickname']); ?>">
+        <?php else : ?>
+            <input type="text" name="nickname" value="<?php echo h($nickname); ?>">
         <? endif; ?>
+        <?php if (isset($error['nickname']) && $error['nickname'] === 'blank'): ?>
+            <p>ニックネームを入力してください</p>
+        <? endif; ?>
+
         <h3>性別</h3>
-        <?php if ($sex == 1) : ?>
-            <input type="radio" name="sex" id="man" value="1" checked><label for="man">男性</label>
-            <input type="radio" name="sex"id="woman" value="2"><label for="woman">女性</label>
-            <input type="radio" name="sex"id="others" value="3"><label for="others">その他</label>
-        <?php endif; ?>
-        <?php if ($sex == 2) : ?>
-            <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
-            <input type="radio" name="sex" id="woman" value="2" checked><label for="woman">女性</label>
-            <input type="radio" name="sex" id="others" value="3"><label for="others">その他</label>
-        <?php endif; ?>
-        <?php if ($sex == 3) : ?>
-            <input type="radio" name="sex" id="man" value="1" checked><label for="man">男性</label>
-            <input type="radio" name="sex" id="woman" value="2"><label for="woman">女性</label>
-            <input type="radio" name="sex" id="others" value="3" checked><label for="others">その他</label>
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <?php if ($form['sex'] == 1) : ?>
+                <input type="radio" name="sex" id="man" value="1" checked><label for="man">男性</label>
+                <input type="radio" name="sex"id="woman" value="2"><label for="woman">女性</label>
+                <input type="radio" name="sex"id="others" value="3"><label for="others">その他</ label>
+            <?php endif; ?>
+            <?php if ($form['sex'] == 2) : ?>
+                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
+                <input type="radio" name="sex" id="woman" value="2" checked><label for="woman">女性</label>
+                <input type="radio" name="sex" id="others" value="3"><label for="others">その他</label>
+            <?php endif; ?>
+            <?php if ($form['sex'] == 3) : ?>
+                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
+                <input type="radio" name="sex" id="woman" value="2"><label for="woman">女性</label>
+                <input type="radio" name="sex" id="others" value="3" checked><label for="others">その他</label>
+            <?php endif; ?>
+        <?php else : ?>
+            <?php if ($sex == 1) : ?>
+                <input type="radio" name="sex" id="man" value="1" checked><label for="man">男性</label>
+                <input type="radio" name="sex"id="woman" value="2"><label for="woman">女性</label>
+                <input type="radio" name="sex"id="others" value="3"><label for="others">その他</ label>
+            <?php endif; ?>
+            <?php if ($sex == 2) : ?>
+                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
+                <input type="radio" name="sex" id="woman" value="2" checked><label for="woman">女性</label>
+                <input type="radio" name="sex" id="others" value="3"><label for="others">その他</label>
+            <?php endif; ?>
+            <?php if ($sex == 3) : ?>
+                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
+                <input type="radio" name="sex" id="woman" value="2"><label for="woman">女性</label>
+                <input type="radio" name="sex" id="others" value="3" checked><label for="others">その他</label>
+            <?php endif; ?>
         <?php endif; ?>
 
         <h3>生年月日</h3>
-        <input type="date" name="birthday" value="<?php echo h($birthday); ?>">
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <input type="date" name="birthday" value="<?php echo h($form['birthday']); ?>">
+        <?php else : ?>
+            <input type="date" name="birthday" value="<?php echo h($birthday); ?>">
+        <? endif; ?>
+
         <h3>〒住所</h3>
-        <input type="text" name="zipcode" value="<?php echo h($zipcode); ?>"><br>
-        <?php if (isset($error['zipcode']) && $error['zipcode'] === 'blank'): ?>
-        <p>郵便番号を入力してください</p>
-        <? endif; ?>
-        <input type="text" name="address" value="<?php echo h($address); ?>">
-        <?php if (isset($error['address']) && $error['address'] === 'blank'): ?>
-        <p>住所してください</p>
-        <? endif; ?>
-        <h3>電話番号</h3>
-        <input type="text" name="tell" value="<?php echo $tell; ?>">
-        <?php if (isset($error['tell']) && $error['tell'] === 'blank'): ?>
-        <p>電話番号を入力してください</p>
-        <? endif; ?>
-        <h3>メールアドレス</h3>
-        <input type="text" name="email" value="<?php echo h($email); ?>">
-        <?php if (isset($error['email']) && $error['email'] === 'blank'): ?>
-        <p>フリガナを入力してください</p>
-        <? endif; ?>
         <div>
-            <button type="submit" name="info">登録する</button>
+            <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+                <input type="text" name="zipcode" value="<?php echo $form['zipcode']; ?>">
+            <?php else : ?>
+                <input type="text" name="zipcode" value="<?php echo $zipcode; ?>"><br>
+            <? endif; ?>
+            <?php if (isset($error['zipcode']) && $error['zipcode'] === 'blank'): ?>
+                <p>郵便番号を入力してください</p>
+            <? endif; ?>
+        </div>
+
+        <div>
+            <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+                <input type="text" name="address" value="<?php echo h($form['address']); ?>">
+            <?php else : ?>
+                <input type="text" name="address" value="<?php echo h($address); ?>">
+            <? endif; ?>
+            <?php if (isset($error['address']) && $error['address'] === 'blank'): ?>
+                <p>住所を入力してください</p>
+            <? endif; ?>
+        </div>
+
+        <h3>電話番号</h3>
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <input type="text" name="tell" value="<?php echo h($form['tell']); ?>">
+        <?php else : ?>
+            <input type="text" name="tell" value="<?php echo $tell; ?>">
+        <? endif; ?>
+        <?php if (isset($error['tell']) && $error['tell'] === 'blank'): ?>
+            <p>電話番号を入力してください</p>
+        <? endif; ?>
+
+        <h3>メールアドレス</h3>
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
+            <input type="text" name="email" value="<?php echo h($form['email']); ?>">
+        <?php else : ?>
+            <input type="text" name="email" value="<?php echo h($email); ?>">
+        <? endif; ?>
+        <?php if (isset($error['email']) && $error['email'] === 'blank'): ?>
+        <p>メールアドレスを入力してください</p>
+        <? endif; ?>
+
+        <div>
+            <button type="submit" name="info">送信する</button>
         </div>
     </form>
     <?php endwhile; ?>
     <form action="pass_henkou.php" method="post">
         <button type="hidden" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
     </form>
-    <button onclick="location.href='kaiinjouhou_jouhou.php'">戻る</button>
-
-
+    <button onclick="location.href='kaiin_jouhou.php'">戻る</button>
 
 </body>
 </html>

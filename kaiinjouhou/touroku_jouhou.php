@@ -57,7 +57,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 
     <?php endwhile; ?>
 
-    <button onclick="location.href='touroku_henkou.php'">戻る</button>
+    <button onclick="history.back()">戻る</button>
 
 
 
