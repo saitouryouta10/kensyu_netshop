@@ -1,6 +1,9 @@
 <?php
-require('library.php');
+require('../library.php');
 $db =dbconnect();
+
+session_start();
+$_SESSION['img_id']='';
 
 $s='';
 if(isset($_POST['narabikae'])){
@@ -59,10 +62,10 @@ if(isset($_POST['narabikae'])){
   $db = null;
   ?>
   <?while( $rec = $stmt->fetch_assoc()): ?>
-    <?php $i=0; $i++; ?>
     <?php if($rec==false): ?>
       break;
       <?php endif ?>
+      <a href="shousai.php?id=<?php echo $rec['id'];?>">
       <div class="img_s">
         <div class="pic_size">
       <?php if($rec['picture']==null): ?>
@@ -70,27 +73,25 @@ if(isset($_POST['narabikae'])){
           <P class="txt_center">商品画像はありません <br></p>
         </div>
         <?php else: ?>
-
-          <form>
-            <a href=""></a>
-          <?php '<input type="image" src="echo ./img/'.$rec['picture'].'">' ?>
-          </form>
+            <?php $_SESSION['img_id']=$rec['id']; ?>
+            <img src="./img/<?php echo $rec['picture'];?>" >
 
             <?php endif ?>
-        </div>
-            <table>
-              <tr>
-                <th class="th_name">
-                  <p> <?php echo $rec['name']; ?> </p>
-                </th>
-                <th class="th_price">
-                  <p> <?php echo $rec['price']; ?>円 </p>
-                </th>
-                <th class="th_txt">
-                  <p>椅子は、こしかけるために作られたものや、こしかけるために使われているもの[2]。こしかけるための家具（の総称）である[3][4]。「腰掛け（こしかけ）」とも言う。</p>
-                </th>
-              </tr>
-            </table>
+          </div>
+          <table>
+            <tr>
+              <th class="th_name">
+                <p> <?php echo $rec['name']; ?> </p>
+              </th>
+              <th class="th_price">
+                <p> <?php echo $rec['price']; ?>円 </p>
+              </th>
+              <th class="th_txt">
+                <p>椅子は、こしかけるために作られたものや、こしかけるために使われているもの[2]。こしかけるための家具（の総称）である[3][4]。「腰掛け（こしかけ）」とも言う。</p>
+              </th>
+            </tr>
+          </table>
+        </a>
 
           </div>
           <?php endwhile; ?>
