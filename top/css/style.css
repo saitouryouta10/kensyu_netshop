@@ -1,5 +1,5 @@
 @charset "utf-8";
-body {
+.top_b {
   background-color: antiquewhite;
 }
 
@@ -31,17 +31,15 @@ img {
 
 
 .img_s {
-  display: flex;
   max-width: 100%;
   background-color: rgb(255, 255, 255);
   margin: 10px;
 }
 
 .pic_size {
- width: 200px;
- height: 180px;
+ width: 20%;
  padding: 20px;
- display: flex;
+
  align-items:center ;
 }
 
@@ -54,27 +52,55 @@ p {
 }
 
 .th_name {
-  width: 15%;
+  width: 20%;
 }
 
 .th_price {
- width: 15%;
+ width: 25%;
 }
 
 .th_txt {
-  width: 30%;
-  letter-spacing: normal;
+  width: 100%;
+
 }
 
 @media screen and (max-width:959px) {
-  .th_txt {
-    Visibility:hidden;
-  }
+
   .img_s {
-    display: block;
-    max-width: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    margin: 10px;
   }
+
+  .th_txt {
+    display: none;
+  }
+
   table {
-    height: 10%;
+    width: 100%;
   }
 }
+
+a {
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  color: black;
+}
+
+
+
+.s_main {
+  display: flex;
+}
+
+.shouhin_img {
+  width: 300px;
+  height: 300px;
+}
+
+.shouhin_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  }

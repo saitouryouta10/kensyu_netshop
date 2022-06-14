@@ -31,7 +31,7 @@ if(isset($_POST['narabikae'])){
   <title>HOGE</title>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
-<body>
+<body class="top_b">
 
   <h1 class="title_name">HOGEHOGE SHOP</h1>
   <form action="top.php" method="POST">
@@ -56,46 +56,49 @@ if(isset($_POST['narabikae'])){
 <div class="itiran">
 
   <?php
-  $sql ='select * from items '.$s.'';
+  $sql ='select setumei, name,price,picture,id from items '.$s.'';
   $stmt= $db->query($sql);
-
   $db = null;
   ?>
+
   <?while( $rec = $stmt->fetch_assoc()): ?>
     <?php if($rec==false): ?>
       break;
       <?php endif ?>
-      <a href="shousai.php?id=<?php echo $rec['id'];?>">
-      <div class="img_s">
-        <div class="pic_size">
-      <?php if($rec['picture']==null): ?>
-        <div class="arimasen">
-          <P class="txt_center">商品画像はありません <br></p>
+
+      <a href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
+        <div class="img_s">
+        <table>
+          <tr>
+            <th class="pic_size">
+
+                   <?php if($rec['picture']==null): ?>
+                      <img src="./img/noimage.png">
+                    <?php else: ?>
+                      <img src="./img/<?php echo $rec['picture'];?>" >
+
+              <div>
+                 <?php endif ?>
+
+              </th>
+               <th class="th_name">
+                 <p> <?php echo $rec['name']; ?> </p>
+               </th>
+               <th class="th_price">
+                 <p> <?php echo $rec['price']; ?>円 </p>
+               </th>
+               <th class="th_txt">
+                 <p><?php echo $rec['setumei'];  ?></p>
+               </th>
+             </tr>
+           </table>
         </div>
-        <?php else: ?>
-            <?php $_SESSION['img_id']=$rec['id']; ?>
-            <img src="./img/<?php echo $rec['picture'];?>" >
+       </div>
+       </a>
 
-            <?php endif ?>
-          </div>
-          <table>
-            <tr>
-              <th class="th_name">
-                <p> <?php echo $rec['name']; ?> </p>
-              </th>
-              <th class="th_price">
-                <p> <?php echo $rec['price']; ?>円 </p>
-              </th>
-              <th class="th_txt">
-                <p>椅子は、こしかけるために作られたものや、こしかけるために使われているもの[2]。こしかけるための家具（の総称）である[3][4]。「腰掛け（こしかけ）」とも言う。</p>
-              </th>
-            </tr>
-          </table>
-        </a>
 
-          </div>
           <?php endwhile; ?>
-        </div>
+  </div>
 
 
 </body>
