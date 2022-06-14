@@ -15,7 +15,9 @@ $form = [
 ];
 
 
-$error = [];
+$error = [
+	"doui" => ""
+];
 
 $match_error = [];
 
@@ -39,19 +41,31 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	//文字の中のスペースを削除する
 	$form["name"] = preg_replace('/　|\s+/', '', $form["name"]);
 	$form["name_kana"] = preg_replace('/　|\s+/', '', $form["name_kana"]);
+	$form["nickname"] =	preg_replace('/　|\s+/', '', $form["nickname"]);
+	$form["zipcode"] = preg_replace('/　|\s+/', '', $form["zipcode"]);
+	$form["address"] = preg_replace('/　|\s+/', '', $form["address"]);
+	$form["tell"] = preg_replace('/　|\s+/', '', $form["tell"]);
+	$form["email"] = preg_replace('/　|\s+/', '', $form["email"]);
 
 	//数字の検索(一致するものがあった場合は1を返す)
-	$match_suuji = preg_match('/[0-9]/',$form["name"]);
+	$match["num"] = preg_match('/[0-9]/',$form["name"]);
 
 	//記号の検索(同上)
-	$match_kigou = preg_match('/[!#<>:;&~@%+$"\'\*\^\(\)\[\]\|\/\.,_-]/',$form["name"]);
+	$match["kigou"] = preg_match('/[!#<>:;&~@%+$"\'\*\^\(\)\[\]\|\/\.,_-]/',$form["name"]);
 
 	//カタカナ以外の文字の検索(同上)
-	$match_kana = preg_match('/[^ア-ンー]/u',$form["name_kana"]);
+	$match["kana"] = preg_match('/[^ア-ンー]/u',$form["name_kana"]);
+
+	//郵便番号の正規表現
+	$match["zip"] = preg_match("/^[0-9]{3}-[0-9]{4}$/",$form["zipcode"]);
+
+	//携帯電話番号の正規表現
+	$match["tell"] = preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/",$form["tell"]);
 
 	//文字数の検索
 	$form_length["name"] = mb_strlen($form["name"]);
 	$form_length["name_kana"] = mb_strlen($form["name_kana"]);
+	$form_length["nickname"] = mb_strlen($form["nickname"]);
 
 	/*--------------------名前のバリデーション-------------------------*/
 
@@ -63,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 		$error["name"] = "string";
 	}
 	//記号か数字が含まれている場合
-	if($match_suuji || $match_kigou){
+	if($match["num"] || $match["kigou"]){
 		$match_error["name"] = "error";
 	}
 
@@ -76,39 +90,79 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	}else if($form_length["name_kana"] > 30){
 		$error["name_kana"] = "string";
 	}
-
 	//カタカナ以外
-	if($match_kana){
+	if($match["kana"]){
 		$match_error["name_kana"] = "error";
 	}
 	
+	/*--------------------ニックネームのバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["nickname"] === ""){
 		$error["nickname"] = "blank";
+	//21文字以上だった場合
+	}else if($form_length["nickname"] > 20){
+		$error["nickname"] = "string";
 	}
 
+	/*--------------------郵便番号のバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["zipcode"] === ""){
 		$error["zipcode"] = "blank";
 	}
+	//正規表現にはじかれた場合
+	if($form["zipcode"] !== "" && !$match["zip"]){
+		$error["zipcode"] = "value_error";
+	}
 
+	/*--------------------住所のバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["address"] === ""){
 		$error["address"] = "blank";
 	}
 
+	/*--------------------携帯電話のバリデーション-------------------------*/
+	
+	//0文字だった場合
 	if($form["tell"] === ""){
 		$error["tell"] = "blank";
 	}
+	//正規表現にはじかれた場合
+	if($form["tell"] !== "" && !$match["tell"]){
+		$error["tell"] = "value_error";
+	}
 
+	/*--------------------携帯電話のバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["email"] === ""){
 		$error["email"] = "blank";
 	}
+	//フィルターにはじかれたとき
+	if($form["email"] !== "" && !filter_var($form["email"], FILTER_VALIDATE_EMAIL)){
+		$error["email"] = "value_error";
+	}
 
+	/*--------------------パスワードのバリデーション-------------------------*/
+	
+	//0文字だった場合
 	if($form["pass"] === ""){
 		$error["pass"] = "blank";
 	}
 
+	/*--------------------パスワード確認用のバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["pass_kakunin"] === ""){
 		$error["pass_kakunin"] = "blank";
+	//パスワードが一致しなかった場合
+	}else if($form["pass"] !== $form["pass_kakunin"]){
+		$error["pass_kakunin"] = "nomatch";
 	}
+	
+	/*--------------------チェックボックス-------------------------*/
 	
 	if($form["doui"] !== "1"){
 		$error["doui"] = "blank";
@@ -189,6 +243,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<?php if(isset($error["nickname"]) && $error["nickname"] === "blank"):?>
 				<span class="error">ニックネームを入力して下さい</span>
 				<?php endif;?>
+				<?php if(isset($error["nickname"]) && $error["nickname"] === "string"):?>
+				<span class="error">ニックネームは20文字以内で入力してください。</span>
+				<?php endif;?>
 			</td>
 		</tr>
 		<tr>
@@ -213,10 +270,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<td>
 				<div class="address_margin">
                 	<label>〒</label><br>
-                	<input type="text" name="zipcode" pattern="[0-9]{3}-[0-9]{4}" value="<?php echo h($form["zipcode"])?>"><br>
-					例)〇〇〇-〇〇〇〇(半角数字で入力してください。)<br>
+                	<input type="text" name="zipcode" value="<?php echo h($form["zipcode"])?>"><br>
+					例)123-4567 (半角数字でご入力ください。)<br>
 				<?php if(isset($error["zipcode"]) && $error["zipcode"] === "blank"):?>
-				<span class="error">郵便番号を入力して下さい</span>
+				<span class="error">郵便番号を入力して下さい。</span>
+				<?php endif;?>
+				<?php if(isset($error["zipcode"]) && $error["zipcode"] === "value_error"):?>
+				<span class="error">正しい郵便番号を入力して下さい。</span>
 				<?php endif;?>
 				</div>
                 <input type="text" name="address" class="textbox" value="<?php echo h($form["address"])?>"><br>
@@ -229,20 +289,26 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 		<tr>
 			<td>携帯電話番号<span class="require">必須</span></td>
 			<td>
-				<input type="tel" name="tell" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" class="textbox" value="<?php echo h($form["tell"])?>"><br>
-				例)000-0000-0000（半角数字でご入力ください）<br>
+				<input type="tel" name="tell" class="textbox" value="<?php echo h($form["tell"])?>"><br>
+				例)123-4567-8900（半角数字でご入力ください）<br>
 				<?php if(isset($error["tell"]) && $error["tell"] === "blank"):?>
 				<span class="error">携帯電話番号を入力して下さい</span>
+				<?php endif;?>
+				<?php if(isset($error["tell"]) && $error["tell"] === "value_error"):?>
+				<span class="error">正しい携帯電話番号を入力して下さい。</span>
 				<?php endif;?>
 			</td>	
 		</tr>
 		<tr>
 			<td>メールアドレス<span class="require">必須</span></td>
 			<td>
-				<input type="email" name="email" class="textbox" value="<?php echo h($form["email"])?>"><br>
+				<input type="text" name="email" class="textbox" value="<?php echo h($form["email"])?>"><br>
 				例)〇〇〇@〇〇〇.com<br>
 				<?php if(isset($error["email"]) && $error["email"] === "blank"):?>
-				<span class="error">携帯電話番号を入力して下さい</span>
+				<span class="error">メールアドレスを入力して下さい</span>
+				<?php endif;?>
+				<?php if(isset($error["email"]) && $error["email"] === "value_error"):?>
+				<span class="error">正しいメールアドレスを入力して下さい。</span>
 				<?php endif;?>
 			</td>
 		</tr>
@@ -252,7 +318,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<input type="password" name="pass" minlength="8" maxlength="32" class="textbox"><br>
 				例)8文字以上32文字以内でご入力下さい<br>
 				<?php if(isset($error["pass"]) && $error["pass"] === "blank"):?>
-				<span class="error">パスワードを入力して下さい</span>
+				<span class="error">パスワードを入力して下さい。</span>
 				<?php endif;?>
 			</td>
 		</tr>
@@ -262,7 +328,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<input type="password" name="pass_kakunin"  minlength="8" maxlength="32" class="textbox"><br>
 				例)8文字以上32文字以内でご入力下さい<br>
 				<?php if(isset($error["pass_kakunin"]) && $error["pass_kakunin"] === "blank"):?>
-				<span class="error">住所を入力して下さい</span>
+				<span class="error">パスワードを入力して下さい。</span>
+				<?php endif;?>
+				<?php if(isset($error["pass_kakunin"]) && $error["pass_kakunin"] === "nomatch"):?>
+				<span class="error">パスワードが一致しません。</span>
 				<?php endif;?>
 			</td>
 		</tr>
