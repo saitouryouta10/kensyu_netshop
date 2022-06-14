@@ -1,5 +1,6 @@
 <?php 
 require("../library.php");
+session_start();
 
 $form = [
 	"name" => "",
@@ -11,17 +12,19 @@ $form = [
 	"email" => "",
 	"pass" => "",
 	"pass_kakunin" => "",
-	"doui" => ""
+	"doui" => "",
+	"sex" => "",
+	"birthday" => ""
 ];
 
 
-$error = [
-	"doui" => ""
-];
+$error = [];
 
 $match_error = [];
 
 $form_length = [];
+
+$check_error = "";
 
 //フォーム内容のチェック
 if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -37,6 +40,17 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	$form["pass_kakunin"] = filter_input(INPUT_POST,"pass_kakunin",FILTER_SANITIZE_STRING);
 	$form["doui"] = filter_input(INPUT_POST,"doui");
 
+	if(isset($_POST["sex"])){
+		$form["sex"] = h($_POST["sex"]);
+	}else{
+		$form["sex"] = "";
+	}
+
+	if(isset($_POST["birthday"])){
+		$form["birthday"] = h($_POST["birthday"]);
+	}else{
+		$form["birthday"] = "";
+	}
 
 	//文字の中のスペースを削除する
 	$form["name"] = preg_replace('/　|\s+/', '', $form["name"]);
@@ -134,7 +148,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 		$error["tell"] = "value_error";
 	}
 
-	/*--------------------携帯電話のバリデーション-------------------------*/
+	/*--------------------メールアドレスのバリデーション-------------------------*/
 
 	//0文字だった場合
 	if($form["email"] === ""){
@@ -163,10 +177,34 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	}
 	
 	/*--------------------チェックボックス-------------------------*/
-	
+
 	if($form["doui"] !== "1"){
-		$error["doui"] = "blank";
+		$check_error = "blank";
 	}
+
+	//デバッグ
+	// var_dump($error["name"]);
+	// var_dump($match_error["name"]);
+	// var_dump($error["name_kana"]);
+	// var_dump($match_error["name_kana"]);
+	// var_dump($error["nickname"]);
+	// var_dump($error["zipcode"]);
+	// var_dump($error["address"]);
+	// var_dump($error["tell"]);
+	// var_dump($error["email"]);
+	// var_dump($error["pass"]);
+	// var_dump($error["pass_kakunin"]);
+	// exit();
+	// var_dump($error);
+	// var_dump($match_error);
+	// var_dump($form["doui"]);
+
+	if(empty($error) && empty($match_error) && $form["doui"]){
+		$_SESSION["form"] = $form;
+		header("Location: touroku_kakunin.php");
+		exit();
+	}
+	
 }
 ?>
 
@@ -192,7 +230,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         <p>以下のフォームの必要事項を入力してください。</p>
     </div>
     <div class="input_form">
-	<?php if($error["doui"] === "blank"):?>
+	<?php if($check_error === "blank"):?>
 		<p>同意するにチェックをいれてください</p>
 	<?php endif;?>
 	<form action="" method="post">
@@ -214,7 +252,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<span class="error">名前を入力して下さい。</span>
 				<?php endif;?>
 				<?php if(isset($error["name"]) && $error["name"] === "string"):?>
-				<span class="error">名前は20文字以内で入力してください。</span>
+				<span class="error">名前は20文字以内で入力してください。</span><br>
 				<?php endif;?>
 				<?php if(isset($match_error["name"]) && $match_error["name"] === "error"):?>
 				<span class="error">名前に数字、記号は使用できません。</span>
@@ -229,7 +267,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<span class="error">フリガナを入力して下さい。</span>
 				<?php endif;?>
 				<?php if(isset($error["name_kana"]) && $error["name_kana"] === "string"):?>
-				<span class="error">フリガナは30文字以内で入力してください。</span>
+				<span class="error">フリガナは30文字以内で入力してください。</span><br>
 				<?php endif;?>
 				<?php if(isset($match_error["name_kana"]) && $match_error["name_kana"] === "error"):?>
 				<span class="error">フリガナはカタカナで入力してください。</span>
@@ -250,20 +288,46 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 		</tr>
 		<tr>
 			<td>性別</td>
-            <label >
+            <label>
 			<td>
-                <input type="radio" id="male" name="sex" value="0">
+				<?php if(isset($form["sex"]) && $form["sex"] === ""):?>
+                <input type="radio" id="male" name="sex" value="1">
                 <label for="male">男性</label>
-                <input type="radio" id="female" name="sex" value="1">
+                <input type="radio" id="female" name="sex" value="2">
                 <label for="female">女性</label>
-                <input type="radio" id="others" name="sex" value="2">
+                <input type="radio" id="others" name="sex" value="3">
                 <label for="others">その他</label>
+				<?php endif;?>
+				<?php if(isset($form["sex"]) && $form["sex"] === "1"):?>
+                <input type="radio" id="male" name="sex" value="1" checked>
+                <label for="male">男性</label>
+                <input type="radio" id="female" name="sex" value="2">
+                <label for="female">女性</label>
+                <input type="radio" id="others" name="sex" value="3">
+                <label for="others">その他</label>
+				<?php endif;?>
+				<?php if(isset($form["sex"]) && $form["sex"] === "2"):?>
+                <input type="radio" id="male" name="sex" value="1">
+                <label for="male">男性</label>
+                <input type="radio" id="female" name="sex" value="2" checked>
+                <label for="female">女性</label>
+                <input type="radio" id="others" name="sex" value="3">
+                <label for="others">その他</label>
+				<?php endif;?>
+				<?php if(isset($form["sex"]) && $form["sex"] === "3"):?>
+                <input type="radio" id="male" name="sex" value="1">
+                <label for="male">男性</label>
+                <input type="radio" id="female" name="sex" value="2">
+                <label for="female">女性</label>
+                <input type="radio" id="others" name="sex" value="3" checked>
+                <label for="others">その他</label>
+				<?php endif;?>
             </td>
 
 		</tr>
 		<tr>
 			<td>生年月日</td>
-			<td><input type="date" name="birthday"></td>
+			<td><input type="date" name="birthday" value="<?php echo h($form["birthday"]) ?>"></td>
 		</tr>
 		<tr>
 			<td>ご住所<span class="require">必須</span></td>
@@ -348,7 +412,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             <label for="check_doui">上記会員規約、個人情報の取り扱いについて同意する</label>
         <div>
 		<button type="submit" class="btn btn-primary" id="submit">この内容で会員登録する</button>
+	</div>
 </form>
-</div>
 </body>
 </html>
