@@ -15,9 +15,11 @@ $form = [
 ];
 
 
-$error = [
-	"doui" => ""
-];
+$error = [];
+
+$match_error = [];
+
+$form_length = [];
 
 //フォーム内容のチェック
 if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -33,16 +35,51 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	$form["pass_kakunin"] = filter_input(INPUT_POST,"pass_kakunin",FILTER_SANITIZE_STRING);
 	$form["doui"] = filter_input(INPUT_POST,"doui");
 
-	// var_dump($form["doui"]);
 
+	//文字の中のスペースを削除する
+	$form["name"] = preg_replace('/　|\s+/', '', $form["name"]);
+	$form["name_kana"] = preg_replace('/　|\s+/', '', $form["name_kana"]);
+
+	//数字の検索(一致するものがあった場合は1を返す)
+	$match_suuji = preg_match('/[0-9]/',$form["name"]);
+
+	//記号の検索(同上)
+	$match_kigou = preg_match('/[!#<>:;&~@%+$"\'\*\^\(\)\[\]\|\/\.,_-]/',$form["name"]);
+
+	//カタカナ以外の文字の検索(同上)
+	$match_kana = preg_match('/[^ア-ンー]/u',$form["name_kana"]);
+
+	//文字数の検索
+	$form_length["name"] = mb_strlen($form["name"]);
+	$form_length["name_kana"] = mb_strlen($form["name_kana"]);
+
+	/*--------------------名前のバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["name"] === ""){
 		$error["name"] = "blank";
-	}else if(strlen($form["name"] >= 20)){
+	//21文字以上だった場合	
+	}else if($form_length["name"] > 20){
 		$error["name"] = "string";
 	}
+	//記号か数字が含まれている場合
+	if($match_suuji || $match_kigou){
+		$match_error["name"] = "error";
+	}
 
+	/*--------------------フリガナのバリデーション-------------------------*/
+
+	//0文字だった場合
 	if($form["name_kana"] === ""){
 		$error["name_kana"] = "blank";
+	//31文字以上だった場合
+	}else if($form_length["name_kana"] > 30){
+		$error["name_kana"] = "string";
+	}
+
+	//カタカナ以外
+	if($match_kana){
+		$match_error["name_kana"] = "error";
 	}
 	
 	if($form["nickname"] === ""){
@@ -113,12 +150,20 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 			<td><input type="text" name="name" class="textbox" value="<?php echo h($form["name"])?>"><br>
 				例)山田太郎<br>
-				<?php var_dump($error["name"]);?>
+
+				<!-- デバッグ -->
+				<!-- <?php var_dump($error["name"]);?><br>
+				<?php echo(mb_strlen($form["name"]));?> -->
+
+
 				<?php if(isset($error["name"]) && $error["name"] === "blank"):?>
-				<span class="error">名前を入力して下さい</span>
+				<span class="error">名前を入力して下さい。</span>
 				<?php endif;?>
 				<?php if(isset($error["name"]) && $error["name"] === "string"):?>
 				<span class="error">名前は20文字以内で入力してください。</span>
+				<?php endif;?>
+				<?php if(isset($match_error["name"]) && $match_error["name"] === "error"):?>
+				<span class="error">名前に数字、記号は使用できません。</span>
 				<?php endif;?>
 			</td>
 		</tr>
@@ -127,7 +172,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<td><input type="text" name="name_kana" class="textbox" value="<?php echo h($form["name_kana"])?>"><br>
 				例)ヤマダタロウ<br>
 				<?php if(isset($error["name_kana"]) && $error["name_kana"] === "blank"):?>
-				<span class="error">フリガナを入力して下さい</span>
+				<span class="error">フリガナを入力して下さい。</span>
+				<?php endif;?>
+				<?php if(isset($error["name_kana"]) && $error["name_kana"] === "string"):?>
+				<span class="error">フリガナは30文字以内で入力してください。</span>
+				<?php endif;?>
+				<?php if(isset($match_error["name_kana"]) && $match_error["name_kana"] === "error"):?>
+				<span class="error">フリガナはカタカナで入力してください。</span>
 				<?php endif;?>
 			</td>
 		</tr>
