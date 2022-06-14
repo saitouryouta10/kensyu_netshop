@@ -72,6 +72,7 @@ if(isset($_POST['narabikae'])){
         <?php else: ?>
 
           <form>
+            <a href=""></a>
           <?php '<input type="image" src="echo ./img/'.$rec['picture'].'">' ?>
           </form>
 
