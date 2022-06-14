@@ -2,6 +2,8 @@
 require("../library.php");
 session_start();
 
+
+
 $form = [
 	"name" => "",
 	"name_kana" => "",
@@ -25,6 +27,10 @@ $match_error = [];
 $form_length = [];
 
 $check_error = "";
+
+if(isset($_SESSION["form"])){
+    $form = $_SESSION["form"];
+}
 
 //フォーム内容のチェック
 if($_SERVER["REQUEST_METHOD"] === "POST"){
