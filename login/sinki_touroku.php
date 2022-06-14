@@ -380,7 +380,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<td>パスワード<span class="require">必須</span></td>
 			<td>
 				<input type="password" name="pass" minlength="8" maxlength="32" class="textbox"><br>
-				例)8文字以上32文字以内でご入力下さい<br>
+				8文字以上32文字以内でご入力下さい<br>
 				<?php if(isset($error["pass"]) && $error["pass"] === "blank"):?>
 				<span class="error">パスワードを入力して下さい。</span>
 				<?php endif;?>
@@ -390,7 +390,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<td>パスワード(確認)<span class="require">必須</span></td>
 			<td>
 				<input type="password" name="pass_kakunin"  minlength="8" maxlength="32" class="textbox"><br>
-				例)8文字以上32文字以内でご入力下さい<br>
+				8文字以上32文字以内でご入力下さい<br>
 				<?php if(isset($error["pass_kakunin"]) && $error["pass_kakunin"] === "blank"):?>
 				<span class="error">パスワードを入力して下さい。</span>
 				<?php endif;?>
