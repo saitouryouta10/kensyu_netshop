@@ -1,0 +1,80 @@
+@charset "utf-8";
+body {
+  background-color: antiquewhite;
+}
+
+.title_name {
+  color: aqua;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  background-color: black;
+
+}
+
+.itiran_title {
+  margin-bottom: 20px;
+}
+
+img {
+  width: 100%;
+}
+
+.itiran {
+  /* display: flex; */
+  max-width: 100%;
+}
+
+/* tr {
+  width: 50%;
+} */
+
+
+.img_s {
+  display: flex;
+  max-width: 100%;
+  background-color: rgb(255, 255, 255);
+  margin: 10px;
+}
+
+.pic_size {
+ width: 200px;
+ height: 180px;
+ padding: 20px;
+ display: flex;
+ align-items:center ;
+}
+
+.txt_center {
+width: 100%;
+}
+
+p {
+  margin:  0 0 0 0;
+}
+
+.th_name {
+  width: 15%;
+}
+
+.th_price {
+ width: 15%;
+}
+
+.th_txt {
+  width: 30%;
+  letter-spacing: normal;
+}
+
+@media screen and (max-width:959px) {
+  .th_txt {
+    Visibility:hidden;
+  }
+  .img_s {
+    display: block;
+    max-width: 100%;
+  }
+  table {
+    height: 10%;
+  }
+}
