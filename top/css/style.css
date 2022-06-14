@@ -1,4 +1,9 @@
 @charset "utf-8";
+
+a {
+  max-width: 100%;
+  width: 100%;
+}
 .top_b {
   background-color: antiquewhite;
 }
@@ -22,12 +27,12 @@ img {
 
 .itiran {
   /* display: flex; */
-  max-width: 100%;
+  width: 100%;
 }
 
-/* tr {
-  width: 50%;
-} */
+th {
+  width: 100%;
+}
 
 
 .img_s {
@@ -60,8 +65,8 @@ p {
 }
 
 .th_txt {
-  width: 100%;
-
+  width: 35%;
+  white-space: pre-line;
 }
 
 @media screen and (max-width:959px) {

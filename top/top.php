@@ -6,6 +6,7 @@ session_start();
 $_SESSION['img_id']='';
 
 $s='';
+
 if(isset($_POST['narabikae'])){
   $narabikae=$_POST['narabikae'];
 
@@ -33,7 +34,9 @@ if(isset($_POST['narabikae'])){
 </head>
 <body class="top_b">
 
-  <h1 class="title_name">HOGEHOGE SHOP</h1>
+  <a href="top.php">
+    <h1 class="title_name">HOGEHOGE SHOP</h1>
+  </a>
   <form action="top.php" method="POST">
     <select name="narabikae" id="narabi">
 

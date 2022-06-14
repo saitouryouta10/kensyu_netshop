@@ -1,12 +1,21 @@
 <?php
 require('../library.php');
 $db =dbconnect();
-
+session_start();
 $item_id=$_GET['id'];
+
+
+
+ if(isset($_POST['kazuerabi'])){
+  $kazuerabi=$_POST['kazuerabi'];
+
+  echo $kazuerabi ."個カートに入れました";
+  }
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +24,10 @@ $item_id=$_GET['id'];
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+  <a href="top.php">
+    <h1 class="title_name">HOGEHOGE SHOP</h1>
+  </a>
+
 <?php
 $sql = 'select * from items where id=?';
 $stmt =$db ->prepare($sql);
@@ -29,32 +42,35 @@ if($stmt->fetch()): ?>
     <?php if($picture): ?>
         <img src="./img/<?php echo h($picture); ?>" >
         <?php else: ?>
-          <p>商品画像はありません</p>
+          <p>商品画像がありません</p>
           <?php endif ;?>
         </div>
      <div>
       <p><?php echo h($name); ?><span class="name"></p>
       <p><?php echo h($price); ?>円</span></p>
 
-      <form action="#" method="POST">
-        <select>
-      <?php while($stock===0):?>
-      <option value=<?php; ?>><? $stock; ?></option>
-      <?php $stock -1 ;?>
-      <?php endwhile ;?>
-    </select>
-    <input type="submit" name="submit" value="適用">
-      </form>
-
+      <?php if($stock >0): ?>
+         <form action="" method="POST">
+          <select name="kazuerabi">
+           <?php for($i=1; $i<=$stock;$i++):?>
+           <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
+           <?php endfor ;?>
+          </select>
+         <input type="submit" value="カートに入れる">
+       </form>
+    <? else:?>
+      <p style="color:red;">在庫がありません</p>
+      <?php endif; ?>
     </div>
   </div>
   <p ><?php echo h($setumei) ; ?></p>
-
 <?php else : ?>
 <p>その商品ページは削除されたか、URLが間違えています</p>
 <?php endif ; ?>
 </div>
 
+<div>
 
+</div>
 </body>
 </html>
