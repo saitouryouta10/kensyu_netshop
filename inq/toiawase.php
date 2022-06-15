@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="form">
-        <h1>お問い合わせフォーム</h1>
+        <h1 class="toiawase">お問い合わせフォーム</h1>
         <div class="container">
             <form action="#" method="post">
                 <p>お名前<span class="badge bg-danger">必須</span></p>
