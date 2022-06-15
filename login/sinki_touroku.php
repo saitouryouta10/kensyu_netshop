@@ -244,7 +244,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <title>HOGEHOGE SHOP</title>
 </head>
 <body>
-    <button type="button" class="btn btn-primary">トップへ</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='login.php'">ログインページへ</button>
     <h1>HOGEHOGE SHOP</h1>
 
     <div class="subtitle">
@@ -260,7 +260,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	<tbody>
 		<tr>
 			<td>
-				お名前<span class="require">必須</span>
+				お名前<span class="badge bg-danger">必須</span>
 			</td>
 			<td><input type="text" name="name" class="textbox" value="<?php echo h($form["name"])?>"><br>
 				例)山田太郎<br>
@@ -282,7 +282,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>お名前(フリガナ)<span class="require">必須</span></td>
+			<td>フリガナ<span class="badge bg-danger">必須</span></td>
 			<td><input type="text" name="name_kana" class="textbox" value="<?php echo h($form["name_kana"])?>"><br>
 				例)ヤマダタロウ<br>
 				<?php if(isset($error["name_kana"]) && $error["name_kana"] === "blank"):?>
@@ -297,7 +297,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>ニックネーム<span class="require">必須</span></td>
+			<td>ニックネーム<span class="badge bg-danger">必須</span></td>
 			<td>
 				<input type="text" name="nickname" class="textbox" value="<?php echo h($form["nickname"])?>"><br>
 				<?php if(isset($error["nickname"]) && $error["nickname"] === "blank"):?>
@@ -352,7 +352,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<td><input type="date" name="birthday" value="<?php echo h($form["birthday"]) ?>"></td>
 		</tr>
 		<tr>
-			<td>ご住所<span class="require">必須</span></td>
+			<td>ご住所<span class="badge bg-danger">必須</span></td>
 			<td>
 				<div class="address_margin">
                 	<label>〒</label><br>
@@ -373,7 +373,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>携帯電話番号<span class="require">必須</span></td>
+			<td>携帯電話番号<span class="badge bg-danger">必須</span></td>
 			<td>
 				<input type="tel" name="tell" class="textbox" value="<?php echo h($form["tell"])?>"><br>
 				例)123-4567-8900（半角数字でご入力ください）<br>
@@ -386,7 +386,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>	
 		</tr>
 		<tr>
-			<td>メールアドレス<span class="require">必須</span></td>
+			<td>メールアドレス<span class="badge bg-danger">必須</span></td>
 			<td>
 				<input type="text" name="email" class="textbox" value="<?php echo h($form["email"])?>"><br>
 				例)〇〇〇@〇〇〇.com<br>
@@ -402,7 +402,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>パスワード<span class="require">必須</span></td>
+			<td>パスワード<span class="badge bg-danger">必須</span></td>
 			<td>
 				<input type="password" name="pass" minlength="8" maxlength="32" class="textbox"><br>
 				8文字以上32文字以内でご入力下さい<br>
@@ -412,7 +412,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>パスワード(確認)<span class="require">必須</span></td>
+			<td>パスワード(確認)<span class="badge bg-danger">必須</span></td>
 			<td>
 				<input type="password" name="pass_kakunin"  minlength="8" maxlength="32" class="textbox"><br>
 				8文字以上32文字以内でご入力下さい<br>
@@ -430,7 +430,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <div class="doui">
         <p>会員規約および個人情報の取り扱いについて</p>
         <div class="kiyakusyo">
-            <h2><a href="#">会員規約を読む</a></h2>
+            <h2><a href="kiyaku.html">会員規約を読む</a></h2>
         </div>
         <div class="kiyaku_doui">
             <input type="checkbox" id="check_doui" name="doui" value="1">

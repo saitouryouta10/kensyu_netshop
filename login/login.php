@@ -84,6 +84,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         <div class="sinki_location">
             <a href="sinki_touroku.php">アカウント未登録の方はこちら</a>
         </div>
+        <div class="top_page">
+            <a href="../top/top.php">トップに戻る</a>
+        </div>            
         <button type="submit">ログイン</button>
     </form>
 </body>
