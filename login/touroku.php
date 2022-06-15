@@ -13,6 +13,8 @@ if(isset($_SESSION["form"])){
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
+    $password = password_hash($form["pass"],PASSWORD_DEFAULT);
+
     $db = dbconnect();
 
     $stmt = $db->prepare("insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
@@ -21,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         die($db->error);
     }
     $stmt->bind_param("sssissssss",$form["name"],$form["name_kana"],$form["nickname"],$form["sex"],$form["birthday"],$form["zipcode"],
-                        $form["address"],$form["tell"],$form["email"],$form["pass"]);
+                        $form["address"],$form["tell"],$form["email"],$password);
     
     $success = $stmt->execute();
     if(!$success){
@@ -41,6 +43,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 </head>
 <body>
     登録しました。
-    <button onclick="location.href='#'"></button>
+    <button onclick="location.href='#'">ログインする</button>
 </body>
 </html>

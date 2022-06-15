@@ -3,7 +3,6 @@ require("../library.php");
 session_start();
 
 
-
 $form = [
 	"name" => "",
 	"name_kana" => "",
@@ -160,6 +159,20 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	if($form["email"] === ""){
 		$error["email"] = "blank";
 	}
+
+	/*データベース関係*/
+
+	$db = dbconnect();
+
+	$records = $db->query("select email from users");
+	if($records){
+		while($record = $records->fetch_assoc()){
+			if($form["email"] === $record["email"]){
+				$match_error["email"] = "dup";
+			}
+		}
+	}
+
 	//フィルターにはじかれたとき
 	if($form["email"] !== "" && !filter_var($form["email"], FILTER_VALIDATE_EMAIL)){
 		$error["email"] = "value_error";
@@ -378,7 +391,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<span class="error">メールアドレスを入力して下さい</span>
 				<?php endif;?>
 				<?php if(isset($error["email"]) && $error["email"] === "value_error"):?>
-				<span class="error">正しいメールアドレスを入力して下さい。</span>
+				<span class="error">正しいメールアドレスを入力して下さい。</span><br>
+				<?php endif;?>
+				<?php if(isset($match_error["email"]) && $match_error["email"] === "dup"):?>
+				<span class="error">そのメールアドレスは既に登録されています。</span>
 				<?php endif;?>
 			</td>
 		</tr>
