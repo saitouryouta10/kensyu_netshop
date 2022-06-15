@@ -25,8 +25,8 @@
 
                 <!-- ボタンの配置とサイズ難しくて諦めましたなんかいい感じにしてください。 -->
                 <div class="button-matome">
-                    <button class="btn btn-secondary" onclick="location.href='toiawase.php'">戻る</button>
-                    <button type="submit" class="btn btn-primary">送信する</button>
+                    <button class="btn btn-secondary" onclick="location.href='toiawase.php'" id="kakunin">戻る</button>
+                    <button type="submit" class="btn btn-primary" id="kakunin">送信する</button>
                 </div>
             </form>
         </div>
