@@ -3,7 +3,7 @@ require('../library.php');
 $form = [];
 $error = [];
 $match_error = [];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
     $form['id'] = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -101,14 +101,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$match_error["email"] = "dup";
 			}
 		}
-        while($record = $records->fetch_assoc()){
-            if($form["id"] === $record["id"]){
-            $match_error["email"] = "";
-            }
-        }
 	} else {
         die($db->error);
     }
+
+    $stmt = $db->prepare("select email from users where id=?");
+    if (!$stmt) {
+        die($db->error);
+    }
+    $stmt->bind_param("i", $form['id']);
+    $success = $stmt->execute();
+    if (!$success) {
+        die($db->error);
+    }
+    $stmt->bind_result($email);
+    $stmt->fetch();
+
+    if ($email === $form['email']) {
+        $match_error["email"] = "";
+    }
+
+    var_dump($form['id']);
+    var_dump($email);
+    var_dump($form['email']);
+
+
     // var_dump($record["email"]);
     // var_dump($record["id"]);
 	//文字の中のスペースを削除する
@@ -120,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$form["tell"] = preg_replace('/　|\s+/', '', $form["tell"]);
 	$form["email"] = preg_replace('/　|\s+/', '', $form["email"]);
 
-    if (empty($error) && empty($match_error)) {
+    if (empty($error) ) {
         session_start();
         $_SESSION['name'] = $form['name'];
         $_SESSION['name_kana'] = $form['name_kana'];
@@ -320,9 +337,12 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     </form>
     <?php endwhile; ?>
     <form action="pass_henkou.php" method="post">
+        <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <button type="hidden" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
     </form>
-    <button onclick="location.href='kaiin_jouhou.php'">戻る</button>
 
+    <form action="kaiin_jouhou.php" method="get">
+        <button type="submit">戻る</button>
+    </form>
 </body>
 </html>

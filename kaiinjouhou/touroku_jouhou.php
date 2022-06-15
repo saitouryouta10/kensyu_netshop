@@ -3,12 +3,11 @@ session_start();
 require('../library.php');
 
 if (isset($_SESSION['id'])) {
-    $ssid = $_SESSION['id'];
+    $id = $_SESSION['id'];
 } else {
     header('Location: login.php');
     exit();
 }
-$id = $ssid;
 $db = dbconnect();
 $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email from users where id=?';
 $stmt = $db->prepare($sql);
@@ -57,7 +56,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 
     <?php endwhile; ?>
 
-    <button onclick="history.back()">戻る</button>
+    <button onclick="location.href='kaiin_jouhou.php'">戻る</button>
 
 
 

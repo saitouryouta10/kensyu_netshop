@@ -43,6 +43,7 @@ $email = $_SESSION['email'];
     <p>電話番号<br><?php echo $tell; ?></p>
     <p>メールアドレス<br><?php echo h($email); ?></p>
 
+
     <button onclick="history.back()">戻る</button>
     <button onclick="location.href='update.php'">確定</button>
 
