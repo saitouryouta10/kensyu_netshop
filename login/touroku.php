@@ -20,14 +20,20 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     $stmt = $db->prepare("insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
                         VALUES(?,?,?,?,?,?,?,?,?,?)");
     if(!$stmt){
-        die($db->error);
+        header("Location: sinki_touroku.php");
+        exit();
     }
     $stmt->bind_param("sssissssss",$form["name"],$form["name_kana"],$form["nickname"],$form["sex"],$form["birthday"],$form["zipcode"],
                         $form["address"],$form["tell"],$form["email"],$password);
     
     $success = $stmt->execute();
     if(!$success){
-        die($db->error);
+        header("Location: sinki_touroku.php");
+        exit();
+    }else{
+        //成功した場合はセッションの削除
+        //新規登録画面に戻った時セッションがあるので情報が入っちゃうから
+        unset($_SESSION["form"]);
     }
 }
 ?>
@@ -43,6 +49,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 </head>
 <body>
     登録しました。
-    <button onclick="location.href='#'">ログインする</button>
+    <button onclick="location.href='login.php'">ログインする</button>
 </body>
 </html>

@@ -2,7 +2,6 @@
 require("../library.php");
 session_start();
 
-
 $form = [
 	"name" => "",
 	"name_kana" => "",
@@ -165,12 +164,16 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	$db = dbconnect();
 
 	$records = $db->query("select email from users");
+
 	if($records){
 		while($record = $records->fetch_assoc()){
 			if($form["email"] === $record["email"]){
 				$match_error["email"] = "dup";
 			}
 		}
+	}else{
+		die($db->error);
+		exit();
 	}
 
 	//フィルターにはじかれたとき
