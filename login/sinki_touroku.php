@@ -1,4 +1,4 @@
-<?php 
+<?php
 require("../library.php");
 session_start();
 
@@ -32,7 +32,7 @@ if(isset($_SESSION["form"])){
 
 //フォーム内容のチェック
 if($_SERVER["REQUEST_METHOD"] === "POST"){
-	
+
 	$form["name"] = filter_input(INPUT_POST,"name",FILTER_SANITIZE_STRING);
 	$form["name_kana"] = filter_input(INPUT_POST,"name_kana",FILTER_SANITIZE_STRING);
 	$form["nickname"] = filter_input(INPUT_POST,"nickname",FILTER_SANITIZE_STRING);
@@ -90,7 +90,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	//0文字だった場合
 	if($form["name"] === ""){
 		$error["name"] = "blank";
-	//21文字以上だった場合	
+	//21文字以上だった場合
 	}else if($form_length["name"] > 20){
 		$error["name"] = "string";
 	}
@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	if($match["kana"]){
 		$match_error["name_kana"] = "error";
 	}
-	
+
 	/*--------------------ニックネームのバリデーション-------------------------*/
 
 	//0文字だった場合
@@ -142,7 +142,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	}
 
 	/*--------------------携帯電話のバリデーション-------------------------*/
-	
+
 	//0文字だった場合
 	if($form["tell"] === ""){
 		$error["tell"] = "blank";
@@ -182,7 +182,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	}
 
 	/*--------------------パスワードのバリデーション-------------------------*/
-	
+
 	//0文字だった場合
 	if($form["pass"] === ""){
 		$error["pass"] = "blank";
@@ -197,7 +197,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	}else if($form["pass"] !== $form["pass_kakunin"]){
 		$error["pass_kakunin"] = "nomatch";
 	}
-	
+
 	/*--------------------チェックボックス-------------------------*/
 
 	if($form["doui"] !== "1"){
@@ -226,7 +226,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 		header("Location: touroku_kakunin.php");
 		exit();
 	}
-	
+
 }
 ?>
 
@@ -237,7 +237,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	
+
     <!-- Boot strap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -383,7 +383,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<?php if(isset($error["tell"]) && $error["tell"] === "value_error"):?>
 				<span class="error">正しい携帯電話番号を入力して下さい。</span>
 				<?php endif;?>
-			</td>	
+			</td>
 		</tr>
 		<tr>
 			<td>メールアドレス<span class="badge bg-danger">必須</span></td>
