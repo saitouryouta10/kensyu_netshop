@@ -22,7 +22,7 @@ if (isset($_SESSION['id'])) {
         die($db->error);
     }
 
-    $stmt->bind_param('sssisisisi', $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
+    $stmt->bind_param('sssisssssi', $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
     $success = $stmt->execute();
     if (!$success) {
         die($db->error);
