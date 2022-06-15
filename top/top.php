@@ -3,6 +3,7 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
+echo session_id();
 $_SESSION['img_id']='';
 
 $s='';

@@ -4,13 +4,20 @@ $db =dbconnect();
 session_start();
 $item_id=$_GET['id'];
 
-
-
- if(isset($_POST['kazuerabi'])){
+if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
 
-  echo $kazuerabi ."個カートに入れました";
-  }
+}else{
+  $kazuerabi='';
+}
+
+if(isset($_SESSION['cart'])==true){
+$cart=$_SESSION['cart'];
+}
+
+$cart[]=$item_id;
+$_SESSION['cart']=$cart;
+
 
 ?>
 
@@ -61,7 +68,11 @@ if($stmt->fetch()): ?>
     <? else:?>
       <p style="color:red;">在庫がありません</p>
       <?php endif; ?>
+      <p style="color:pink"><?php if($kazuerabi !== ''){ echo $kazuerabi ."個カートに入れました";} ?></p>
+      <a href="cart.php?id=<?php echo $id;?>">カートに行く</a>
+      <?php //var_dump($cart); exit(); ?>
     </div>
+
   </div>
   <p ><?php echo h($setumei) ; ?></p>
 <?php else : ?>
