@@ -3,7 +3,15 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
-echo session_id();
+$hensu=$_SESSION['id'];
+
+$sql1 ='select name from users where id='.$hensu.'';
+$stmt1= $db->query($sql1);
+
+while($rec1 =$stmt1->fetch_assoc()){
+echo $rec1['name'] . 'さん　おかえりなさい';
+}
+
 $_SESSION['img_id']='';
 
 $s='';
@@ -57,6 +65,7 @@ if(isset($_POST['narabikae'])){
 </form>
 
     <p class="itiran_title">一覧</p>
+    <a href="cart.php">カートに行く</a>
 <div class="itiran">
 
   <?php
@@ -69,7 +78,7 @@ if(isset($_POST['narabikae'])){
     <?php if($rec==false): ?>
       break;
       <?php endif ?>
-
+<?php //print_r($rec);?>
       <a href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
         <div class="img_s">
         <table>

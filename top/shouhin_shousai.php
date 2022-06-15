@@ -4,20 +4,27 @@ $db =dbconnect();
 session_start();
 $item_id=$_GET['id'];
 
+$userid=$_SESSION['id'];
+
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
 
 }else{
-  $kazuerabi='';
+  $kazuerabi=null;
 }
 
 if(isset($_SESSION['cart'])==true){
-$cart=$_SESSION['cart'];
+  $cart=$_SESSION['cart'];
 }
 
-$cart[]=$item_id;
-$_SESSION['cart']=$cart;
+// $cart[]=$item_id;
+// $_SESSION['cart']=$cart;
 
+if(isset($_POST['cartin_button'])==true){
+  $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
+  $stmt2 =$db ->query($sql2);
+
+}
 
 ?>
 
@@ -63,21 +70,32 @@ if($stmt->fetch()): ?>
            <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
            <?php endfor ;?>
           </select>
-         <input type="submit" value="カートに入れる">
-       </form>
-    <? else:?>
-      <p style="color:red;">在庫がありません</p>
-      <?php endif; ?>
-      <p style="color:pink"><?php if($kazuerabi !== ''){ echo $kazuerabi ."個カートに入れました";} ?></p>
-      <a href="cart.php?id=<?php echo $id;?>">カートに行く</a>
-      <?php //var_dump($cart); exit(); ?>
-    </div>
+         <input type="submit" value="カートに入れる" name="cartin_button">
 
-  </div>
-  <p ><?php echo h($setumei) ; ?></p>
-<?php else : ?>
-<p>その商品ページは削除されたか、URLが間違えています</p>
-<?php endif ; ?>
+
+
+          <!-- $stmt->bind_result($id,$name,$price,$jenre,$stock,$item_link,$setumei,$syousai,$picture,$created); -->
+
+        </form>
+     <? else:?>
+       <p style="color:red;">在庫がありません</p>
+       <?php endif; ?>
+          <p style="color:pink">
+          <?php if($kazuerabi !==null){
+        echo $kazuerabi ."個カートに入れました";
+       }
+       ?>
+        </p>
+        <a href="cart.php">カートに行く</a>
+        <?php //var_dump($cart); exit(); ?>
+      </div>
+
+    </div>
+    <p ><?php echo h($setumei) ; ?></p>
+    <?php else : ?>
+      <p>その商品ページは削除されたか、URLが間違えています</p>
+      <?php endif; ?>
+
 </div>
 
 <div>
