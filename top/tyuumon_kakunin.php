@@ -16,7 +16,7 @@ if(isset($_POST['kazuerabi'])){
 if(isset($_SESSION['cart'])==true){
 $cart=$_SESSION['cart'];
 }
-echo $userid;
+// echo $userid;
 
 if(isset($_POST['itemid'])==true){
   $itemid=$_POST['itemid'];
@@ -52,6 +52,7 @@ $total=0;
   <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a>
+  <p>注文確認</p>
   <a href="cart.php">戻る</a>
   <?php
 $sql='select * from cart  inner join items on cart.item_id=items.id where user_id='.$userid.'';

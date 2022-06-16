@@ -16,18 +16,16 @@ if(isset($_POST['kazuerabi'])){
 if(isset($_SESSION['cart'])==true){
 $cart=$_SESSION['cart'];
 }
-echo $userid;
+// echo $userid;
 
 if(isset($_POST['itemid'])==true){
   $itemid=$_POST['itemid'];
   // echo $itemid;
   }
 
-if(isset($_POST['sakujo_button'])==true){
-  $sqls='delete from cart where id=?';
-  $stmts =$db ->prepare($sqls);
-  $stmts->bind_Param("s",$itemid);
-  $stmts->execute();
+if(isset($_SESSION['id'])==true){
+  $sqls='delete from cart where user_id='.$userid.'';
+  $stmts= $db ->query($sqls);
 }
 
 if(isset($_POST['change_button'])==true){
@@ -48,14 +46,14 @@ if(isset($_POST['change_button'])==true){
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
-<body>
+<body  class="skaku txt_w">
   <div>
     <div class="kakutei_title">
-      <h1>ご購入ありがとうございました</h1>
+      <h1><span>ご購入ありがとう</span><span>ございました</span></h1>
     </div>
     <div class="kingaku">
-      <p>お支払い合計金額は</p>
-      <p><?php echo $total; ?>円です</p>
+      <p>お支払合計金額は</p>
+      <p><span class="money"><?php echo $total; ?></span>円です</p>
     </div>
   <div class="jouhou">
 
@@ -79,7 +77,14 @@ if(isset($_POST['change_button'])==true){
       </p>
     </div>
 
+    <div class="tyukoku" style="color:red">
+      <p>3日以内に支払いをお願いします</p>
+      <p>お問い合わせはサポートダイヤルへ(XXX-XXXX-XXXX）</p>
+    </div>
 
+    <div  class="top_button">
+      <a href="top.php" class="modoru">トップに戻る</a>
+    </div>
   </div>
 
 

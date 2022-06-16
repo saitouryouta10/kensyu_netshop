@@ -15,7 +15,7 @@ if(isset($_POST['kazuerabi'])){
 if(isset($_SESSION['cart'])==true){
 $cart=$_SESSION['cart'];
 }
-echo $userid;
+// echo $userid;
 
 if(isset($_POST['itemid'])==true){
   $itemid=$_POST['itemid'];
@@ -52,7 +52,7 @@ $total=0;
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a>
 <p>カート</p>
-<a href="tyuumon_kakunin.php">購入する</a>
+
   <?php
 $sql='select * from cart  inner join items on cart.item_id=items.id where user_id='.$userid.'';
 // $sql = 'select id,user_id,item_id,number from cart where user_id='.$userid.'';
@@ -129,7 +129,9 @@ $result2 = $stmt2->fetch_assoc();
         </div>
        </div>
           <?php endwhile; ?>
-          <?php if($total<=0){ echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';}else{echo '計'.$total.'円';} ?>
+          <?php if($total<=0): echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';else:echo '計'.$total.'円';?>
+          <button type="button" onclick="location.href='tyuumon_kakunin.php';">購入する</button>
+          <?php  endif?>
 </div>
 
 <div>
