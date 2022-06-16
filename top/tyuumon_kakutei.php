@@ -16,7 +16,7 @@ if(isset($_POST['kazuerabi'])){
 if(isset($_SESSION['cart'])==true){
 $cart=$_SESSION['cart'];
 }
- echo $userid;
+//  echo $userid;
 
 if(isset($_POST['itemid'])==true){
   $itemid=$_POST['itemid'];
@@ -28,13 +28,13 @@ if(isset($_SESSION['id'])==true){
   $sql ='select * from cart where user_id='.$userid.'';
   $stmt= $db->query($sql);
   while( $rec = $stmt->fetch_assoc()){
-  print_r($rec['item_id']);
+  // print_r($rec['item_id']);
   $item_id=$rec['item_id'];
   $sqlitem='select * from items where id='.$item_id.'';
   $stmtitem= $db->query($sqlitem);
    while( $rec2 = $stmtitem->fetch_assoc()){
-    print_r($rec2['name']);
-    print_r($rec2['price']);
+    // print_r($rec2['name']);
+    // print_r($rec2['price']);
     $item_name=$rec2['name'];
     $item_price=$rec2['price'];
     $sqlt='insert into history(user_id,name,price,item_id) values('.$userid.',"'.$item_name.'",'.$item_price.','.$item_id.')';
@@ -42,9 +42,7 @@ if(isset($_SESSION['id'])==true){
   }
   }
 
-  // $sqlt='insert into history(user_id,name,item_id) values('.$userid.','$item_name','.$item_id.')';
   $sqls='delete from cart where user_id='.$userid.'';
-  // $stmtt=$db->query($sqlt);
   $stmts= $db ->query($sqls);
 
 }
@@ -66,7 +64,9 @@ if(isset($_POST['change_button'])==true){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./css/styles.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body  class="skaku txt_w">
   <div>

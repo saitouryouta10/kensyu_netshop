@@ -6,6 +6,7 @@ $item_id=$_GET['id'];
 
 $userid=$_SESSION['id'];
 
+//カートに入れる数を決める
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
 
@@ -20,6 +21,7 @@ if(isset($_SESSION['cart'])==true){
 // $cart[]=$item_id;
 // $_SESSION['cart']=$cart;
 
+// カートに入れるボタンが押されたとき,cartデータベースに追加
 if(isset($_POST['cartin_button'])==true){
   $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
   $stmt2 =$db ->query($sql2);
@@ -35,7 +37,9 @@ if(isset($_POST['cartin_button'])==true){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./css/styles.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
   <a href="top.php">
@@ -56,7 +60,7 @@ if($stmt->fetch()): ?>
     <?php if($picture): ?>
         <img src="./img/<?php echo h($picture); ?>" >
         <?php else: ?>
-          <p>商品画像がありません</p>
+          <img src="./img/noimage.png" >
           <?php endif ;?>
         </div>
      <div>
@@ -65,12 +69,12 @@ if($stmt->fetch()): ?>
 
       <?php if($stock >0): ?>
          <form action="" method="POST">
-          <select name="kazuerabi">
+          <select name="kazuerabi" >
            <?php for($i=1; $i<=$stock;$i++):?>
            <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
            <?php endfor ;?>
           </select>
-         <input type="submit" value="カートに入れる" name="cartin_button">
+         <button type="submit"name="cartin_button" class="btn btn-success">カートに入れる</button>
 
 
 

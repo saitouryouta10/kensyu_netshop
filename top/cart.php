@@ -45,7 +45,9 @@ $total=0;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./css/styles.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
   <a href="top.php">
@@ -115,11 +117,11 @@ $result2 = $stmt2->fetch_assoc();
                         <?php endfor ;?>
                       </select>
                       <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
-                      <input type="submit" value="変更する" name="change_button">
+                      <button type="submit" class="btn btn-warning" name="change_button">変更</button>
                        </form>
                       <form action="" method="POST">
                         <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
-                      <input type="submit" value="削除する" name="sakujo_button">
+                      <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
                       <?php //echo $result3['id'] ;?>
                     </form>
                   </th>
@@ -130,7 +132,7 @@ $result2 = $stmt2->fetch_assoc();
        </div>
           <?php endwhile; ?>
           <?php if($total<=0): echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';else:echo '計'.$total.'円';?>
-          <button type="button" onclick="location.href='tyuumon_kakunin.php';">購入する</button>
+          <button type="button" onclick="location.href='tyuumon_kakunin.php';" class="btn btn-success">購入する</button>
           <?php  endif?>
 </div>
 
