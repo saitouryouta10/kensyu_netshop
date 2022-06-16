@@ -18,7 +18,7 @@ a{
     border-bottom: solid 1px;
 }
 
-p {
+.container p {
     font-weight: bold;
     text-align: left;
     margin-top: 45px;
@@ -72,7 +72,7 @@ textarea {
     }
 }
 
-/* --------------------ヘッダー関係 -----------------------*/
+/* --------------------ヘッダー・フッター関係 -----------------------*/
 
 .title_header {
     display: flex;
@@ -97,13 +97,13 @@ textarea {
     font-size: 1.25rem;
 }
 
-.link_1{
+.link_1 {
     width: 10%;
     /* background-color: red; */
     padding: 0px 20px 6px;
 }
 
-.link_2{
+.link_2 {
     width: 10%;
     /* background-color: red; */
     padding: 0px 20px 6px;
@@ -128,7 +128,7 @@ textarea {
     height: 50px;
 }
 
-.list {
+.header_list {
     width: 100%;
     height: 120px;
     background-color: rgb(29, 28, 68);
@@ -136,8 +136,13 @@ textarea {
     display: flex;
 }
 
-.list a {
+header a {
     color: white;
+}
+
+header a:hover {
+    color: white;
+    border: solid 1px;
 }
    
 .title {
@@ -145,3 +150,101 @@ textarea {
     color: rgb(255, 255, 255);
 }
 
+
+.footer_list{
+    display: flex;
+    padding-top: 30px;
+}
+
+footer {
+    background-color: rgb(29, 28, 68);
+    width: 100%;
+    height: 300px;
+}
+
+footer li {
+    list-style: none;
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+footer ul {
+    text-align: center;
+}
+
+.list_1 {
+    width: 33%;
+    padding-left: 0;
+}
+
+.list_2 {
+    width: 33%;
+    padding-left: 0;
+}
+
+.list_3 {
+    width: 33%;
+    padding-left: 0;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+    border: solid 1px;
+}
+
+footer p {
+    color: white;
+    font-family: Helvetica;
+    font-size: 0.8rem;
+    margin-top: 128px;
+    text-align: center; 
+}
+
+@media screen and (max-width: 1580px) {
+    .serch {
+        text-align: center;
+        /* background-color: blue; */
+        width: 55%;
+    }
+
+    .link_1 {
+        width: 22.5%;
+        /* background-color: red; */
+        padding: 0px 20px 6px;
+    }
+    
+    .link_2 {
+        width: 22.5%;
+        /* background-color: red; */
+        padding: 0px 20px 6px;
+    }
+
+}
+
+@media screen and (max-width: 420px) {
+
+    footer li {
+        font-size: 0.8rem;
+    }
+
+    footer p {
+        font-size: 0.6rem;
+    }
+
+    .list_1 {
+        width: 33%;
+    }
+    
+    .list_2 {
+        width: 33%;
+    }
+    
+    .list_3 {
+        width: 33%;
+    }
+
+}
