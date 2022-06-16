@@ -25,6 +25,10 @@ $name = "hogehoge";
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <?php
+        header_inc();
+    ?>
+
     <h1>会員情報</h1>
     <p><?php echo $name ?>さん</p>
     <div class="btn-wrapper">
@@ -32,6 +36,10 @@ $name = "hogehoge";
         <button onclick="location.href='touroku_henkou.php'">会員情報を変更する</button>
         <button onclick="location.href='rireki.php'">注文履歴</button>
     </div>
+
+    <?php
+        footer_inc();
+    ?>
 
 
 </body>

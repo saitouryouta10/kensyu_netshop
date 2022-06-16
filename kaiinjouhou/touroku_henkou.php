@@ -3,6 +3,7 @@ require('../library.php');
 $form = [];
 $error = [];
 $match_error = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
     $form['id'] = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -134,8 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         exit();
     }
 }
-session_start();
 
+session_start();
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 } else {
