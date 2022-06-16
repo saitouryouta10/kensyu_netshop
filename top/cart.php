@@ -73,7 +73,7 @@ $db=null;
 <?php
 $result2 = $stmt2->fetch_assoc();
 ?>
-<?while( $rec = $stmt->fetch_assoc()):?>
+<?php while( $rec = $stmt->fetch_assoc()):?>
   <?php $result3 = $stmt3->fetch_assoc();?>
   <?php //print_r($result3);?>
   <?php if($rec==false): ?>

@@ -16,17 +16,39 @@ if(isset($_POST['kazuerabi'])){
 if(isset($_SESSION['cart'])==true){
 $cart=$_SESSION['cart'];
 }
-// echo $userid;
+ echo $userid;
 
 if(isset($_POST['itemid'])==true){
   $itemid=$_POST['itemid'];
-  // echo $itemid;
+  //  echo $itemid;
   }
 
 if(isset($_SESSION['id'])==true){
+
+  $sql ='select * from cart where user_id='.$userid.'';
+  $stmt= $db->query($sql);
+  while( $rec = $stmt->fetch_assoc()){
+  print_r($rec['item_id']);
+  $item_id=$rec['item_id'];
+  $sqlitem='select * from items where id='.$item_id.'';
+  $stmtitem= $db->query($sqlitem);
+   while( $rec2 = $stmtitem->fetch_assoc()){
+    print_r($rec2['name']);
+    print_r($rec2['price']);
+    $item_name=$rec2['name'];
+    $item_price=$rec2['price'];
+    $sqlt='insert into history(user_id,name,price,item_id) values('.$userid.',"'.$item_name.'",'.$item_price.','.$item_id.')';
+    $stmtt=$db->query($sqlt);
+  }
+  }
+
+  // $sqlt='insert into history(user_id,name,item_id) values('.$userid.','$item_name','.$item_id.')';
   $sqls='delete from cart where user_id='.$userid.'';
+  // $stmtt=$db->query($sqlt);
   $stmts= $db ->query($sqls);
+
 }
+
 
 if(isset($_POST['change_button'])==true){
   $sql2 = 'update cart set number='.$kazuerabi.' where id in('.$itemid.')';

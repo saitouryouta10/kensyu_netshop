@@ -3,6 +3,7 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
+if(isset($_SESSION['id'])){
 $userid=$_SESSION['id'];
 
 $sql1 ='select * from users where id='.$userid.'';
@@ -10,6 +11,9 @@ $stmt1= $db->query($sql1);
 
 while($rec1 =$stmt1->fetch_assoc()){
 echo $rec1['name'] . 'さん　おかえりなさい';
+}
+}else{
+  echo 'gest';
 }
 
 $_SESSION['img_id']='';
