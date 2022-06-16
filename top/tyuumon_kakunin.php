@@ -6,6 +6,7 @@ session_start();
 $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
 
+
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
 }else{
@@ -51,8 +52,7 @@ $total=0;
   <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a>
-<p>カート</p>
-<a href="tyuumon_kakunin.php">購入する</a>
+  <a href="cart.php">戻る</a>
   <?php
 $sql='select * from cart  inner join items on cart.item_id=items.id where user_id='.$userid.'';
 // $sql = 'select id,user_id,item_id,number from cart where user_id='.$userid.'';
@@ -108,7 +108,7 @@ $result2 = $stmt2->fetch_assoc();
                  <?php $total+=$rec['number'] * $rec['price']; ?>
                  <th>
 
-                   <form action="" method="POST">
+                   <!-- <form action="" method="POST">
                      <select name="kazuerabi">
                        <?php for($i=1; $i<=$rec['stock'];$i++):?>
                         <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
@@ -121,7 +121,7 @@ $result2 = $stmt2->fetch_assoc();
                         <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
                       <input type="submit" value="削除する" name="sakujo_button">
                       <?php //echo $result3['id'] ;?>
-                    </form>
+                    </form> -->
                   </th>
                </th>
              </tr>
@@ -129,7 +129,8 @@ $result2 = $stmt2->fetch_assoc();
         </div>
        </div>
           <?php endwhile; ?>
-          <?php if($total<=0){ echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';}else{echo '計'.$total.'円';} ?>
+          <?php if($total<=0){ echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';}else{echo '計'.$total.'円'; $_SESSION['total']=$total;}?>
+          <button type="button" onclick="location.href='tyuumon_kakutei.php';">注文を確定する</button>
 </div>
 
 <div>

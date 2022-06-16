@@ -3,9 +3,9 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
-$hensu=$_SESSION['id'];
+$userid=$_SESSION['id'];
 
-$sql1 ='select name from users where id='.$hensu.'';
+$sql1 ='select * from users where id='.$userid.'';
 $stmt1= $db->query($sql1);
 
 while($rec1 =$stmt1->fetch_assoc()){
@@ -74,7 +74,7 @@ if(isset($_POST['narabikae'])){
   $db = null;
   ?>
 
-  <?while( $rec = $stmt->fetch_assoc()): ?>
+  <?php while( $rec = $stmt->fetch_assoc()): ?>
     <?php if($rec==false): ?>
       break;
       <?php endif ?>
