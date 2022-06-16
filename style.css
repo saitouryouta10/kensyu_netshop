@@ -159,7 +159,7 @@ header a:hover {
 footer {
     background-color: rgb(29, 28, 68);
     width: 100%;
-    height: 300px;
+    height: 200px;
     position: absolute;
     bottom: 0;
 }
@@ -202,7 +202,7 @@ footer p {
     color: white;
     font-family: Helvetica;
     font-size: 0.8rem;
-    margin-top: 128px;
+    margin-top: 33px;
     text-align: center; 
 }
 
@@ -251,4 +251,94 @@ footer p {
         width: 33%;
     }
 
+}
+
+/* --------------------管理者画面関係 -----------------------*/
+
+/* 管理画面ほぼ全部TOPページのコピペなんでクラスとかも全部いっしょです。 */
+
+
+.kanri_top h1 {
+    float: left
+}
+
+.admin_button {
+    text-align: right;
+    margin: 30px;
+}
+
+.admin_item_title {
+
+    text-align: center;
+    border: solid 2px;
+    margin: 10px 100px 0;
+}
+
+.admin_item_title span {
+    margin: 10px 7% 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+
+}
+
+.admin_item_title p , .admin_item p{
+    margin: 20px auto 20px;
+    /* text-align: justify; */
+}
+
+.admin_item {
+    text-align: center;
+    margin: 0 100px 0;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    border-right: solid 2px;
+    border-left: solid 2px;
+}
+
+.admin_item span {
+    margin: 10px 7.5% 10px;
+    /* font-weight: bold; */
+    /* font-size: 1.25rem; */
+}
+
+
+.admin_subtitle {
+    clear: both;
+    text-align: center;
+}
+
+.admin_subtitle span {
+    text-align: center;
+}
+
+.admin_subtitle h2{
+    font-weight: normal;
+}
+
+.admin_button_matome {
+    text-align: center;
+    margin: 30px;
+}
+
+.admin_kakunin {
+    text-align: center;
+    margin: 0 200px 0;
+    border: solid 1px;
+    padding: 40px;
+}
+
+.admin_yes {
+    width: 80%;
+    height: 100px;
+    margin-bottom: 40px;
+}
+
+.admin_no {
+    width: 80%;
+    height: 100px;
+}
+
+.admin_form {
+    margin-left: 50px;
+    margin-right: 50px;
 }

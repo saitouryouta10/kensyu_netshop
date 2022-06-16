@@ -13,13 +13,13 @@
         <h1 class="toiawase">お問い合わせフォーム</h1>
         <div class="container">
             <form action="#" method="post">
-                <p>お名前<span class="badge bg-danger">必須</span></p>
+                <p>お名前　<span class="badge bg-danger">必須</span></p>
                 <input type="text" class="input">
-                <p>メールアドレス<span class="badge bg-danger">必須</span></p>
+                <p>メールアドレス　<span class="badge bg-danger">必須</span></p>
                 <input type="text" class="input">
-                <p>件名<span class="badge bg-danger">必須</span></p>
+                <p>件名　<span class="badge bg-danger">必須</span></p>
                 <input type="text" class="input">
-                <p>お問い合わせ内容<span class="badge bg-danger">必須</span></p>
+                <p>お問い合わせ内容　<span class="badge bg-danger">必須</span></p>
                 <textarea>
                 </textarea>
         </div>

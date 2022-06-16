@@ -89,5 +89,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         </div>            
         <button type="submit">ログイン</button>
     </form>
+    <?php include(dirname(__FILE__) . "/../head/footer_logout.php")?>
 </body>
 </html>

@@ -17,36 +17,33 @@
         </div>
     </div>
     <div class="admin_subtitle">
-        <h2>商品追加</h2>
-        <span>追加する商品の情報を入力してください</span>
+        <h2>商品確認</h2>
     </div>
 
     <!-- inputにクラスとかnameとかつけて情報取得してください -->
     <div class="admin_form">
-        <p>商品名　<span class="badge bg-danger">必須</span></p>
-        <input type="text" required> 
+        <p>商品名</p>
+         <!--商品名表示  -->
         
-        <p>価格　<span class="badge bg-danger">必須</span></p>
-        <input type="text" required>円
+        <p>価格</p>
+        <!-- 価格表示 -->
 
-        <p>個数　<span class="badge bg-danger">必須</span></p>
-        <input type="text" required>
+        <p>個数</p>
+        <!-- 個数表示 -->
 
-        <p>画像　<span class="badge bg-danger">必須</span></p>
-        <input type="file" required>
+        <p>画像</p>
+        <!-- 画像表示 -->
 
-        <p>商品説明　<span class="badge bg-danger">必須</span></p>
-        <textarea required>
-        </textarea>
+        <p>商品説明</p>
+        <!-- 商品説明表示 -->
 
-        <p>詳細情報　<span class="badge bg-danger">必須</span></p>
-        <textarea required>
-        </textarea>
+        <p>詳細情報</p>
+        <!-- 詳細情報表示 -->
     </div>
     <div class="admin_button_matome">
         <button type="button" class="btn btn-primary">戻る</button>
 
-        <!-- shouhin_kakunin.phpへ -->
+        <!-- shouhin_kakutei.phpへ -->
         <button type="button" class="btn btn-primary">追加する</button>
     </div>
 </body>

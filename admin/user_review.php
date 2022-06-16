@@ -18,10 +18,10 @@
     </div>
     <div class="admin_subtitle">
         <h2>登録者情報</h2>
-        <span>登録者情報参照</span>
+        <span>コメント一覧</span>
     </div>
     <div class="admin_item_title">
-        <p><span>ID</span><span>名前</span><span>購入金額</span><span>購入数</span><span>レビュー数</span>
+        <p><span>ID</span><span>コメント</span><span>星</span><span>商品名</span><span>日時</span>
     </div>
     <div class="admin_item">
         <!-- 下みたいにタグコピペして商品情報出力してください。 -->
@@ -35,7 +35,7 @@
     </div>
     <div class="admin_button_matome">
         <button type="button" class="btn btn-primary">戻る</button>
-        <button type="button" class="btn btn-primary">口コミ</button>
+        <button type="button" class="btn btn-primary">削除する</button>
     </div>
 </body>
 </html>
