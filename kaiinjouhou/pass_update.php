@@ -1,3 +1,30 @@
+<?php
+session_start();
+require('../library.php');
+
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+    $pass = $_SESSION['pass'];
+
+    $db = dbconnect();
+    $sql = 'update users set pass=? where id=?';
+    $stmt = $db->prepare($sql);
+    if (!$stmt) {
+        die($db->error);
+    }
+    $stmt->bind_param('si', $pass, $id);
+    $success = $stmt->execute();
+    if (!$success) {
+        die($db->error);
+    }
+
+} else {
+    header('Location: login.php');
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -9,6 +36,6 @@
 <body>
   <h1>パスワードを変更しました</h1>
 
-  <button onclick="location.href='touroku_henkou.php'">戻る</button>
+  <button onclick="location.href='kaiin_jouhou.php'">戻る</button>
 </body>
 </html>

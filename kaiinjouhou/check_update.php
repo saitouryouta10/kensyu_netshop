@@ -44,7 +44,7 @@ $email = $_SESSION['email'];
     <p>メールアドレス<br><?php echo h($email); ?></p>
 
 
-    <button onclick="history.back()">戻る</button>
+    <button onclick="location.href='touroku_henkou.php'">戻る</button>
     <button onclick="location.href='update.php'">確定</button>
 
 

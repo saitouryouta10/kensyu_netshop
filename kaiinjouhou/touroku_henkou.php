@@ -6,6 +6,8 @@ $match_error = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
     $form['id'] = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $form['self_check_email'] = filter_input(INPUT_POST, 'self_check_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $self_check_email = $form['self_check_email'];
 
     $form['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     //数字の検索(一致するものがあった場合は1を返す)
@@ -93,8 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	if($form["email"] !== "" && !filter_var($form["email"], FILTER_VALIDATE_EMAIL)){
 		$error["email"] = "value_error";
 	}
+
     $db = dbconnect();
-	$records = $db->query("select id, email from users");
+	$records = $db->query("select email from users where email not in ('". $self_check_email ."')");
 	if($records){
 		while($record = $records->fetch_assoc()){
 			if($form["email"] === $record["email"]){
@@ -103,31 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 		}
 	} else {
         die($db->error);
+        exit();
     }
 
-    $stmt = $db->prepare("select email from users where id=?");
-    if (!$stmt) {
-        die($db->error);
-    }
-    $stmt->bind_param("i", $form['id']);
-    $success = $stmt->execute();
-    if (!$success) {
-        die($db->error);
-    }
-    $stmt->bind_result($email);
-    $stmt->fetch();
-
-    if ($email === $form['email']) {
-        $match_error["email"] = "";
-    }
-
-    var_dump($form['id']);
-    var_dump($email);
-    var_dump($form['email']);
-
-
-    // var_dump($record["email"]);
-    // var_dump($record["id"]);
 	//文字の中のスペースを削除する
     $form["name"] = preg_replace('/　|\s+/', '', $form["name"]);
 	$form["name_kana"] = preg_replace('/　|\s+/', '', $form["name_kana"]);
@@ -137,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 	$form["tell"] = preg_replace('/　|\s+/', '', $form["tell"]);
 	$form["email"] = preg_replace('/　|\s+/', '', $form["email"]);
 
-    if (empty($error) ) {
+    if (empty($error) && empty($match_error)) {
         session_start();
         $_SESSION['name'] = $form['name'];
         $_SESSION['name_kana'] = $form['name_kana'];
@@ -330,6 +311,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 		<?php endif; ?>
 
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
+        <input type="hidden" name="self_check_email", value="<?php echo h($email); ?>">
 
         <div>
             <button type="submit" name="info">送信する</button>
@@ -340,6 +322,8 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <button type="hidden" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
     </form>
+
+    <?php var_dump($pass); ?>
 
     <form action="kaiin_jouhou.php" method="get">
         <button type="submit">戻る</button>

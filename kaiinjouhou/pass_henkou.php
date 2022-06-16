@@ -8,7 +8,7 @@ $id = $form['id'];
 $pass = $form['pass'];
 
 // var_dump($id);
-// var_dump($pass);
+ var_dump($form['pass']);
 
 $form = [];
 $error = [];
@@ -24,22 +24,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
     $error["new_pass"] = "brank";
   }
 
-  // $db = dbconnect();
-  // $stmt = $db->prepare("select pass from users where id = ? limit 1");
-  // if (!$stmt) {
-  //     die($db->error);
-  // }
-  // $stmt->bind_param("i",$id);
-  // $success = $stmt->execute();
-  // if (!$success) {
-  //     die($db->error);
-  // }
-  // $stmt->bind_result($password);
-  // $stmt->fetch();
 
+  var_dump($form['pass']);
+
+
+  /* ------------------------------------------------------
+    パスワードチェックがうまくいかない
+  --------------------------------------------------------- */
   if (!password_verify($form['old_pass'], $form['pass'])) {
     $error['pass'] = "not_match";
   }
+
+  /* --------------------------------------------------------- */
+
+  var_dump($error['pass']);
 
   if ($form['new_pass'] !== $form['check_pass']) {
     $error['pass'] = "kakunin";
@@ -62,6 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
     if (!$success) {
       die($db->error);
     }
+
+    session_start();
+    $_SESSION['id'] = $id;
+    $_SESSION['pass'] = $hash_pass;
 
     header("Location: pass_update.php");
     exit();
