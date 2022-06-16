@@ -9,9 +9,9 @@
 <body>
   <header>
     <div class="title_header">
-        <h1 class="title">HOGEHOGE SHOP</h1>
+        <h1 class="title"><a href="#">HOGEHOGE SHOP</a></h1>
     </div>
-    <div class="list">
+    <div class="header_list">
         <div class="link_1">
             <p><a href="#">お気に入り</a></p>
             <p><a href="#">カート</a></p>
