@@ -342,3 +342,98 @@ footer p {
     margin-left: 50px;
     margin-right: 50px;
 }
+
+/* --------------------新規登録・ログイン関係 -----------------------*/
+
+.touroku_title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.kiyakusyo {
+    margin-bottom: 30px;
+}
+
+.message {
+    margin: 40px;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.input_form table {
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
+}
+
+.input_form table td {
+    border: solid 1px;
+    padding: 25px;
+}
+
+.input_form table th {
+    border: solid 1px;
+    padding: 25px;
+}
+
+.input_form p {
+    margin: 30px auto 0px;
+    text-align: center;
+    color: red;
+}
+
+.input_form .require {
+    color: red;
+    font-size: 0.6rem;
+    text-align: right;
+    width: 100%;
+}
+
+.input_form .error {
+    color: red;
+    font-size: 0.8rem;
+
+}
+
+.textbox {
+    width: 100%
+}
+
+.doui {
+    text-align: center;
+}
+
+.doui .btn {
+    width: 80%;
+    height: 50px;
+    font-size: 1.5rem;
+}
+
+.doui label {
+    margin-bottom: 30px;
+}
+.kiyaku_doui {
+    margin-bottom: 50px;
+}
+
+@media screen and (max-width: 950px) {
+
+    .input_form td ,.input_form th{
+        display: block;
+        text-align: center;
+    }
+
+    .input_form table {
+        width: auto;
+        border: solid 1px;
+    }
+
+    .input_form table th {
+        padding: 0;
+        border-bottom: none;
+        background-color: rgb(29, 28, 68);
+        color: white;
+    }
+}
