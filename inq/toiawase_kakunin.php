@@ -23,10 +23,10 @@
                 <!-- お問い合わせ内容出力 -->
                 
 
-                <!-- ボタンの配置とサイズ難しくて諦めましたなんかいい感じにしてください。 -->
+                <!-- TODO：ボタンの間に隙間を開けたい -->
                 <div class="button-matome">
-                    <button class="btn btn-secondary" onclick="location.href='toiawase.php'" id="kakunin">戻る</button>
-                    <button type="submit" class="btn btn-primary" id="kakunin">送信する</button>
+                    <button class="btn btn-outline-secondary btn-block" onclick="location.href='toiawase.php'" id="kakunin">戻る</button>
+                    <button type="submit" class="btn btn-warning" id="kakunin" style="font-weight: bold;">送信する</button>
                 </div>
             </form>
         </div>

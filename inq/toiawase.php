@@ -24,7 +24,7 @@
                 </textarea>
         </div>
         <div class="button">
-            <button type="submit" class="btn btn-primary" id="kakunin">入力内容を確認する</button>
+            <button type="submit" class="btn btn-warning" id="kakunin" style="font-weight: bold;">入力内容を確認する</button>
         </div>
             </form>
     </div>
