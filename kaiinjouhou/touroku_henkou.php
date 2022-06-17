@@ -324,8 +324,6 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <button type="hidden" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
     </form>
 
-    <?php var_dump($pass); ?>
-
     <form action="kaiin_jouhou.php" method="get">
         <button type="submit">戻る</button>
     </form>

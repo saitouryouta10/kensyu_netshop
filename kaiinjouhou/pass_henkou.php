@@ -8,7 +8,7 @@ $id = $form['id'];
 $pass = $form['pass'];
 
 // var_dump($id);
- var_dump($form['pass']);
+//var_dump($form['pass']);
 
 $form = [];
 $error = [];
@@ -25,19 +25,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
   }
 
 
-  var_dump($form['pass']);
+  //var_dump($form['pass']);
 
 
   /* ------------------------------------------------------
-    パスワードチェックがうまくいかない
+    @WARNNING
   --------------------------------------------------------- */
-  if (!password_verify($form['old_pass'], $form['pass'])) {
-    $error['pass'] = "not_match";
-  }
+
+  $db = dbconnect();
+  $stmt_p = $db->prepare("select pass from users where id=?");
+        if(!$stmt_p){
+            die($db->error);
+        }
+        $stmt_p->bind_param("i", $form['id']);
+        $success = $stmt_p->execute();
+        if(!$success){
+            die($db->error);
+        }
+
+        $stmt_p->bind_result($password);
+        $stmt_p->fetch();
+
+        if(password_verify($form['old_pass'], $password)){
+          $error['pass'] = "not_match";
+        }
+
+        // $aaa = password_verify($form['old_pass'], $password);
+        // var_dump($aaa);
+
+  // if (!password_verify($form['old_pass'], $form['pass'])) {
+  //   $error['pass'] = "not_match";
+  // }
 
   /* --------------------------------------------------------- */
 
-  var_dump($error['pass']);
+  // var_dump($form['old_pass']);
+  // var_dump($password);
+  // var_dump($error['pass']);
 
   if ($form['new_pass'] !== $form['check_pass']) {
     $error['pass'] = "kakunin";
