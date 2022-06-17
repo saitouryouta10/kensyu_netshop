@@ -10,6 +10,8 @@ $error = [
     "login" => ""
 ];
 
+// TODO:ログインしないと入れないページから飛んできたよう
+
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $email = filter_input(INPUT_POST,"email",FILTER_SANITIZE_EMAIL);

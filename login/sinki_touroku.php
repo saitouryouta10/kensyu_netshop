@@ -240,28 +240,28 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     <!-- Boot strap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <title>HOGEHOGE SHOP</title>
 </head>
 <body>
-    <button type="button" class="btn btn-primary" onclick="location.href='login.php'">ログインページへ</button>
-    <h1>HOGEHOGE SHOP</h1>
+    <button type="button" class="btn btn-outline-secondary btn-block" onclick="location.href='login.php'">ログインページへ</button>
+    <h1 class="touroku_title">HOGEHOGE SHOP</h1>
 
     <div class="subtitle">
         <h3>新規会員登録</h3>
-        <p>以下のフォームの必要事項を入力してください。</p>
+        <p class="message">以下のフォームの必要事項を入力してください。</p>
     </div>
     <div class="input_form">
 	<?php if($check_error === "blank"):?>
-		<p>同意するにチェックをいれてください</p>
+		<p class="message">同意するにチェックをいれてください</p>
 	<?php endif;?>
 	<form action="" method="post">
     <table>
 	<tbody>
 		<tr>
-			<td>
+			<th>
 				お名前　<span class="badge bg-danger">必須</span>
-			</td>
+			</th>
 			<td><input type="text" name="name" class="textbox" value="<?php echo h($form["name"])?>"><br>
 				例)山田太郎<br>
 
@@ -282,7 +282,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>フリガナ　<span class="badge bg-danger">必須</span></td>
+			<th>フリガナ　<span class="badge bg-danger">必須</span></th>
 			<td><input type="text" name="name_kana" class="textbox" value="<?php echo h($form["name_kana"])?>"><br>
 				例)ヤマダタロウ<br>
 				<?php if(isset($error["name_kana"]) && $error["name_kana"] === "blank"):?>
@@ -297,7 +297,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>ニックネーム　<span class="badge bg-danger">必須</span></td>
+			<th>ニックネーム　<span class="badge bg-danger">必須</span></th>
 			<td>
 				<input type="text" name="nickname" class="textbox" value="<?php echo h($form["nickname"])?>"><br>
 				<?php if(isset($error["nickname"]) && $error["nickname"] === "blank"):?>
@@ -309,7 +309,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>性別</td>
+			<th>性別</th>
             <label>
 			<td>
 				<?php if(isset($form["sex"]) && $form["sex"] === ""):?>
@@ -348,11 +348,11 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 		</tr>
 		<tr>
-			<td>生年月日</td>
+			<th>生年月日</th>
 			<td><input type="date" name="birthday" value="<?php echo h($form["birthday"]) ?>"></td>
 		</tr>
 		<tr>
-			<td>ご住所　<span class="badge bg-danger">必須</span></td>
+			<th>ご住所　<span class="badge bg-danger">必須</span></th>
 			<td>
 				<div class="address_margin">
                 	<label>〒</label><br>
@@ -373,7 +373,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>携帯電話番号　<span class="badge bg-danger">必須</span></td>
+			<th>携帯電話番号　<span class="badge bg-danger">必須</span></th>
 			<td>
 				<input type="tel" name="tell" class="textbox" value="<?php echo h($form["tell"])?>"><br>
 				例)123-4567-8900（半角数字でご入力ください）<br>
@@ -386,7 +386,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>メールアドレス　<span class="badge bg-danger">必須</span></td>
+			<th>メールアドレス　<span class="badge bg-danger">必須</span></th>
 			<td>
 				<input type="text" name="email" class="textbox" value="<?php echo h($form["email"])?>"><br>
 				例)〇〇〇@〇〇〇.com<br>
@@ -402,7 +402,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>パスワード　<span class="badge bg-danger">必須</span></td>
+			<th>パスワード　<span class="badge bg-danger">必須</span></th>
 			<td>
 				<input type="password" name="pass" minlength="8" maxlength="32" class="textbox"><br>
 				8文字以上32文字以内でご入力下さい<br>
@@ -412,7 +412,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			</td>
 		</tr>
 		<tr>
-			<td>パスワード(確認)　<span class="badge bg-danger">必須</span></td>
+			<th>パスワード(確認)　<span class="badge bg-danger">必須</span></th>
 			<td>
 				<input type="password" name="pass_kakunin"  minlength="8" maxlength="32" class="textbox"><br>
 				8文字以上32文字以内でご入力下さい<br>
@@ -428,15 +428,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     </table>
     </div>
     <div class="doui">
-        <p>会員規約および個人情報の取り扱いについて</p>
+        <p  class="message">会員規約および個人情報の取り扱いについて</p>
         <div class="kiyakusyo">
-            <h2><a href="kiyaku.html">会員規約を読む</a></h2>
+            <h2><a href="kiyaku.html" target="_brank">会員規約を読む</a></h2>
         </div>
         <div class="kiyaku_doui">
             <input type="checkbox" id="check_doui" name="doui" value="1">
             <label for="check_doui">上記会員規約、個人情報の取り扱いについて同意する</label>
         <div>
-		<button type="submit" class="btn btn-primary" id="submit">この内容で会員登録する</button>
+		<button type="submit" class="btn btn-warning" id="submit" style="font-weight: bold;">この内容で会員登録する</button>
 	</div>
 </form>
 </body>
