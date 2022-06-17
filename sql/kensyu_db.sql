@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: localhost:8889
--- 生成日時: 2022-06-13 00:47:03
+-- 生成日時: 2022-06-17 01:43:49
 -- サーバのバージョン： 5.7.24
 -- PHP のバージョン: 8.0.1
 
@@ -32,7 +32,7 @@ CREATE TABLE `cart` (
   `user_id` int(11) NOT NULL COMMENT 'ユーザID',
   `item_id` int(11) NOT NULL COMMENT '商品ID',
   `number` int(11) NOT NULL COMMENT '個数',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'タイムスタンプ'
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'タイムスタンプ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE `favorite` (
   `id` int(11) NOT NULL COMMENT 'お気に入りID',
   `user_id` int(11) NOT NULL COMMENT 'ユーザーID',
   `item_id` int(11) NOT NULL COMMENT '商品ID',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'タイムスタンプ'
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'タイムスタンプ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -57,10 +57,10 @@ CREATE TABLE `favorite` (
 CREATE TABLE `history` (
   `id` int(11) NOT NULL COMMENT '注文履歴ID',
   `user_id` int(11) NOT NULL COMMENT 'ユーザーID',
-  `name` int(11) NOT NULL COMMENT '商品名(購入時)',
+  `name` varchar(255) NOT NULL COMMENT '商品名(購入時)',
   `price` int(11) NOT NULL COMMENT '価格(購入時)',
-  `item_id` varchar(255) NOT NULL COMMENT '商品リンク',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '作成日'
+  `item_id` int(11) NOT NULL COMMENT '商品リンク',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -74,7 +74,7 @@ CREATE TABLE `inquery` (
   `email` varchar(255) NOT NULL COMMENT 'メールアドレス',
   `inquery_post` text NOT NULL COMMENT 'お問い合わせ内容',
   `name` int(11) NOT NULL COMMENT '名前',
-  `qreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '投稿日時'
+  `qreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '投稿日時'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -87,13 +87,23 @@ CREATE TABLE `items` (
   `id` int(11) NOT NULL COMMENT 'アイテムID',
   `name` varchar(255) NOT NULL COMMENT '商品名',
   `price` int(11) NOT NULL COMMENT '値段',
-  `jenre` varchar(255) NOT NULL COMMENT '商品のジャンル',
+  `jenre_id` int(11) NOT NULL COMMENT 'ジャンルID\r\n',
   `stock` int(11) NOT NULL COMMENT '在庫数',
-  `item_link` varchar(255) NOT NULL COMMENT '商品詳細ページリンク',
   `setumei` varchar(255) NOT NULL COMMENT '商品説明',
   `syousai` varchar(255) NOT NULL COMMENT '詳細情報',
   `picture` varchar(255) NOT NULL COMMENT '商品画像',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '追加日時'
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '追加日時'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `m_jenre`
+--
+
+CREATE TABLE `m_jenre` (
+  `id` int(11) NOT NULL COMMENT 'ジャンルID',
+  `jenre_name` varchar(255) NOT NULL COMMENT 'ジャンル名'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -107,8 +117,8 @@ CREATE TABLE `reviews` (
   `comment` varchar(255) NOT NULL COMMENT 'コメント',
   `star` int(11) NOT NULL COMMENT '評価１～５で表示',
   `user_id` int(11) NOT NULL COMMENT 'ユーザーID',
-  `itm_id` int(11) NOT NULL COMMENT 'アイテムID',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '作成日'
+  `item_id` int(11) NOT NULL COMMENT 'アイテムID',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -129,7 +139,8 @@ CREATE TABLE `users` (
   `tell` varchar(20) NOT NULL COMMENT '電話番号',
   `email` varchar(255) NOT NULL COMMENT 'メールアドレス',
   `pass` varchar(255) NOT NULL COMMENT 'パスワード',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日'
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日',
+  `updatetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -164,6 +175,12 @@ ALTER TABLE `inquery`
 -- テーブルのインデックス `items`
 --
 ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- テーブルのインデックス `m_jenre`
+--
+ALTER TABLE `m_jenre`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -212,6 +229,12 @@ ALTER TABLE `inquery`
 --
 ALTER TABLE `items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'アイテムID';
+
+--
+-- テーブルの AUTO_INCREMENT `m_jenre`
+--
+ALTER TABLE `m_jenre`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ジャンルID';
 
 --
 -- テーブルの AUTO_INCREMENT `reviews`
