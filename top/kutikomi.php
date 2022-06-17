@@ -3,22 +3,25 @@ session_start();
 require('../library.php');
 
 if(isset($_SESSION['id']) && isset($_SESSION['name'])){
-    $id =$_SESSION['id'];
+    $userid =$_SESSION['id'];
     $name = $_SESSION['name'];
 }else{
     header('Location: login.php');
     exit();
 }
 
+if(isset($_SESSION['star'])){
+  $star=$_SESSION['star'];
+}
 $db =dbconnect();
 
 //メッセージの投稿
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
 
-    $stmt = $db->prepare('insert into reviews (comment, user_id) values(?,?)');
+    $stmt = $db->prepare('insert into reviews (comment, user_id,star) values(?,?,?)');
 
-    $stmt->bind_param('si',$message,$id);
+    $stmt->bind_param('sii',$comment,$userid,$star);
     $succsess = $stmt->execute();
     if(!$succsess){
         die($db->error);
@@ -52,9 +55,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <dl>
                 <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
                 <dd>
-                    <textarea name="message" cols="50" rows="5"></textarea>
+                    <textarea name="comment" cols="50" rows="5"></textarea>
                 </dd>
             </dl>
+            <select name="star" id="">
+              <?php for($i=1;$i<6;$i++): ?>
+                <option value="<?php $i ?>"></option>
+            </select>
             <div>
                 <p>
                     <input type="submit" value="投稿する"/>
@@ -62,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             </div>
         </form>
         <?php
-        $stmt= $db->prepare('select p.id, p.member_id, p.message,p.created,m.name,m.picture from posts p,members m where m.id=p.member_id order by id desc');
+        $stmt= $db->prepare('select r.comment,r.star,r.created from reviews r');
         if(!$stmt){
             die($db->error);
         }
@@ -71,15 +78,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             die($db->error);
         }
 
-        $stmt->bind_result($id,$member_id,$message,$created,$name,$picture);
+        $stmt->bind_result($comment,$star,$created);
         while($stmt->fetch()): ?>
         <div class="msg">
-            <?php if($picture): ?>
-            <img src="member_picture/<?php echo h($picture); ?>" width="48" height="48" alt=""/>
+            <?php if($comment): ?>
+            <img src="member_picture/<?php echo h($comment); ?>" width="48" height="48" alt=""/>
             <?php endif ;?>
-            <p><?php echo h($message); ?><span class="name">（<?php echo h($name); ?>）</span></p>
+            <p><?php echo h($comment); ?><span class="name">（<?php echo h($name); ?>）</span></p>
             <p class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created) ; ?></a>
-            <?php if($_SESSION['id'] === $member_id): ?>
+            <?php if($_SESSION['id'] === $userid): ?>
                 [<a href="delete.php?id=<?php echo h($id); ?>" style="color: #F33;">削除</a>]
                 <?php endif; ?>
             </p>
