@@ -2,6 +2,7 @@
 require("../library.php");
 session_start();
 
+$login_prease = "";
 $email = "";
 $pass = "";
 $error = [
@@ -11,6 +12,15 @@ $error = [
 ];
 
 // TODO:ログインしないと入れないページから飛んできたよう
+if($_SERVER["REQUEST_METHOD"] === "GET"){
+    
+    if(isset($_GET["login"])){
+
+        $login_prease = $_GET["login"];
+
+    }
+    
+}
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -65,6 +75,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 <body>
     <form action="" method="post">
         <div class="form">
+            <?php if(isset($login_prease) && $login_prease === 1):?>
+            <span>その機能はログインをしないと使えません。</span><br>
+            <?php endif;?>
             <?php if(isset($error["login"]) && $error["login"] === "nomatch"):?>
             <span>ログインに失敗しました。メールアドレス、パスワードを正しくご記入ください。</span>
             <?php endif;?>

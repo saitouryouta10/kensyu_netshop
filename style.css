@@ -418,6 +418,10 @@ footer p {
     margin-bottom: 50px;
 }
 
+#login_button {
+    margin: 40px;
+}
+
 @media screen and (max-width: 950px) {
 
     .input_form td ,.input_form th{
