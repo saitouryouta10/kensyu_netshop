@@ -102,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         <div class="top_page">
             <a href="../top/top.php">トップに戻る</a>
         </div>            
-        <button type="submit">ログイン</button>
+        <button type="submit" class="btn btn-warning" style="font-weight: bold;">ログイン</button>
     </form>
     <?php include(dirname(__FILE__) . "/../head/footer_logout.php")?>
 </body>
