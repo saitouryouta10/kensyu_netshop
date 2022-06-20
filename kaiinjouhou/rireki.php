@@ -46,7 +46,7 @@ if (isset($_GET['nedan'])) {
 }
 
   $db = dbconnect();
-  $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' '.$s.'');
+  $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' AND '.$p.' '.$s.'');
   if (!$stmt) {
     die($db->error);
   }
