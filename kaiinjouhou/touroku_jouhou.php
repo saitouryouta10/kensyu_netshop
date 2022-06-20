@@ -5,7 +5,9 @@ require('../library.php');
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 } else {
-    header('Location: login.php');
+    $login = 1;
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+    header('Location:../login/login.php?login='.$login.'');
     exit();
 }
 $db = dbconnect();
