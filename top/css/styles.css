@@ -3,10 +3,15 @@
 span {
   display: inline-block;
 }
-a {
+.top_a {
   max-width: 100%;
   width: 100%;
 }
+
+.top_a,.top_a:hover,.top_a:visited{
+  color: inherit;
+}
+
 .top_b {
   background-color: antiquewhite;
 }
@@ -92,7 +97,6 @@ p {
 a {
   text-decoration: none;
   text-align: center;
-  display: flex;
   color: black;
 }
 

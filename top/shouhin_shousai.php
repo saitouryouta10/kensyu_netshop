@@ -4,6 +4,8 @@ $db =dbconnect();
 session_start();
 $item_id=$_GET['id'];
 
+header_inc();
+
 $login=1;
 
 if(isset($_SESSION["id"])){
@@ -53,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
     $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
 
-    $stmt = $db->prepare('insert into reviews (comment,user_id,star,itm_id) values(?,?,?,?)');
+    $stmt = $db->prepare('insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)');
 
     $stmt->bind_param('siii',$comment,$userid,$star,$item_id);
     $succsess = $stmt->execute();
@@ -85,12 +87,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <?php
 $sql = 'select * from items where id='.$item_id.'';
-
 $stmt =$db ->query($sql);
-// $stmt->bind_Param("s",$item_id);
-// $stmt->execute();
 
-// $stmt->bind_result($id,$item_name,$price,$jenre,$stock,$item_link,$setumei,$syousai,$picture,$created);
+
 
 if($rec=$stmt->fetch_assoc()):
 
@@ -162,9 +161,21 @@ if($rec=$stmt->fetch_assoc()):
 <br>
 <?php
 
-          $stmt= $db->prepare('select r.comment,r.star,r.created, r.user_id from reviews r where itm_id='.$item_id.'');
+
+          $stmt= $db->prepare('select r.comment,r.star,r.created, r.user_id from reviews r where item_id='.$item_id.'');
           $sql3='select id from reviews where user_id='.$userid.'';
+          $sql4='select avg(star) from reviews where item_id='.$item_id.'';
+          $s=$db->query($sql4);
+          $r=$s->fetch_assoc();
+          // print_r($r);
           $stmt3=$db->query($sql3);
+
+          if($r['avg(star)']>0) :?>
+          <p>評価平均<?php echo $r['avg(star)'] ;?></p><br>
+          <?php elseif($r['avg(star)']==0): ?>
+            <p>レビューはまだありません</p>
+          <?php endif; ?>
+          <?php
           if(!$stmt){
               die($db->error);
           }
@@ -172,7 +183,6 @@ if($rec=$stmt->fetch_assoc()):
           if(!$succsess){
               die($db->error);
           }
-
           $result3 = $stmt3->fetch_assoc();
           $stmt->bind_result($comment,$star,$created,$user_id);
           while($stmt->fetch()): ?>
@@ -209,6 +219,10 @@ if($rec=$stmt->fetch_assoc()):
         <p>その商品ページは削除されたか、URLが間違えています</p>
         <?php endif; ?>
     </div>
+
+<?php
+footer_inc();
+?>
 
   </body>
   </html>

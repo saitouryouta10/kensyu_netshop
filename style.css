@@ -3,8 +3,8 @@ h1 {
     margin:20px auto 20px;
 }
 
-p { 
-    margin:20px auto 0px; 
+p {
+    margin:20px auto 0px;
 }
 
 a{
@@ -56,7 +56,7 @@ textarea {
 
 .button-matome {
     display: flex;
-    
+
 }
 
 @media screen and (max-width: 768px) {
@@ -144,7 +144,7 @@ header a:hover {
     color: white;
     border: solid 1px;
 }
-   
+
 .title {
     text-align: center;
     color: rgb(255, 255, 255);
@@ -203,7 +203,7 @@ footer p {
     font-family: Helvetica;
     font-size: 0.8rem;
     margin-top: 33px;
-    text-align: center; 
+    text-align: center;
 }
 
 
@@ -220,7 +220,7 @@ footer p {
         /* background-color: red; */
         padding: 0px 20px 6px;
     }
-    
+
     .link_2 {
         width: 22.5%;
         /* background-color: red; */
@@ -242,11 +242,11 @@ footer p {
     .list_1 {
         width: 33%;
     }
-    
+
     .list_2 {
         width: 33%;
     }
-    
+
     .list_3 {
         width: 33%;
     }

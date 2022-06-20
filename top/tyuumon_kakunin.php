@@ -6,7 +6,19 @@ session_start();
 $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
 
+if(isset($_SESSION["id"])){
 
+	//ログインしてる人用ヘッダー
+	include(dirname(__FILE__) . "/../head/header_logout.php");
+
+}else{
+
+	//ログインしてない人用ヘッダー
+	include(dirname(__FILE__) . "/../head/header_login.php");
+
+}
+
+//数の選択
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
 }else{
@@ -139,5 +151,20 @@ $result2 = $stmt2->fetch_assoc();
 <div>
 
 </div>
+
+<?php
+if(isset($_SESSION["id"])){
+
+	//ログアウトしてる人用フッター
+  include(dirname(__FILE__) . "/../head/footer_logout.php");
+
+}else{
+
+	//ログインしてない人用フッター
+	 include(dirname(__FILE__) . "/../head/footer_login.php");
+
+}
+?>
+
 </body>
 </html>

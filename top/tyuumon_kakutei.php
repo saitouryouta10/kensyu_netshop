@@ -7,6 +7,19 @@ $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
 $total=$_SESSION['total'];
 
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+  if(isset($_SESSION['name'])){
+  $name = $_SESSION['name'];
+  }
+}else{
+
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+ header('Location:../login/login.php?login='.$login.'');
+   exit();
+
+}
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
 }else{

@@ -6,6 +6,8 @@ session_start();
 if(isset($_SESSION['id'])){
 $userid=$_SESSION['id'];
 
+header_inc();
+
 $sql1 ='select * from users where id='.$userid.'';
 $stmt1= $db->query($sql1);
 
@@ -88,7 +90,7 @@ if(isset($_POST['narabikae'])){
       break;
       <?php endif ?>
 <?php //print_r($rec);?>
-      <a href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
+      <a class="top_a" href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
         <div class="img_s">
         <table>
           <tr>
@@ -122,6 +124,9 @@ if(isset($_POST['narabikae'])){
           <?php endwhile; ?>
   </div>
 
+  <?php
+footer_inc();
+?>
 
 </body>
 </html>

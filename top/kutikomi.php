@@ -4,6 +4,24 @@ require('../library.php');
 
 $item_id=$_GET['id'];
 
+header_inc();
+
+$login=1;
+
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+  if(isset($_SESSION['name'])){
+  $name = $_SESSION['name'];
+  }
+}else{
+
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+ header('Location:../login/login.php?login='.$login.'');
+   exit();
+
+}
+
 if(isset($_SESSION['id']) && isset($_SESSION['name'])){
     $userid =$_SESSION['id'];
     $name = $_SESSION['name'];
@@ -29,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
     $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
 
-    $stmt = $db->prepare('insert into reviews (comment,user_id,star,itm_id) values(?,?,?,?)');
+    $stmt = $db->prepare('insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)');
 
     $stmt->bind_param('siii',$comment,$userid,$star,$item_id);
     $succsess = $stmt->execute();
@@ -65,8 +83,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
     <div id="content">
         <div style="text-align: right"><a href="shouhin_shousai.php?id=<?php echo $item_id;?>">商品画面に戻る</a></div>
+        <br>
 
-        <?php $sql='select count(*) from reviews where user_id='.$userid.'';
+        <?php $sql='select count(*) from reviews where user_id='.$userid.' and item_id='.$item_id.'';
             $stmtc= $db->query($sql);
             $recc =$stmtc->fetch_assoc();
             // print_r($recc);
@@ -79,11 +98,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                           <textarea name="comment" cols="50" rows="5"></textarea>
                       </dd>
                   </dl>
+                  <p>評価（5段階）</p>
                   <select name="star" id="">
                     <?php for($i=1;$i<6;$i++): ?>
                       <option value="<?php echo $i ?>"><?php echo $i; ?></option>
                       <?php endfor ; ?>
                   </select>
+                  <br>
+                  <br>
                   <div>
                       <p>
                           <button type="submit"class="btn btn-success">投稿する</button>
@@ -94,8 +116,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           <?php endif; ?>
 
         <?php
-        $stmt1= $db->query('select r.comment,r.star,r.created,r.user_id from reviews r where itm_id='.$item_id.'');
-        $sql3='select id from reviews where itm_id='.$item_id.'';
+        $stmt1= $db->query('select r.comment,r.star,r.created,r.user_id from reviews r where item_id='.$item_id.'');
+        $sql3='select id from reviews where item_id='.$item_id.'';
         $stmt3=$db->query($sql3);
         // if(!$stmt){
         //     die($db->error);
@@ -130,6 +152,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     </div>
 </div>
+
+<?php
+footer_inc();
+?>
+
 </body>
 
 </html>
