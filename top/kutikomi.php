@@ -8,26 +8,25 @@ header_inc();
 
 $login=1;
 
-if(isset($_SESSION["id"])){
-  //セッション情報がある場合は普通に画面遷移
-  $userid=$_SESSION['id'];
-  if(isset($_SESSION['name'])){
-    echo "aaaaaaaaaaaaaa";
-  $name = $_SESSION['name'];
-  }
-}else{
+// if(isset($_SESSION["id"])){
+//   //セッション情報がある場合は普通に画面遷移
+//   $userid=$_SESSION['id'];
+//   if(isset($_SESSION['nickname'])){
+//   $name = $_SESSION['nickname'];
+//   }
+// }else{
 
-    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
- header('Location:../login/login.php?login='.$login.'');
-   exit();
+//     //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+//  header('Location:../login/login.php?login='.$login.'');
+//    exit();
 
-}
-var_dump($userid);
-var_dump($name);
-exit();
-if(isset($_SESSION['id']) && isset($_SESSION['name'])){
+// }
+// var_dump($userid);
+// var_dump($name);
+// exit();
+if(isset($_SESSION['id']) && isset($_SESSION['nickname'])){
     $userid =$_SESSION['id'];
-    $name = $_SESSION['name'];
+    $name = $_SESSION['nickname'];
 }else{
     header('Location: ../login/login.php');
     exit();

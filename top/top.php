@@ -13,8 +13,8 @@
     //idから情報をすべて抜き出し名前をセッションへ追加
     while($rec1 =$stmt1->fetch_assoc()){
       echo $rec1['name'] . 'さん　おかえりなさい';
-      $user_name = $rec1["name"];
-      $_SESSION["name"] = $user_name;
+      $user_name = $rec1["nickname"];
+      $_SESSION["nickname"] = $user_name;
     }
 
   //なければゲストと表示
@@ -58,6 +58,10 @@ if(isset($_POST['narabikae'])){
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body class="top_b">
+<header>
+  <?php header_inc(); ?>
+</header>
+<main>
 
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
@@ -130,10 +134,12 @@ if(isset($_POST['narabikae'])){
 
           <?php endwhile; ?>
   </div>
-
+                    </main>
+<footer>
   <?php
 footer_inc();
 ?>
+</footer>
 
 </body>
 </html>

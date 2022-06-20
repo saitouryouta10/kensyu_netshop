@@ -11,8 +11,8 @@ $login=1;
 if(isset($_SESSION["id"])){
   //セッション情報がある場合は普通に画面遷移
   $userid=$_SESSION['id'];
-  if(isset($_SESSION['name'])){
-  $name = $_SESSION['name'];
+  if(isset($_SESSION['nickname'])){
+  $name = $_SESSION['nickname'];
   }
 }else{
 
@@ -22,7 +22,7 @@ if(isset($_SESSION["id"])){
 
 }
 
-var_dump($name);
+// var_dump($name);
 $userid=$_SESSION['id'];
 
 //カートに入れる数を決める
