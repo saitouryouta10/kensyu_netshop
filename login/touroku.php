@@ -16,18 +16,40 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $db = dbconnect();
 
-    $stmt = $db->prepare("insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
-                        VALUES(?,?,?,?,?,?,?,?,?,?)");
+    // $stmt = $db->prepare("insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
+    //                     VALUES(?,?,?,?,?,?,?,?,?,?)");
+
+    $stmt = $db->prepare("update users set name = 'tarou' where id=2");
+
+    
     if(!$stmt){
-        header("Location: sinki_touroku.php");
+        // header("Location: sinki_touroku.php");
+        echo "a";
         exit();
     }
-    $stmt->bind_param("sssissssss",$form["name"],$form["name_kana"],$form["nickname"],$form["sex"],$form["birthday"],$form["zipcode"],
-                        $form["address"],$form["tell"],$form["email"],$password);
+
+
+    // $stmt->bind_param("s",$form["name_kana"]);
+
+
+    //FIXME なんでかSQL文がうまく実行できない
+    // $stmt->bind_param("sssissssss",$form["name"],$form["name_kana"],$form["nickname"],$form["sex"],$form["birthday"],$form["zipcode"],
+    //                     $form["address"],$form["tell"],$form["email"],$password);
     
+    //  var_dump($form["name"]);
+    //  var_dump($form["name_kana"]);
+    //  var_dump($form["nickname"]);
+    //  var_dump($form["sex"]);
+    //  var_dump($form["birthday"]);
+    //  var_dump($form["zipcode"]);
+    //  var_dump($form["address"]);
+    //  var_dump($form["tell"]);
+    //  var_dump($password);
+
     $success = $stmt->execute();
     if(!$success){
-        header("Location: sinki_touroku.php");
+        echo "i";
+        // header("Location: sinki_touroku.php");
         exit();
     }else{
         //成功した場合はセッションの削除

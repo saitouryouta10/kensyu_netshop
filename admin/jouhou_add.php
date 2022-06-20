@@ -32,6 +32,22 @@
         <p>個数　<span class="badge bg-danger">必須</span></p>
         <input type="text" required>
 
+        <p>ジャンル　<span class="badge bg-danger">必須</span></p>
+        <input type="radio" name="jenre" id="kagu" value="1" required>
+        <label for="kagu">家具</label>
+        
+        <input type="radio" name="jenre" id="syokuzai" value="2" required>
+        <label for="syokuzai">食材</label>
+
+        <input type="radio" name="jenre" id="gangu" value="3" required>
+        <label for="gangu">玩具</label>
+
+        <input type="radio" name="jenre" id="nitiyouhin" value="4" required>
+        <label for="nitiyouhin">日用品</label>
+
+        <input type="radio" name="jenre" id="kaden" value="5" required>
+        <label for="kaden">家電</label>
+
         <p>画像　<span class="badge bg-danger">必須</span></p>
         <input type="file" required>
 

@@ -74,40 +74,70 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+
     <title>HOGEHOGE SHOP</title>
 </head>
 <body>
     <form action="" method="post">
-        <div class="form">
-            <?php if(isset($login_prease) && $login_prease == 1):?>
-            <?php echo $alert; ?>
-            <?php endif;?>
+        <div class="login_container">
+            <h1 class="touroku_title">HOGEHOGE SHOP</h1>
+            <div class="subtitle">
+                <h3>ログイン</h3>
+            </div>
             <?php if(isset($error["login"]) && $error["login"] === "nomatch"):?>
-            <span>ログインに失敗しました。メールアドレス、パスワードを正しくご記入ください。</span>
+                <div class="error">
+                    <span>ログインに失敗しました。メールアドレス、パスワードを正しくご記入ください。</span>
+                </div>
             <?php endif;?>
-            <div class="email">
-                <p>メールアドレス</p>
-                <input type="text" name="email" value="<?php echo h($email);?>"><br>
-                <?php if(isset($error["email"]) && $error["email"] === "brank"):?>
-                <span>メールアドレスをご記入ください</span>
+            <div class="login_form">
+                <?php if(isset($login_prease) && $login_prease == 1):?>
+                <?php echo $alert; ?>
                 <?php endif;?>
+                    <table>
+                            <tr>
+                                <th>
+                                    メールアドレス
+                                </th>
+                                <td>
+                                    <input type="text" name="email" class="login_email" placeholder="メールアドレス" value="<?php echo h($email);?>"><br>
+                                    <?php if(isset($error["email"]) && $error["email"] === "brank"):?>
+                                    <div class="error">
+                                        <span>メールアドレスをご記入ください</span>
+                                    </div>
+                                    <?php endif;?>
+                                <td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    パスワード
+                                </th>
+                                <td>
+                                    <input type="password" name="pass" class="login_pass" placeholder="パスワード" value="<?php echo h($pass);?>"><br>
+                                    <?php if(isset($error["pass"]) && $error["pass"] === "brank"):?>
+                                    <div class="error">
+                                        <span>パスワードをご記入ください</span>
+                                    </div>
+                                    <?php endif;?>
+                                </td>
+                            </tr>
+                    </table>
+                <div class="login_button">
+                    <button type="submit" class="btn btn-warning" style="font-weight: bold;">ログイン</button>
+                </div>
             </div>
-            <div class="pass">
-                <p>パスワード</p>
-                <input type="password" name="pass" value="<?php echo h($pass);?>"><br>
-                <?php if(isset($error["pass"]) && $error["pass"] === "brank"):?>
-                <span>パスワードをご記入ください</span>
-                <?php endif;?>
+            
+            <div class="sinki_location">
+                <span>アカウントをお持ちではありませんか？<a href="sinki_touroku.php">会員登録</a></span>
+            </div>
+
+            <!-- TODO: パスワード忘れた人はこちらを追加してみたい -->
+
+            <div class="loca_top">
+                <button type="button" class="btn btn-outline-secondary btn-block" onclick="location.href='../top/top.php'">トップに戻る</button>
             </div>
         </div>
-        <div class="sinki_location">
-            <a href="sinki_touroku.php">アカウント未登録の方はこちら</a>
-        </div>
-        <div class="top_page">
-            <a href="../top/top.php">トップに戻る</a>
-        </div>            
-        <button type="submit" class="btn btn-warning" style="font-weight: bold;">ログイン</button>
     </form>
-    <?php include(dirname(__FILE__) . "/../head/footer_logout.php")?>
 </body>
 </html>

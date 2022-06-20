@@ -397,7 +397,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<span class="error">正しいメールアドレスを入力して下さい。</span><br>
 				<?php endif;?>
 				<?php if(isset($match_error["email"]) && $match_error["email"] === "dup"):?>
-				<span class="error">そのメールアドレスは既に登録されています。</span>
+				<span class="error">そのメールアドレスは既に登録されています。</span><br>
+				<span class="error">ログインは<a href="login.php">こちら</a></span>
 				<?php endif;?>
 			</td>
 		</tr>
