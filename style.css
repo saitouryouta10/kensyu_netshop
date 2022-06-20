@@ -623,7 +623,7 @@ footer p {
     -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
     -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
     padding: 10% 10% 16%;
-    background-image: url("img/カート.png");
+    background-image: url("login/img/カート.png");
     background-size: cover;
 }
 
