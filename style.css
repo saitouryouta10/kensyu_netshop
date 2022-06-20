@@ -583,15 +583,128 @@ footer p {
     margin: 20px auto 40px;
 } */
 
-.kakunin_buttonmatome {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 20px auto 40px;
+.kakunin_buttonmatome_1 {
+
+    margin: 30px auto 40px;
 }
 
-.kakunin_buttonmatome button {
-    width: 40%;
+.kakunin_buttonmatome_2 {
+    width: 50%;
+    margin: 30px 30% 0 40px;
+}
+.kakunin_buttonmatome_1 .btn2 {
+    width: 100%;
     font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+    .kakunin_container {
+        /* width: 50%; */
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .kakunin_value {
+        margin-top: 50px;
+    }
+
+    .kakunin_container h1 {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+}
+
+/* --------------------アカウント登録関係 -----------------------*/
+
+.touroku_container {
+    border:1px solid #EEE;
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    padding: 10% 10% 16%;
+    background-image: url("img/カート.png");
+    background-size: cover;
+}
+
+.touroku_back {
+    background-color: white;
+    width: 50%;
+    margin: auto 25% auto;
+    border:1px solid #EEE;
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    border-radius: 10px;
+    padding: 3%;
+}
+
+.touroku_container p {
+    font-weight: normal;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+}
+
+.touroku_container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: rgb(0, 0, 0);
+    font-size: 3rem;
+}
+
+.touroku_login {
+    text-align: center;
+}
+
+.touroku_title {
+    padding: 1% 1% 1%;
+    font-size: 2.5rem;
+}
+
+.touroku_copy {
+    color: rgb(172, 172, 172);
+    margin: 25px auto 0;
+
+}
+
+@media screen and (max-width: 767px) {
+    .touroku_title {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .touroku_container {
+        background-position: 50% 0%;
+        height: 550px;
+    }
+
+    .touroku_back {
+        width: auto;
+        margin: auto;
+        margin-top: 10%;
+    }
+
+    .touroku_container p {
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+    
+    .touroku_container h1 {
+        font-size: 2.5rem;
+    }
+
+    .touroku_container p span {
+        color: white;
+        font-size: 0px;
+    }
+
+    .touroku_login {
+        margin-bottom: 20px;
+    }
+
 }
 
 /* --------------------会員情報関係-----------------------*/
