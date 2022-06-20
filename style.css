@@ -5,7 +5,7 @@ html {
 }
 
 main {
-    margin: 50px auto;
+    /* margin: 50px auto; */
     flex: 1;
 }
 
@@ -23,8 +23,8 @@ a{
 }
 
 body {
-    /* display: flex;
-    flex-flow: column; */
+    display: flex;
+    flex-flow: column;
     min-height: 100vh;
 }
 /* --------------------問い合わせ関係 -----------------------*/
