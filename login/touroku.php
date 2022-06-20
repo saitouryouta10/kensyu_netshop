@@ -45,8 +45,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $success = $stmt->execute();
     if(!$success){
-        echo "i";
-        // header("Location: sinki_touroku.php");
+        // echo "i";
+        header("Location: sinki_touroku.php");
         exit();
     }else{
         //成功した場合はセッションの削除
