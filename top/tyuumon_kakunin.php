@@ -63,6 +63,7 @@ $total=0;
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+<div class="container">
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
@@ -141,12 +142,12 @@ $result2 = $stmt2->fetch_assoc();
                </th>
              </tr>
            </table>
-        </div>
-       </div>
+          </div>
           <?php endwhile; ?>
           <?php if($total<=0){ echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';}else{echo '計'.$total.'円'; $_SESSION['total']=$total;}?>
-          <button type="button" onclick="location.href='tyuumon_kakutei.php';" class="btn btn-success">注文を確定する</button>
-</div>
+          <button type="button" onclick="location.href='tyuumon_kakutei.php';" class="btn btn-success" style="width:100%">注文を確定する</button>
+        </div>
+      </div>
 
 <div>
 

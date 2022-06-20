@@ -153,8 +153,8 @@ if($rec=$stmt->fetch_assoc()):
 
     </div>
     <p ><?php echo h($rec['setumei']) ; ?></p>
+    <p ><?php echo h($rec['syousai']) ; ?></p>
 
-  <!-- </div> -->
 
   <div>
 
@@ -175,7 +175,7 @@ if($rec=$stmt->fetch_assoc()):
           if($r['avg(star)']>0) :?>
           <p>評価平均<?php echo $r['avg(star)'] ;?></p><br>
           <?php elseif($r['avg(star)']==0): ?>
-            <p>レビューはまだありません</p>
+            <p>レビューはまだありません</p><br><br>
           <?php endif; ?>
           <?php
           if(!$stmt){
@@ -187,8 +187,11 @@ if($rec=$stmt->fetch_assoc()):
           }
           $result3 = $stmt3->fetch_assoc();
           $stmt->bind_result($comment,$star,$created,$user_id);
-          while($stmt->fetch()): ?>
+          print_r($user_id);
 
+          while($stmt->fetch()):
+
+          ?>
           <div class="msg">
             <p>ユーザー名：<?php echo h($name); ?></p>
             <p>コメント<br></p>

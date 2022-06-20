@@ -89,7 +89,7 @@ if(isset($_POST['change_button'])==true){
 <body  class="skaku txt_w">
   <div>
     <div class="kakutei_title">
-      <h1><span>ご購入ありがとう</span><span>ございました</span></h1>
+      <h1 style="margin-top:20px"><span>ご購入ありがとう</span><span>ございました</span></h1>
     </div>
     <div class="kingaku">
       <p>お支払合計金額は</p>
@@ -122,7 +122,7 @@ if(isset($_POST['change_button'])==true){
       <p>お問い合わせはサポートダイヤルへ(XXX-XXXX-XXXX）</p>
     </div>
 
-    <div  class="top_button">
+    <div  class="top_button" >
       <a href="top.php" class="modoru">トップに戻る</a>
     </div>
   </div>
