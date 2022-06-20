@@ -28,20 +28,25 @@ if(isset($_SESSION['id'])==true){
   $sql ='select * from cart where user_id='.$userid.'';
   $stmt= $db->query($sql);
   while( $rec = $stmt->fetch_assoc()){
-  // print_r($rec['item_id']);
+  // print_r($rec);
   $item_id=$rec['item_id'];
   $sqlitem='select * from items where id='.$item_id.'';
   $stmtitem= $db->query($sqlitem);
    while( $rec2 = $stmtitem->fetch_assoc()){
-    // print_r($rec2['name']);
+    // print_r($rec2['stock']);
     // print_r($rec2['price']);
     $item_name=$rec2['name'];
     $item_price=$rec2['price'];
     $sqlt='insert into history(user_id,name,price,item_id) values('.$userid.',"'.$item_name.'",'.$item_price.','.$item_id.')';
-    $stmtt=$db->query($sqlt);
+    if(isset($rec['number'])&& isset($rec2['stock'])){
+    $newstock=($rec2['stock'])-($rec['number']);
+    // echo $newstock;
+    $sqlu='update items set stock='.$newstock.' where id='.$item_id.'';
+    $stmtu=$db->query($sqlu);
   }
-  }
-
+}
+$stmtt=$db->query($sqlt);
+}
   $sqls='delete from cart where user_id='.$userid.'';
   $stmts= $db ->query($sqls);
 

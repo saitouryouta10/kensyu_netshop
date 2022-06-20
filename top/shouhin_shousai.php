@@ -37,12 +37,7 @@ if(isset($_SESSION['cart'])==true){
 // $cart[]=$item_id;
 // $_SESSION['cart']=$cart;
 
-// カートに入れるボタンが押されたとき,cartデータベースに追加
-if(isset($_POST['cartin_button'])==true){
-  $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
-  $stmt2 =$db ->query($sql2);
 
-}
 
 //メッセージの投稿
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -133,8 +128,22 @@ if($rec=$stmt->fetch_assoc()):
        <?php endif; ?>
           <p style="color:pink">
           <?php if($kazuerabi !==null){
-        echo $kazuerabi ."個カートに入れました";
-       }
+            // カートに入れるボタンが押されたとき,cartデータベースに追加
+            if(isset($_POST['cartin_button'])==true){
+              $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
+              $sql_2='select count(*) from cart where item_id='.$item_id.'';
+              $stmt_2=$db->query($sql_2);
+              $rec2=$stmt_2->fetch_assoc();
+              if($rec2['count(*)']==0){
+              $stmt2 =$db ->query($sql2);
+              echo $kazuerabi ."個カートに入れました";
+            }else{
+              echo 'この商品は既にカートに入っています';
+            }
+              }
+            }
+
+
        ?>
         </p>
         <a href="cart.php">カートに行く</a>
@@ -153,7 +162,7 @@ if($rec=$stmt->fetch_assoc()):
 <br>
 <?php
 
-          $stmt= $db->prepare('select r.comment,r.star,r.created from reviews r where itm_id='.$item_id.'');
+          $stmt= $db->prepare('select r.comment,r.star,r.created, r.user_id from reviews r where itm_id='.$item_id.'');
           $sql3='select id from reviews where user_id='.$userid.'';
           $stmt3=$db->query($sql3);
           if(!$stmt){
@@ -164,26 +173,31 @@ if($rec=$stmt->fetch_assoc()):
               die($db->error);
           }
 
-          $stmt->bind_result($comment,$star,$created);
+          $result3 = $stmt3->fetch_assoc();
+          $stmt->bind_result($comment,$star,$created,$user_id);
           while($stmt->fetch()): ?>
-              <?php $result3 = $stmt3->fetch_assoc(); ?>
 
           <div class="msg">
-              <p><?php echo h($comment); ?><span class="name">（<?php echo h($name); ?>）</span></p>
+            <p>ユーザー名：<?php echo h($name); ?></p>
+            <p>コメント<br></p>
+            <?php if($comment == null): ?>
+              <p>なし</p>
+              <?php else : ?>
+              <?php echo h($comment); ?>
+              <?php endif ;?>
               <p>評価<?php echo h($star); ?></p>
               <p class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created) ; ?></a>
-              <?php if($_SESSION['id'] === $userid): ?>
 
-
-
+              <?php if($_SESSION['id'] === $user_id): ?>
                 <form action="" method="POST">
-                <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
-                <?php echo $result3['id']; ?>
-                <button type="submit"class="btn btn-danger">削除</button>
+                  <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
+                  <?php echo $result3['id']; ?>
+                  <button type="submit"class="btn btn-danger">削除</button>
                   <!-- <input type="submit" value="削除"/> -->
                 </form>
+                <?php endif; ?>
 
-                  <?php endif; ?>
+                <br>
               </p>
           </div>
           <?php endwhile ; ?>
