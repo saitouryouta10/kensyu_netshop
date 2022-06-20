@@ -605,7 +605,6 @@ footer p {
     font-size: 1.2rem;
 }
 
-<<<<<<< HEAD
 @media screen and (max-width: 1000px) {
     .kakunin_container {
         /* width: 50%; */
@@ -700,7 +699,7 @@ footer p {
         margin-bottom: 0;
         font-size: 1rem;
     }
-    
+
     .touroku_container h1 {
         font-size: 2.5rem;
     }
@@ -717,6 +716,67 @@ footer p {
 }
 
 /* --------------------会員情報関係-----------------------*/
-=======
->>>>>>> bb9fe1d (レイアウト調整)
 
+.kaiin-jouhou {
+    text-align: center;
+    height: 460px;
+}
+.kaiin-jouhou h5 {
+    margin-top: 55px;
+    position: relative;
+    right: 6rem;
+}
+.btn-wrapper button {
+    margin-bottom: 20px;
+    width: 20rem;
+    font-size: 22px;
+}
+
+.btn-pos {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.henkou-inp h1 {
+    text-align: center;
+}
+
+.henkou-inp form {
+    width: 50vw;
+    margin-left : 25vw;
+}
+.henkou-inp h3 {
+    margin-top: 30px;
+}
+
+.btn-sub {
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-sub button {
+    width: 10em;
+    height: 3em;
+}
+.btn-modoru {
+    margin: 50px;
+}
+
+.btn-kakutei {
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-kakutei button {
+    width: 10em;
+    height: 3em;
+}
+
+.kaiin-container {
+    text-align: center;
+    margin-top: 50px;
+}
+.kaiin-container h1 {
+    margin-bottom: 55px;
+}
+.kaiin-container h4 {
+    margin-top: 20px;
+}
