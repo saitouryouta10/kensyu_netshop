@@ -52,9 +52,9 @@ if(isset($_POST['narabikae'])){
 </head>
 <body class="top_b">
 
-  <a href="top.php">
+  <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
-  </a>
+  </a> -->
   <form action="top.php" method="POST">
     <select name="narabikae" id="narabi">
 

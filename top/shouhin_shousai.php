@@ -81,9 +81,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-  <a href="top.php">
+  <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
-  </a>
+  </a> -->
 
 <?php
 $sql = 'select * from items where id='.$item_id.'';
@@ -130,10 +130,10 @@ if($rec=$stmt->fetch_assoc()):
             // カートに入れるボタンが押されたとき,cartデータベースに追加
             if(isset($_POST['cartin_button'])==true){
               $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
-              $sql_2='select count(*) from cart where item_id='.$item_id.'';
+              $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
               $stmt_2=$db->query($sql_2);
               $rec2=$stmt_2->fetch_assoc();
-              if($rec2['count(*)']==0){
+              if($rec2['count(*)']==0 ){
               $stmt2 =$db ->query($sql2);
               echo $kazuerabi ."個カートに入れました";
             }else{

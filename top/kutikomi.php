@@ -74,9 +74,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 
 <body>
-  <a href="top.php">
+  <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
-  </a>
+  </a> -->
 <div id="wrap">
     <div id="head">
         <h1>レビュー一覧</h1>

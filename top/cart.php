@@ -67,9 +67,9 @@ $total=0;
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-  <a href="top.php">
+  <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
-  </a>
+  </a> -->
 <p>カート</p>
 
   <?php
