@@ -792,14 +792,14 @@ footer p {
     margin: 20px;
 }
 
-.kaiin-body table , td, th {
+.kaiin-body table , .kaiin-body td, .kaiin-body th {
     border: none;
     border-collapse: collapse;
 }
 .kaiin-body table {
     margin-bottom: 30px;
 }
-.kaiin-body td, th {
+.kaiin-body td, .kaiin-body th {
     padding: 10px;
     width: 65%;
     height: 70px;
