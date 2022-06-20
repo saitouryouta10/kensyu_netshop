@@ -10,6 +10,7 @@ if (isset($_SESSION['id'])) {
 $s = '';
 $p = '';
 
+
 if (isset($_GET['narabikae'])) {
   $narabikae=$_GET['narabikae'];
 
@@ -44,15 +45,11 @@ if (isset($_GET['nedan'])) {
   }
 }
 
-/* ----
-  @FIXME
-  このSQL文では正しく動作しない
-*/
-$db = dbconnect();
-$stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' AND '.$p.' '.$s.'');
-if (!$stmt) {
+  $db = dbconnect();
+  $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' '.$s.'');
+  if (!$stmt) {
     die($db->error);
-}
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
