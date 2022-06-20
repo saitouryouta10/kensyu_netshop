@@ -34,8 +34,17 @@ if (isset($_SESSION['id'])) {
   <title>パスワード変更確認</title>
 </head>
 <body>
-  <h1>パスワードを変更しました</h1>
-
-  <button onclick="location.href='kaiin_jouhou.php'">戻る</button>
+    <header>
+      <?php header_inc(); ?>
+    </header>
+    <main>
+  <div class="kaiin-container">
+    <h1>パスワードを変更しました</h1>
+    <button class="btn btn-outline-secondary btn-block" onclick="location.href='kaiin_jouhou.php'">戻る</button>
+  </div>
+  </main>
+    <footer>
+        <?php footer_inc(); ?>
+    </footer>
 </body>
 </html>

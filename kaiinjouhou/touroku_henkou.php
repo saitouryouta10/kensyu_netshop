@@ -163,6 +163,8 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登録情報変更</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <header>
@@ -170,9 +172,9 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     </header>
 
     <main>
-    <div>
+    <div class="btn-modoru">
     <form action="kaiin_jouhou.php" method="get">
-        <button type="submit">戻る</button>
+        <button type="submit" class="btn btn-outline-secondary btn-block">戻る</button>
     </form>
     </div>
 
@@ -330,14 +332,17 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <input type="hidden" name="self_check_email", value="<?php echo h($email); ?>">
 
-        <div class="btn-kaiinhenkou">
-            <button type="submit" name="info">送信する</button>
+        <div class="btn-sub">
+            <button type="submit" name="info" class="btn btn-warning">送信する</button>
         </div>
+
     </form>
     <?php endwhile; ?>
     <form action="pass_henkou.php" method="post">
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
-        <button type="hidden" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
+        <div class="btn-sub">
+            <button type="hidden" class="btn btn-success" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
+        </div>
     </form>
     </div>
 

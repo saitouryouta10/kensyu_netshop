@@ -102,23 +102,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>パスワード変更</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<header>
+        <?php header_inc(); ?>
+    </header>
+
+    <main>
+  <div class="kaiin-container">
   <h1>パスワード変更</h1>
   <form action="" method="POST">
-    <h3>以前のパスワードを入力してください</h3>
+    <h4>以前のパスワードを入力してください</h4>
     <input type="password" name="old_pass" minlength="8" maxlength="32">
     <?php if (isset($error['pass']) && $error['pass'] === 'not_match'): ?>
       <p class="error">パスワードが違います</p>
     <? endif; ?>
 
-    <h3>新しいパスワード</h3>
+    <h4>新しいパスワード</h4>
     <input type="password" name="new_pass" minlength="8" maxlength="32">
     <?php if (isset($error['new_pass']) && $error["new_pass"] === "brank"): ?>
       <p class="error">新しいパスワードを入力してください</p>
     <?php endif; ?>
 
-    <h3>確認</h3>
+    <h4>確認</h4>
     <input type="password" name="check_pass" minlength="8" maxlength="32">
     <?php if (isset($error['pass']) && $error['pass'] === 'kakunin'): ?>
       <p class="error">パスワードが一致しません</p>
@@ -127,12 +135,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
     <input type="hidden" name="id" value="<?php echo $id; ?>">
     <input type="hidden" name="pass" value="<?php echo $pass; ?>">
 
-    <div>
-      <button type="submit" name="check_val" value="check_val">OK</button>
+    <div class="btn-kakutei">
+      <button type="submit" class="btn btn-warning" name="check_val" value="check_val">OK</button>
     </div>
   </form>
+    <div class="btn-kakutei">
+      <button class="btn btn-outline-secondary btn-block" onclick="location.href='touroku_henkou.php'">戻る</button>
+    </div>
 
-  <button onclick="location.href='touroku_henkou.php'">戻る</button>
+</div>
+
+  </main>
+    <footer>
+        <?php footer_inc(); ?>
+    </footer>
 
 </body>
 </html>
+
+
+<div class="btn-kakutei">
