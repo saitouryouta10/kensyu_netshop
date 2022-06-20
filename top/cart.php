@@ -5,7 +5,7 @@ $db =dbconnect();
 session_start();
 $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
-header_inc();
+
 
 $login=1;
 
@@ -67,6 +67,10 @@ $total=0;
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+  <header>
+  <?php header_inc();?>
+</header>
+<main>
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
@@ -156,9 +160,12 @@ $result2 = $stmt2->fetch_assoc();
 <div>
 
 </div>
+                       </main>
+<footer>
 <?php
 footer_inc();
 ?>
+</footer>
 
 </body>
 </html>

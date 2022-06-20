@@ -22,6 +22,7 @@ if(isset($_SESSION["id"])){
 
 }
 
+var_dump($name);
 $userid=$_SESSION['id'];
 
 //カートに入れる数を決める

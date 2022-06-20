@@ -1,22 +1,29 @@
 <?php
-require('../library.php');
-$db =dbconnect();
+  require('../library.php');
+  $db =dbconnect();
 
-session_start();
-if(isset($_SESSION['id'])){
-$userid=$_SESSION['id'];
+  session_start();
 
-header_inc();
+  //セッション情報があったら
+  if(isset($_SESSION['id'])){
+    $userid=$_SESSION['id'];
+    $sql1 ='select * from users where id='.$userid.'';
+    $stmt1= $db->query($sql1);
 
-$sql1 ='select * from users where id='.$userid.'';
-$stmt1= $db->query($sql1);
+    //idから情報をすべて抜き出し名前をセッションへ追加
+    while($rec1 =$stmt1->fetch_assoc()){
+      echo $rec1['name'] . 'さん　おかえりなさい';
+      $user_name = $rec1["name"];
+      $_SESSION["name"] = $user_name;
+    }
 
-while($rec1 =$stmt1->fetch_assoc()){
-echo $rec1['name'] . 'さん　おかえりなさい';
-}
-}else{
-  echo 'gest';
-}
+  //なければゲストと表示
+  }else{
+    echo 'ゲストさん';
+  }
+
+
+
 
 $_SESSION['img_id']='';
 

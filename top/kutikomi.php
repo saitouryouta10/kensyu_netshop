@@ -12,6 +12,7 @@ if(isset($_SESSION["id"])){
   //セッション情報がある場合は普通に画面遷移
   $userid=$_SESSION['id'];
   if(isset($_SESSION['name'])){
+    echo "aaaaaaaaaaaaaa";
   $name = $_SESSION['name'];
   }
 }else{
@@ -21,12 +22,14 @@ if(isset($_SESSION["id"])){
    exit();
 
 }
-
+var_dump($userid);
+var_dump($name);
+exit();
 if(isset($_SESSION['id']) && isset($_SESSION['name'])){
     $userid =$_SESSION['id'];
     $name = $_SESSION['name'];
 }else{
-    header('Location: login.php');
+    header('Location: ../login/login.php');
     exit();
 }
 
