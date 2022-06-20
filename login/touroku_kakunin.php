@@ -23,6 +23,9 @@ if(isset($_SESSION["form"])){
     <title>登録情報</title>
 </head>
 <body>
+        <div class="kakunin_buttonmatome">
+            <button class="btn btn-success" onclick="location.href='sinki_touroku.php'">変更する</button>
+        </div>
     <form action="touroku.php" method="post">
         <div class="kakunin_container">
             <h1>登録情報</h1>
@@ -55,11 +58,9 @@ if(isset($_SESSION["form"])){
             </div>
     
             <div class="kakunin_buttonmatome">
-                <button class="btn btn-success" onclick="location.href='sinki_touroku.php'">変更する</button>
-                <button class="btn btn-warning" onclick="location.href='touroku.php'" style="font-weight: bold;">登録する</button>
+                <button class="btn btn-warning" style="font-weight: bold;">登録する</button>
+            </div>
         </div>
     </form>
-
-
 </body>
 </html>
