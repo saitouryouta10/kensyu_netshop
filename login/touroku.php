@@ -16,25 +16,22 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $db = dbconnect();
 
-    // $stmt = $db->prepare("insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
-    //                     VALUES(?,?,?,?,?,?,?,?,?,?)");
-
-    $stmt = $db->prepare("update users set name = 'tarou' where id=2");
-
+    $stmt = $db->prepare("insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
+                        VALUES(?,?,?,?,?,?,?,?,?,?)");
     
     if(!$stmt){
-        // header("Location: sinki_touroku.php");
-        echo "a";
+        header("Location: sinki_touroku.php");
+        // echo "a";
         exit();
     }
 
 
-    // $stmt->bind_param("s",$form["name_kana"]);
+    // $stmt->bind_param("s",$form["name"]);
 
 
-    //FIXME なんでかSQL文がうまく実行できない
-    // $stmt->bind_param("sssissssss",$form["name"],$form["name_kana"],$form["nickname"],$form["sex"],$form["birthday"],$form["zipcode"],
-    //                     $form["address"],$form["tell"],$form["email"],$password);
+    //FIXME なんでかSQL文がうまく実行できない =>解決した。dateに何も入れていないときにNULLを手動でいれてあげた
+    $stmt->bind_param("sssissssss",$form["name"],$form["name_kana"],$form["nickname"],$form["sex"],$form["birthday"],$form["zipcode"],
+                        $form["address"],$form["tell"],$form["email"],$password);
     
     //  var_dump($form["name"]);
     //  var_dump($form["name_kana"]);
@@ -57,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         unset($_SESSION["form"]);
     }
 }
-?>
+?> 
 
 
 <!DOCTYPE html>
@@ -66,10 +63,24 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
     <title>HOGEHOGE SHOP</title>
 </head>
 <body>
-    登録しました。
-    <button onclick="location.href='login.php'">ログインする</button>
+    <h2 class="touroku_title">HOGEHOGE SHOP</h2>
+    <div class="touroku_container">
+        <div class="touroku_back">
+            <h1>ようこそ</h1>
+            <p class="touroku_setumei">この度はHOGEHOGE SHOPアカウントを作成していただきありがとうございます。<br>
+                <span>このアカウントを利用して商品を購入したり、購入履歴をみたりできます。<br>
+                快適なお買い物LIFEを。</span></p>
+            <div class="touroku_login">
+                <button class="btn btn-success" onclick="location.href='login.php'">ログインする</button>
+            </div>
+        </div>
+    </div>
+    <p class="touroku_copy">© 2022 Kensyu_netshop<p>
 </body>
 </html>

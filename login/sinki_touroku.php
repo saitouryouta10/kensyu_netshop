@@ -122,6 +122,14 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	}else if($form_length["nickname"] > 20){
 		$error["nickname"] = "string";
 	}
+	/*--------------------生年月日のバリデーション-------------------------*/
+
+	if($form["birthday"] == ""){
+		$form["birthday"] = NULL;
+		// echo "a";
+		// var_dump($form["birthday"]);
+		// exit();
+	}
 
 	/*--------------------郵便番号のバリデーション-------------------------*/
 
@@ -223,6 +231,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 	if(empty($error) && empty($match_error) && $form["doui"]){
 		$_SESSION["form"] = $form;
+		// var_dump($form["birthday"]);
+		// exit();
 		header("Location: touroku_kakunin.php");
 		exit();
 	}

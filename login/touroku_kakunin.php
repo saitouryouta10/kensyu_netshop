@@ -41,7 +41,7 @@ if(isset($_SESSION["form"])){
                     } ?>
                 </p>
                 <p class="kakunin_title">生年月日</p>
-                <?php if($form["birthday"] === "0000-00-00"):?>
+                <?php if($form["birthday"] === NULL):?>
                     <p>登録していません</p>
                 <?php else:?>
                     <p><?php echo h($form["birthday"]);?></p>
@@ -57,7 +57,6 @@ if(isset($_SESSION["form"])){
             <div class="kakunin_buttonmatome">
                 <button class="btn btn-success" onclick="location.href='sinki_touroku.php'">変更する</button>
                 <button class="btn btn-warning" onclick="location.href='touroku.php'" style="font-weight: bold;">登録する</button>
-            </div>
         </div>
     </form>
 
