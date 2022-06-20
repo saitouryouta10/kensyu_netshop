@@ -82,6 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+<main>
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
@@ -97,7 +98,7 @@ if($rec=$stmt->fetch_assoc()):
 // print_r($rec);
 
 //if($stmt->fetch()): ?>
-
+ <div class="container">
 <div class="s_main">
   <div class="shouhin_img">
     <?php if($rec['picture']): ?>
@@ -153,12 +154,12 @@ if($rec=$stmt->fetch_assoc()):
     </div>
     <p ><?php echo h($rec['setumei']) ; ?></p>
 
-  </div>
+  <!-- </div> -->
 
   <div>
 
 <br>
-<p>レビュー<button type="button" onclick="location.href='kutikomi.php?id=<?php echo $item_id;?>';" class="btn btn-success">一覧</button></p>
+<p class="shousai_r">レビュー<button type="button" onclick="location.href='kutikomi.php?id=<?php echo $item_id;?>';" class="btn btn-success">一覧</button></p>
 <br>
 <?php
 
@@ -196,13 +197,12 @@ if($rec=$stmt->fetch_assoc()):
               <?php else : ?>
               <?php echo h($comment); ?>
               <?php endif ;?>
-              <p>評価<?php echo h($star); ?></p>
-              <p class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created) ; ?></a>
+              <p>評価<?php echo h($star); ?>&nbsp&nbsp&nbsp<?php echo h($created) ; ?></p>
 
               <?php if($_SESSION['id'] === $user_id): ?>
                 <form action="" method="POST">
                   <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
-                  <?php echo $result3['id']; ?>
+                  <?php //echo $result3['id']; ?>
                   <button type="submit"class="btn btn-danger">削除</button>
                   <!-- <input type="submit" value="削除"/> -->
                 </form>
@@ -220,10 +220,13 @@ if($rec=$stmt->fetch_assoc()):
         <p>その商品ページは削除されたか、URLが間違えています</p>
         <?php endif; ?>
     </div>
-
+    </div>
+    </div>
+      </main>
+      <footer>
 <?php
 footer_inc();
 ?>
-
+</footer>
   </body>
   </html>

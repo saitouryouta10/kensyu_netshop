@@ -71,6 +71,7 @@ $total=0;
   <?php header_inc();?>
 </header>
 <main>
+<div class="container">
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
@@ -152,13 +153,10 @@ $result2 = $stmt2->fetch_assoc();
         </div>
        </div>
           <?php endwhile; ?>
-          <?php if($total<=0): echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';else:echo '計'.$total.'円';?>
+          <?php if($total<=0): echo '商品が入っていません'; echo '<a href="top.php" style="color:red">&nbsp&nbsp&nbsp戻る</a>';else:echo '計'.$total.'円';?>
           <button type="button" onclick="location.href='tyuumon_kakunin.php';" class="btn btn-success">購入する</button>
           <?php  endif?>
 </div>
-
-<div>
-
 </div>
                        </main>
 <footer>

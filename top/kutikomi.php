@@ -79,6 +79,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
+  <div class="container">
 <div id="wrap">
     <div id="head">
         <h1>レビュー一覧</h1>
@@ -133,16 +134,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         // print_r($result2);
         ?>
             <?php $result3 = $stmt3->fetch_assoc(); ?>
-            <?php echo $result2['user_id']. $_SESSION['id']; ?>
+            <?php //echo $result2['user_id']. $_SESSION['id']; ?>
         <div class="msg">
             <p><?php echo h($result2['comment']); ?><br><span class="name"><?php echo h($name); ?></span></p>
             <p>評価<?php echo h($result2['star']); ?></p>
-            <p class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($result2['created']) ; ?></a>
+            <p class="day"><?php echo h($result2['created']) ; ?></p>
 
             <?php if($_SESSION['id'] == $result2['user_id']): ?>
               <form action="" method="POST">
               <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
-              <?php echo $result3['id']; ?>
+              <?php //echo $result3['id']; ?>
               <button type="submit"class="btn btn-danger">削除</button>
                 <!-- <input type="submit" value="削除"/> -->
               </form>
@@ -154,7 +155,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     </div>
 </div>
-
+</div>
 <?php
 footer_inc();
 ?>

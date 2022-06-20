@@ -185,3 +185,7 @@ a {
   font-weight: bold;
   color: red
 }
+
+.shousai_r {
+  border-bottom: 2px solid lightgray;
+}

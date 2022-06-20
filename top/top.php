@@ -63,6 +63,7 @@ if(isset($_POST['narabikae'])){
 </header>
 <main>
 
+<div class="container" style="padding: 0 10%;">
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
@@ -127,14 +128,16 @@ if(isset($_POST['narabikae'])){
                </th>
              </tr>
            </table>
-        </div>
+        <!-- </div> -->
        </div>
        </a>
 
+       <?php endwhile; ?>
+      </div>
 
-          <?php endwhile; ?>
-  </div>
-                    </main>
+
+    </div>
+    </main>
 <footer>
   <?php
 footer_inc();
