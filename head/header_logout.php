@@ -9,12 +9,12 @@
 <body>
   <header>
     <div class="title_header">
-        <h1 class="title"><a href="#">HOGEHOGE SHOP</a></h1>
+        <h1 class="title"><a href="./top.php">HOGEHOGE SHOP</a></h1>
     </div>
     <div class="header_list">
         <div class="link_1">
             <p><a href="#">お気に入り</a></p>
-            <p><a href="#">カート</a></p>
+            <p><a href="./cart.php">カート</a></p>
         </div>
         <div class="serch">
             <input type="text" class="text_box" placeholder="商品名を入力してください">
@@ -26,6 +26,6 @@
         </div>
     </div>
   </header>
-  
+
 </body>
 </html>
