@@ -27,7 +27,7 @@ $email = $_SESSION['email'];
         <?php header_inc(); ?>
     </header>
 
-    <main>
+    <main class="kaiin-body">
 <div class="kakunin_container">
 <h1>変更内容</h1>
     <div class="kakunin_value">

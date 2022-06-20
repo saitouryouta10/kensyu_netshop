@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
         <?php header_inc(); ?>
     </header>
 
-    <main>
+    <main class="kaiin-body">
   <div class="kaiin-container">
   <h1>パスワード変更</h1>
   <form action="" method="POST">

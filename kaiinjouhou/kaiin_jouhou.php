@@ -31,7 +31,7 @@ $name = "hogehoge";
         <?php header_inc(); ?>
     </header>
 
-    <main>
+    <main class="kaiin-body">
         <div class="kaiin-jouhou">
 
             <h1>会員情報</h1>

@@ -36,7 +36,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php header_inc(); ?>
     </header>
 
-    <main>
+    <main class="kaiin-body">
         <div class="kakunin_container">
             <h2>登録情報</h2>
             <div class="kakunin_value">

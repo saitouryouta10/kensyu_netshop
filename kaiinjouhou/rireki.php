@@ -58,31 +58,22 @@ if (isset($_GET['nedan'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rireki</title>
-    <style>
-        table , td, th {
-	        border: none;
-	        border-collapse: collapse;
-        }
-        table {
-            margin-bottom: 30px;
-        }
-        td, th {
-        	padding: 3px;
-        	width: 50%;
-        	height: 25px;
-        }
-        th {
-        	background: #f0e6cc;
-        }
-        .even {
-        	background: #fbf8f0;
-        }
-        .odd {
-        	background: #fefcf9;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+
 </head>
 <body>
+  <header>
+    <?php header_inc(); ?>
+  </header>
+
+  <main class="kaiin-body">
+
+  <div class="btn-modoru-rireki">
+    <button class="btn btn-outline-secondary btn-block" onclick="location.href='kaiin_jouhou.php'">戻る</button>
+  </div>
+
+
   <form action="rireki.php" method="GET">
     <select name="narabikae" id="narabi">
       <?php if($narabikae ==='koujun'):?>
@@ -107,24 +98,20 @@ if (isset($_GET['nedan'])) {
       <option value="5">50001円～</option>
     </select>
 
-
-
-
     <button type="submit" name="">検索</button>
   </form>
-
-    <h1>注文履歴</h1>
-
+  <h1>注文履歴</h1>
+  <div class="rireki-table">
       <?php while( $rireki = $stmt->fetch_assoc()): ?>
           <table>
               <tbody>
                 <tr>
                   <td rowspan="5">
-                      <a href="shouhin_shousai.php?id=<?php echo $rireki['item_id']; ?>">
+                      <a href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id']; ?>">
                       <?php if ($rireki['picture'] == null): ?>
-                        <img src="./img/noimage.png">
+                        <img src="../top/img/noimage.png">
                       <?php else: ?>
-                        <img src="./img/<?php echo $rireki['picture'];?>" >
+                        <img src="../top/img/<?php echo $rireki['picture'];?>" >
                       <?php endif; ?>
                       </a>
                   </td>
@@ -149,8 +136,12 @@ if (isset($_GET['nedan'])) {
               </tbody>
           </table>
       <?php endwhile; ?>
+  </div>
 
-    <button onclick="location.href='kaiin_jouhou.php'">戻る</button>
 
+    </main>
+    <footer>
+        <?php footer_inc(); ?>
+    </footer>
 </body>
 </html>

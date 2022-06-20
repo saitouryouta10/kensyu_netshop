@@ -171,7 +171,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php header_inc(); ?>
     </header>
 
-    <main>
+    <main class="kaiin-body">
     <div class="btn-modoru">
     <form action="kaiin_jouhou.php" method="get">
         <button type="submit" class="btn btn-outline-secondary btn-block">戻る</button>

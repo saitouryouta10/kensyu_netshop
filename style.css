@@ -740,6 +740,10 @@ footer p {
 .henkou-inp h1 {
     text-align: center;
 }
+.kaiin-body h1 {
+    text-align: center;
+    margin-bottom: 55px;
+}
 
 .henkou-inp form {
     width: 50vw;
@@ -779,4 +783,27 @@ footer p {
 }
 .kaiin-container h4 {
     margin-top: 20px;
+}
+.kaiin-body {
+    margin: 80px;
+}
+.btn-modoru-rireki {
+    text-align: right;
+    margin: 20px;
+}
+
+.kaiin-body table , td, th {
+    border: none;
+    border-collapse: collapse;
+}
+.kaiin-body table {
+    margin-bottom: 30px;
+}
+.kaiin-body td, th {
+    padding: 10px;
+    width: 65%;
+    height: 70px;
+}
+.rireki-table {
+    margin-left: 20%;
 }

@@ -37,7 +37,7 @@ if (isset($_SESSION['id'])) {
     <header>
       <?php header_inc(); ?>
     </header>
-    <main>
+    <main class="kaiin-body">
   <div class="kaiin-container">
     <h1>パスワードを変更しました</h1>
     <button class="btn btn-outline-secondary btn-block" onclick="location.href='kaiin_jouhou.php'">戻る</button>
