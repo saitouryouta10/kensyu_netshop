@@ -6,6 +6,7 @@ html {
 
 main {
     margin: 50px auto;
+    flex: 1;
 }
 
 h1 {
@@ -19,6 +20,12 @@ p {
 
 a{
     text-decoration: none;
+}
+
+body {
+    /* display: flex;
+    flex-flow: column; */
+    min-height: 100vh;
 }
 /* --------------------問い合わせ関係 -----------------------*/
 
