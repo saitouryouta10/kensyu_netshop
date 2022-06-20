@@ -659,7 +659,7 @@ footer p {
     text-align: center;
 }
 
-.touroku_title {
+.kakutei_title {
     padding: 1% 1% 1%;
     font-size: 2.5rem;
 }
@@ -671,7 +671,7 @@ footer p {
 }
 
 @media screen and (max-width: 767px) {
-    .touroku_title {
+    .kakutei_title {
         text-align: center;
         margin-bottom: 0;
     }
