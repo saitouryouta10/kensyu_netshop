@@ -165,8 +165,20 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <title>登録情報変更</title>
 </head>
 <body>
+    <header>
+        <?php header_inc(); ?>
+    </header>
 
-    <h1>登録情報</h1>
+    <main>
+    <div>
+    <form action="kaiin_jouhou.php" method="get">
+        <button type="submit">戻る</button>
+    </form>
+    </div>
+
+    <div class="henkou-inp">
+
+    <h1>登録情報変更</h1>
     <?php while ( $stmt->fetch() ): ?>
     <form action="" method="post">
         <h3>名前</h3>
@@ -214,6 +226,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 			<p class="error">ニックネームは20文字以内で入力してください。</p>
 		<?php endif;?>
 
+        <div>
         <h3>性別</h3>
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <?php if ($form['sex'] == 1) : ?>
@@ -248,13 +261,16 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
                 <input type="radio" name="sex" id="others" value="3" checked><label for="others">その他</label>
             <?php endif; ?>
         <?php endif; ?>
+        </div>
 
+        <div>
         <h3>生年月日</h3>
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="date" name="birthday" value="<?php echo h($form['birthday']); ?>">
         <?php else : ?>
             <input type="date" name="birthday" value="<?php echo h($birthday); ?>">
         <? endif; ?>
+        </div>
 
         <h3>〒住所</h3>
         <div>
@@ -314,7 +330,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <input type="hidden" name="self_check_email", value="<?php echo h($email); ?>">
 
-        <div>
+        <div class="btn-kaiinhenkou">
             <button type="submit" name="info">送信する</button>
         </div>
     </form>
@@ -323,9 +339,11 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <button type="hidden" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
     </form>
+    </div>
 
-    <form action="kaiin_jouhou.php" method="get">
-        <button type="submit">戻る</button>
-    </form>
+    </main>
+    <footer>
+        <?php footer_inc(); ?>
+    </footer>
 </body>
 </html>

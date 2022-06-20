@@ -22,25 +22,33 @@ $name = "hogehoge";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>会員情報</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+
 </head>
 <body>
-    <?php
-        header_inc();
-    ?>
+    <header>
+        <?php header_inc(); ?>
+    </header>
 
-    <h1>会員情報</h1>
-    <p><?php echo $name ?>さん</p>
-    <div class="btn-wrapper">
-        <button onclick="location.href='touroku_jouhou.php'">登録情報を確認する</button>
-        <button onclick="location.href='touroku_henkou.php'">会員情報を変更する</button>
-        <button onclick="location.href='rireki.php'">注文履歴</button>
-    </div>
+    <main>
+        <div class="kaiin-jouhou">
 
-    <?php
-        footer_inc();
-    ?>
+            <h1>会員情報</h1>
 
+            <div class="btn-wrapper">
+                <h5><?php echo $name ?>さん</h5>
+                <p><button class="btn btn-primary" onclick="location.href='touroku_jouhou.php'">登録情報確認する</button></p>
+                <p><button class="btn btn-primary"  onclick="location.href='touroku_henkou.php'">会員情報変更する</button></p>
+                <p><button class="btn btn-primary" onclick="location.href='rireki.php'">注文履歴</button></p>
+            </div>
+
+        </div>
+
+    </main>
+    <footer>
+        <?php footer_inc(); ?>
+    </footer>
 
 </body>
 </html>
