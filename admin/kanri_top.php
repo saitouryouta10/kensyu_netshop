@@ -12,8 +12,8 @@
     <div class="kanri_top">
         <h1>管理画面</h1>
         <div class="admin_button">
-            <button type="button">ログアウト</button>
-            <button type="button">TOP</button>
+            <button type="button" onclick="location='../login/logout.php'">ログアウト</button>
+            <button type="button" onclick="location='kanri_top.php'">TOP</button>
         </div>
     </div>
     <div class="admin_subtitle">
@@ -34,10 +34,10 @@
     </div>
     </div>
     <div class="admin_button_matome">
-        <button type="button" class="btn btn-primary">過去の出品</button>
-        <button type="button" class="btn btn-primary">商品追加</button>
-        <button type="button" class="btn btn-primary">商品削除</button>
-        <button type="button" class="btn btn-primary">登録者情報管理</button>
+        <button type="button" class="btn btn-primary" onclick="location='shouhin_itiran.php'">過去の出品</button>
+        <button type="button" class="btn btn-primary" onclick="location='jouhou_add.php'">商品追加</button>
+        <button type="button" class="btn btn-primary" onclick="location='shouhin_sakujo.php'">商品削除</button>
+        <button type="button" class="btn btn-primary" onclick="location='user_sanshou.php'">登録者情報管理</button>
     </div>
 </body>
 </html>

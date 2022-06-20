@@ -12,8 +12,8 @@
     <div class="kanri_top">
         <h1>管理画面</h1>
         <div class="admin_button">
-            <button type="button">ログアウト</button>
-            <button type="button">TOP</button>
+            <button type="button" onclick="location='../login/logout.php'">ログアウト</button>
+            <button type="button" onclick="location='kanri_top.php'">TOP</button>
         </div>
     </div>
     <div class="admin_subtitle">
@@ -34,9 +34,9 @@
     </div>
     </div>
     <div class="admin_button_matome">
-        <button type="button" class="btn btn-primary">戻る</button>
-        <button type="button" class="btn btn-primary">削除</button>
-        <button type="button" class="btn btn-primary">追加</button>
+        <button type="button" class="btn btn-primary" onclick="location='kanri_top.php'">戻る</button>
+        <button type="button" class="btn btn-primary" onclick="location='shouhin_sakujo.php'">削除</button>
+        <button type="button" class="btn btn-primary" onclick="location='jouhou_add.php'">追加</button>
     </div>
 </body>
 </html>

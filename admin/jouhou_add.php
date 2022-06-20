@@ -12,8 +12,8 @@
     <div class="kanri_top">
         <h1>管理画面</h1>
         <div class="admin_button">
-            <button type="button">ログアウト</button>
-            <button type="button">TOP</button>
+            <button type="button" onclick="location='../login/logout.php'">ログアウト</button>
+            <button type="button" onclick="location='kanri_top.php'">TOP</button>
         </div>
     </div>
     <div class="admin_subtitle">
@@ -24,7 +24,7 @@
     <!-- inputにクラスとかnameとかつけて情報取得してください -->
     <div class="admin_form">
         <p>商品名　<span class="badge bg-danger">必須</span></p>
-        <input type="text" required> 
+        <input type="text" name="name" required> 
         
         <p>価格　<span class="badge bg-danger">必須</span></p>
         <input type="text" required>円
@@ -60,7 +60,7 @@
         </textarea>
     </div>
     <div class="admin_button_matome">
-        <button type="button" class="btn btn-primary">戻る</button>
+        <button type="button" class="btn btn-primary" onclick="location='kanri_top.php'">戻る</button>
 
         <!-- shouhin_kakunin.phpへ -->
         <button type="button" class="btn btn-primary">追加する</button>
