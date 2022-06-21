@@ -167,9 +167,6 @@ if($rec=$stmt->fetch_assoc()):
               $sql3 = 'insert into favorite(user_id,item_id) values('.$userid.','.$item_id.')';
 
 
-
-
-
               $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
 
 
