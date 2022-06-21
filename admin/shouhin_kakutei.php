@@ -2,6 +2,7 @@
 require("../library.php");
 session_start();
 
+
 $form_add = $_SESSION["form_add"];
 $filtername = $_SESSION["image"];
 
@@ -19,6 +20,9 @@ $stmt->bind_param("siiisss",$form_add["name"],$form_add["price"],$form_add["stoc
 $success = $stmt->execute();
 if(!$stmt) {
     die($db->error);
+}else {
+    unset($_SESSION["form_add"]);
+    unset($_SESSION["image"]);
 }
 
 ?>
@@ -46,7 +50,7 @@ if(!$stmt) {
     </div>
     </div>
     <div class="admin_button_matome">
-            <button type="button" class="btn btn-primary admin_yes">管理画面にもどる</button>
+            <a type="button" class="btn btn-primary admin_yes" onclick="location='kanri_top.php'">管理画面にもどる</a>
     </div>
 </body>
 </html>

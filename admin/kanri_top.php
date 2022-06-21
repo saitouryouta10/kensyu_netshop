@@ -1,9 +1,22 @@
 <?php 
 require("../library.php");
+session_start();
+
+//ジャンプ防御
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
 
 $db = dbconnect();
 
-// $stmt = $db->prepare("select created,name,price,stock from items")?>
+// $stmt = $db->prepare("select created,name,price,stock from items")
+
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
