@@ -196,5 +196,19 @@ a {
 
 .shousai_b {
   display: flex;
+  width:100%;
   margin-bottom: 1px;
+}
+
+.shousai_f {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.cart_number .cart_price {
+  width: 20%;
+}
+
+.cart_button {
+  width: 10%;
 }

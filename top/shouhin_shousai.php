@@ -99,48 +99,52 @@ if($rec=$stmt->fetch_assoc()):
         </div>
      <div>
       <p><?php echo h($rec['name']); ?><span class="name"></p>
-      <p><?php echo h($rec['price']); ?>円</span></p>
+      <div class="shousai_price">
 
-      <?php if($rec['stock'] >0): ?>
+        <p><?php echo h($rec['price']); ?>円</span></p>
+
+        <?php if($rec['stock'] >0): ?>
+
+<div>
+
+  <form action="" method="POST">
+    <select name="kazuerabi" >
+      <?php for($i=1; $i<=$rec['stock'];$i++):?>
+        <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
+        <?php endfor ;?>
+      </select>
+    </div>
+    <div class="shousai_b">
+      <button type="submit"name="cartin_button" class="btn btn-success">カートに入れる</button>
+    </form>
 
 
-         <form action="" method="POST">
-          <select name="kazuerabi" >
-           <?php for($i=1; $i<=$rec['stock'];$i++):?>
-           <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
-           <?php endfor ;?>
-          </select>
-          <div class="shousai_b">
-            <button type="submit"name="cartin_button" class="btn btn-success" >カートに入れる</button>
-          </form>
-
-
-          <? else:?>
-            <p style="color:red;">在庫がありません</p>
-            <?php endif; ?>
-            <p style="color:pink; margin-top:0">
-              <?php if($kazuerabi !==null){
-                // カートに入れるボタンが押されたとき,cartデータベースに追加
-                if(isset($_POST['cartin_button'])==true){
-                  $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
-                  $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
+    <? else:?>
+      <p style="color:red;">在庫がありません</p>
+      <?php endif; ?>
+      <p style="color:pink; margin-top:0">
+        <?php if($kazuerabi !==null){
+          // カートに入れるボタンが押されたとき,cartデータベースに追加
+          if(isset($_POST['cartin_button'])==true){
+            $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
+            $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
                   $stmt_2=$db->query($sql_2);
                   $rec2=$stmt_2->fetch_assoc();
                   if($rec2['count(*)']==0 ){
                     $stmt2 =$db ->query($sql2);
                     echo $kazuerabi ."個カートに入れました";
-            }else{
-              echo 'この商品は既にカートに入っています';
-            }
-          }
-        }
-        ?>
+                  }else{
+                    echo '追加済み';
+                  }
+                }
+              }
+              ?>
         </p>
       </div>
 
-        <form action="" method="POST">
+      <form action="" method="POST">
         <div class="shousai_b">
-         <button type="submit"name="favorite_button" class="btn btn-outline-warning">お気に入りに追加</button>
+          <button type="submit"name="favorite_button" class="btn btn-warning">お気に入りに追加</button>
         </form>
         <p style="color:pink; margin-top:0">
           <?php
@@ -155,14 +159,15 @@ if($rec=$stmt->fetch_assoc()):
               $stmt_3=$db->query($sql_3);
               $rec3=$stmt_3->fetch_assoc();
               if($rec3['count(*)']==0 ){
-              $stmt3 =$db ->query($sql3);
-              echo "お気に入りに追加しました";
-            }else{
-              echo '追加済み';
-            }
+                $stmt3 =$db ->query($sql3);
+                echo "お気に入りに追加しました";
+              }else{
+                echo '追加済み';
               }
-       ?>
+            }
+            ?>
         </p>
+      </div>
             </div>
         <a href="cart.php">カートに行く</a>
         <?php //var_dump($cart); exit(); ?>

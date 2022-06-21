@@ -124,13 +124,14 @@ $result2 = $stmt2->fetch_assoc();
                <th class="th_price">
                  <p> <?php echo $rec['price']; ?>円 </p>
                </th>
-               <th>
+               <th class="cart_number">
                  <p><?php echo $rec['number'];  ?>個</p>
                </th>
-               <th>
+               <th class="cart_price">
                  <p>計<?php echo $rec['number'] * $rec['price'];  ?>円</p>
                  <?php $total+=$rec['number'] * $rec['price']; ?>
-                 <th>
+
+                 <th class="cart_button">
 
                    <form action="" method="POST">
                      <select name="kazuerabi">
