@@ -2,7 +2,6 @@
 session_start();
 require('../library.php');
 
-
 // ログインしているか確認
 
 
