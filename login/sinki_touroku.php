@@ -254,7 +254,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <title>HOGEHOGE SHOP</title>
 </head>
 <body>
-    <button type="button" class="btn btn-outline-secondary btn-block" id="login_button" onclick="location.href='login.php'">ログインページへ</button>
+    <a class="button btn btn-outline-secondary btn-block" id="login_button" onclick="location.href='login.php'">ログインページへ</a>
     <h1 class="touroku_title">HOGEHOGE SHOP</h1>
 
     <div class="subtitle">

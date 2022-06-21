@@ -135,7 +135,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             <!-- TODO: パスワード忘れた人はこちらを追加してみたい -->
 
             <div class="loca_top">
-                <button type="button" class="btn btn-outline-secondary btn-block" onclick="location.href='../top/top.php'">トップに戻る</button>
+                <a type="button" class="btn btn-outline-secondary btn-block" onclick="location.href='../top/top.php'">トップに戻る</a>
             </div>
         </div>
     </form>

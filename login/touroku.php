@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
                 <span>このアカウントを利用して商品を購入したり、購入履歴をみたりできます。<br>
                 快適なお買い物LIFEを。</span></p>
             <div class="touroku_login">
-                <button class="btn btn-success" onclick="location.href='login.php'">ログインする</button>
+                <a class="button btn btn-success" onclick="location.href='login.php'">ログインする</a>
             </div>
         </div>
     </div>
