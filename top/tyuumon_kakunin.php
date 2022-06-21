@@ -6,17 +6,6 @@ session_start();
 $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
 
-if(isset($_SESSION["id"])){
-
-	//ログインしてる人用ヘッダー
-	include(dirname(__FILE__) . "/../head/header_logout.php");
-
-}else{
-
-	//ログインしてない人用ヘッダー
-	include(dirname(__FILE__) . "/../head/header_login.php");
-
-}
 
 //数の選択
 if(isset($_POST['kazuerabi'])){
@@ -60,9 +49,14 @@ $total=0;
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
+
+<header>
+  <?php header_inc();?>
+</header>
+<main>
 <div class="container">
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
@@ -153,19 +147,13 @@ $result2 = $stmt2->fetch_assoc();
 
 </div>
 
-<?php
-if(isset($_SESSION["id"])){
 
-	//ログアウトしてる人用フッター
-  include(dirname(__FILE__) . "/../head/footer_logout.php");
 
-}else{
-
-	//ログインしてない人用フッター
-	 include(dirname(__FILE__) . "/../head/footer_login.php");
-
-}
+                       </main>
+<footer>
+  <?php
+footer_inc();
 ?>
-
+</footer>
 </body>
 </html>

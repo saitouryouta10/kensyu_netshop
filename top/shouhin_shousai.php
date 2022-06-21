@@ -79,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
 <main>
@@ -120,33 +120,56 @@ if($rec=$stmt->fetch_assoc()):
            <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
            <?php endfor ;?>
           </select>
-         <button type="submit"name="cartin_button" class="btn btn-success">カートに入れる</button>
-        </form>
+          <div class="shousai_b">
+            <button type="submit"name="cartin_button" class="btn btn-success" >カートに入れる</button>
+          </form>
 
 
-     <? else:?>
-       <p style="color:red;">在庫がありません</p>
-       <?php endif; ?>
-          <p style="color:pink">
-          <?php if($kazuerabi !==null){
-            // カートに入れるボタンが押されたとき,cartデータベースに追加
-            if(isset($_POST['cartin_button'])==true){
-              $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
-              $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
-              $stmt_2=$db->query($sql_2);
-              $rec2=$stmt_2->fetch_assoc();
-              if($rec2['count(*)']==0 ){
-              $stmt2 =$db ->query($sql2);
-              echo $kazuerabi ."個カートに入れました";
+          <? else:?>
+            <p style="color:red;">在庫がありません</p>
+            <?php endif; ?>
+            <p style="color:pink; margin-top:0">
+              <?php if($kazuerabi !==null){
+                // カートに入れるボタンが押されたとき,cartデータベースに追加
+                if(isset($_POST['cartin_button'])==true){
+                  $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
+                  $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
+                  $stmt_2=$db->query($sql_2);
+                  $rec2=$stmt_2->fetch_assoc();
+                  if($rec2['count(*)']==0 ){
+                    $stmt2 =$db ->query($sql2);
+                    echo $kazuerabi ."個カートに入れました";
             }else{
               echo 'この商品は既にカートに入っています';
             }
-              }
+          }
+        }
+        ?>
+        </p>
+      </div>
+
+        <form action="" method="POST">
+        <div class="shousai_b">
+         <button type="submit"name="favorite_button" class="btn btn-success">お気に入りに追加</button>
+        </form>
+        <p style="color:pink; margin-top:0">
+          <?php
+            // お気に入りに追加ボタンが押されたとき,favoriteデータベースに追加
+            if(isset($_POST['favorite_button'])==true){
+              $sql3 = 'insert into favorite(user_id,item_id) values('.$userid.','.$item_id.')';
+              $sql_3='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
+              $stmt_3=$db->query($sql_3);
+              $rec3=$stmt_3->fetch_assoc();
+              if($rec3['count(*)']==0 ){
+              $stmt3 =$db ->query($sql3);
+              echo "お気に入りに追加しました";
+            }else{
+              echo '追加済み';
             }
-
-
+              }
        ?>
         </p>
+            </div>
         <a href="cart.php">カートに行く</a>
         <?php //var_dump($cart); exit(); ?>
       </div>

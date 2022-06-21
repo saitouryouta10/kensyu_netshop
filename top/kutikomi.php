@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>ひとこと掲示板</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 
 <body>
@@ -101,20 +101,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                           <textarea name="comment" cols="50" rows="5"></textarea>
                       </dd>
                   </dl>
+                  <div class="kutikomi_butotn">
                   <p>評価（5段階）</p>
                   <select name="star" id="">
                     <?php for($i=1;$i<6;$i++): ?>
                       <option value="<?php echo $i ?>"><?php echo $i; ?></option>
                       <?php endfor ; ?>
                   </select>
-                  <br>
-                  <br>
                   <div>
-                      <p>
                           <button type="submit"class="btn btn-success">投稿する</button>
                           <!-- <input type="submit" value="投稿する"/> -->
-                      </p>
                   </div>
+                    </div>
                 </form>
           <?php endif; ?>
 

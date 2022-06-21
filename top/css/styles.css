@@ -38,9 +38,9 @@ img {
   width: 100%;
 }
 
-th {
+/* th {
   width: 100%;
-}
+} */
 
 
 .img_s {
@@ -60,9 +60,9 @@ th {
 width: 100%;
 }
 
-p {
+/* p {
   margin:  0 0 0 0;
-}
+} */
 
 .th_name {
   width: 20%;
@@ -89,7 +89,7 @@ p {
     display: none;
   }
 
-  table {
+  .top_table {
     width: 100%;
   }
 }
@@ -188,4 +188,13 @@ a {
 
 .shousai_r {
   border-bottom: 2px solid lightgray;
+}
+
+.kutikomi_button {
+  display: flex;
+}
+
+.shousai_b {
+  display: flex;
+  margin-bottom: 1px;
 }

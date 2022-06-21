@@ -55,7 +55,7 @@ if(isset($_POST['narabikae'])){
   <title>HOGE</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body class="top_b">
 <header>
@@ -104,7 +104,7 @@ if(isset($_POST['narabikae'])){
 <?php //print_r($rec);?>
       <a class="top_a" href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
         <div class="img_s">
-        <table>
+        <table class="top_table">
           <tr>
             <th class="pic_size">
 
