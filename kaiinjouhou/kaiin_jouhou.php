@@ -2,16 +2,11 @@
 session_start();
 require('../library.php');
 
-<<<<<<< HEAD
+
 // ログインしているか確認
 if (isset($_SESSION['id']) && isset($_SESSION['nickname'])) {
     $id = $_SESSION['id'];
-=======
-//ログインしているか確認
-if (isset($_SESSION['id']) && isset($_SESSION['nickname'])) {
-    $id = $_SESSION['id'];
 
->>>>>>> af86535 (修正)
     $name = $_SESSION['nickname'];
 } else {
     $login = 1;
