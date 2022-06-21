@@ -146,17 +146,11 @@ if($rec=$stmt->fetch_assoc()):
             // お気に入りに追加ボタンが押されたとき,favoriteデータベースに追加
             if(isset($_POST['favorite_button'])==true){
               $sql3 = 'insert into favorite(user_id,item_id) values('.$userid.','.$item_id.')';
-<<<<<<< HEAD
-<<<<<<< HEAD
-              $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
-=======
-              $sql_3='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
->>>>>>> af86535 (修正)
-=======
+
 
               $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
 
->>>>>>> f06340e (修正)
+
               $stmt_3=$db->query($sql_3);
               $rec3=$stmt_3->fetch_assoc();
               if($rec3['count(*)']==0 ){
