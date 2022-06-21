@@ -1,6 +1,8 @@
 <?php
+
 require("../library.php");
 session_start();
+
 
 $form_add = [
     "name" => "",
@@ -11,7 +13,7 @@ $form_add = [
     "syousai" => "",
 ];
 
-if ($_SESSION) {
+if (isset($_SESSION["form_add"])) {
     $form_add = $_SESSION["form_add"];
 }
 
