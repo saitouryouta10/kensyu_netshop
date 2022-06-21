@@ -55,6 +55,11 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         $stmt->fetch();
 
         if(password_verify($pass,$password)){
+            if ($id === 1){
+                $_SESSION["id"] = $id;
+                header("Location: ../admin/kanri_top.php");
+                exit();
+            }
             session_regenerate_id();
             $_SESSION["id"] = $id;
             header("Location: ../top/top.php");
