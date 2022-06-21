@@ -72,9 +72,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <?php header_inc(); ?>
 </header>
 <main>
-  <!-- <a href="top.php">
-    <h1 class="title_name">HOGEHOGE SHOP</h1>
-  </a> -->
+<div class="btn-modoru-rireki">
+    <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
+</div>
+
 
 <?php
 $sql = 'select * from items where id='.$item_id.'';
@@ -139,7 +140,7 @@ if($rec=$stmt->fetch_assoc()):
 
         <form action="" method="POST">
         <div class="shousai_b">
-         <button type="submit"name="favorite_button" class="btn btn-success">お気に入りに追加</button>
+         <button type="submit"name="favorite_button" class="btn btn-outline-warning">お気に入りに追加</button>
         </form>
         <p style="color:pink; margin-top:0">
           <?php

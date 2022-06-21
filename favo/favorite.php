@@ -70,7 +70,7 @@ if (isset($_GET['nedan'])) {
   <main class="kaiin-body">
 
   <div class="btn-modoru-rireki">
-    <button class="btn btn-outline-secondary btn-block" onclick="location.href='kaiin_jouhou.php'">戻る</button>
+    <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
   </div>
 
 
@@ -100,7 +100,7 @@ if (isset($_GET['nedan'])) {
 
     <button type="submit" name="">検索</button>
   </form>
-  <h1>注文履歴</h1>
+  <h1>お気に入り</h1>
   <div class="rireki-table">
       <?php while( $rireki = $stmt->fetch_assoc()): ?>
           <table>
@@ -121,7 +121,7 @@ if (isset($_GET['nedan'])) {
                   <td>金額 : <?php echo $rireki['price']; ?></td>
                 </tr>
                 <tr>
-                  <td>購入日 : <?php echo $rireki['created']; ?></td>
+                  <td>追加日 : <?php echo $rireki['created']; ?></td>
                 </tr>
                 <tr>
                   <td>
