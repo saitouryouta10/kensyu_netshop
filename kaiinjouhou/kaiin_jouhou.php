@@ -5,6 +5,9 @@ require('../library.php');
 
 // ログインしているか確認
 
+
+
+
 if (isset($_SESSION['id']) && isset($_SESSION['nickname'])) {
     $id = $_SESSION['id'];
 
