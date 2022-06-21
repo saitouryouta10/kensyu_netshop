@@ -131,12 +131,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         // }
 
         while($result2=$stmt1->fetch_assoc()):
+        $n= $db->query('select nickname from users where id='.$result2['user_id'].'');
+        $nr=$n->fetch_assoc();
         // print_r($result2);
         ?>
             <?php $result3 = $stmt3->fetch_assoc(); ?>
             <?php //echo $result2['user_id']. $_SESSION['id']; ?>
         <div class="msg">
-            <p style="border-top:solid 2px lightgray;"><?php echo h($result2['comment']); ?><br><span class="name"><?php echo h($name); ?></span></p>
+            <p style="border-top:solid 2px lightgray;"><?php echo h($result2['comment']); ?><br><span class="name"><?php echo h($nr['nickname']); ?></span></p>
             <p>評価<?php echo h($result2['star']); ?></p>
             <p class="day"><?php echo h($result2['created']) ; ?></p>
 

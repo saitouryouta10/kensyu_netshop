@@ -164,7 +164,7 @@ if($rec=$stmt->fetch_assoc()):
 <?php
 
 
-          $stmt= $db->prepare('select r.comment,r.star,r.created, r.user_id from reviews r where item_id='.$item_id.'');
+          $stmt= $db->query('select r.comment,r.star,r.created, r.user_id from reviews r where item_id='.$item_id.'');
           $sql3='select id from reviews where user_id='.$userid.'';
           $sql4='select avg(star) from reviews where item_id='.$item_id.'';
           $s=$db->query($sql4);
@@ -178,31 +178,26 @@ if($rec=$stmt->fetch_assoc()):
             <p>レビューはまだありません</p><br><br>
           <?php endif; ?>
           <?php
-          if(!$stmt){
-              die($db->error);
-          }
-          $succsess = $stmt->execute();
-          if(!$succsess){
-              die($db->error);
-          }
+
           $result3 = $stmt3->fetch_assoc();
-          $stmt->bind_result($comment,$star,$created,$user_id);
-          print_r($user_id);
+          // $result=$stmt->fetch_assoc();
+          // print_r($result['user_id']);
 
-          while($stmt->fetch()):
-
+          while($result=$stmt->fetch_assoc()):
+          $n= $db->query('select nickname from users where id='.$result['user_id'].'');
+          $nr=$n->fetch_assoc();
           ?>
           <div class="msg">
-            <p>ユーザー名：<?php echo h($name); ?></p>
+            <p>ユーザー名：<?php echo h($nr['nickname']); ?></p>
             <p>コメント<br></p>
-            <?php if($comment == null): ?>
+            <?php if($result['comment'] == null): ?>
               <p>なし</p>
               <?php else : ?>
-              <?php echo h($comment); ?>
+              <?php echo h($result['comment']); ?>
               <?php endif ;?>
-              <p>評価<?php echo h($star); ?>&nbsp&nbsp&nbsp<?php echo h($created) ; ?></p>
+              <p>評価<?php echo h($result['star']); ?>&nbsp&nbsp&nbsp<?php echo h($result['created']) ; ?></p>
 
-              <?php if($_SESSION['id'] === $user_id): ?>
+              <?php if($_SESSION['id'] === $result['user_id']): ?>
                 <form action="" method="POST">
                   <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
                   <?php //echo $result3['id']; ?>
