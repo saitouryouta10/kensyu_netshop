@@ -322,38 +322,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<th>性別</th>
             <label>
 			<td>
-				<?php if(isset($form["sex"]) && $form["sex"] === ""):?>
-                <input type="radio" id="male" name="sex" value="1">
-                <label for="male">男性</label>
-                <input type="radio" id="female" name="sex" value="2">
-                <label for="female">女性</label>
-                <input type="radio" id="others" name="sex" value="3">
-                <label for="others">その他</label>
-				<?php endif;?>
-				<?php if(isset($form["sex"]) && $form["sex"] === "1"):?>
-                <input type="radio" id="male" name="sex" value="1" checked>
-                <label for="male">男性</label>
-                <input type="radio" id="female" name="sex" value="2">
-                <label for="female">女性</label>
-                <input type="radio" id="others" name="sex" value="3">
-                <label for="others">その他</label>
-				<?php endif;?>
-				<?php if(isset($form["sex"]) && $form["sex"] === "2"):?>
-                <input type="radio" id="male" name="sex" value="1">
-                <label for="male">男性</label>
-                <input type="radio" id="female" name="sex" value="2" checked>
-                <label for="female">女性</label>
-                <input type="radio" id="others" name="sex" value="3">
-                <label for="others">その他</label>
-				<?php endif;?>
-				<?php if(isset($form["sex"]) && $form["sex"] === "3"):?>
-                <input type="radio" id="male" name="sex" value="1">
-                <label for="male">男性</label>
-                <input type="radio" id="female" name="sex" value="2">
-                <label for="female">女性</label>
-                <input type="radio" id="others" name="sex" value="3" checked>
-                <label for="others">その他</label>
-				<?php endif;?>
+			<input type="radio" id="male" name="sex" value="1" <?= isset($form["sex"]) && $form["sex"] === "1" ? 'checked' : '' ?>>
+			<label for="male">男性</label>
+			<input type="radio" id="female" name="sex" value="2" <?= isset($form["sex"]) && $form["sex"] === "2" ? 'checked' : '' ?>>
+			<label for="female">女性</label>
+			<input type="radio" id="others" name="sex" value="3" <?= isset($form["sex"]) && $form["sex"] === "3" ? 'checked' : '' ?>>
+			<label for="others">その他</label>
             </td>
 
 		</tr>
