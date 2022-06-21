@@ -368,6 +368,11 @@ footer p {
     margin-right: 50px;
 }
 
+.admin_form .error {
+    color: red;
+}
+
+
 /* --------------------新規登録関係 -----------------------*/
 
 .touroku_title {
