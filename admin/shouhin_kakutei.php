@@ -1,3 +1,28 @@
+<?php
+require("../library.php");
+session_start();
+
+$form_add = $_SESSION["form_add"];
+$filtername = $_SESSION["image"];
+
+$db = dbconnect();
+$stmt = $db->prepare("insert into items(name,price,stock,jenre_id,setumei,syousai,picture)
+                        values(?,?,?,?,?,?,?)");
+
+if (!$stmt) {
+    die($db->error);
+}
+
+$stmt->bind_param("siiisss",$form_add["name"],$form_add["price"],$form_add["stock"],
+                            $form_add["jenre_id"],$form_add["setumei"],$form_add["syousai"],$filtername);
+
+$success = $stmt->execute();
+if(!$stmt) {
+    die($db->error);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>

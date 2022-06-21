@@ -53,10 +53,10 @@ $filename = $_SESSION["image"];
         <?php echo $form_add["syousai"];?>
     </div>
     <div class="admin_button_matome">
-        <a type="button" class="btn btn-primary" onclick='history.back()'>戻る</a>
+        <a type="button" class="btn btn-primary" onclick="location='jouhou_add.php'">戻る</a>
 
         <!-- shouhin_kakutei.phpへ -->
-        <button type="button" class="btn btn-primary">追加する</button>
+        <a type="button" class="btn btn-primary" onclick="location='shouhin_kakutei.php'">追加する</a>
     </div>
 </body>
 </html>
