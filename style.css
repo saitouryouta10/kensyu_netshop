@@ -1,0 +1,808 @@
+@charset "UTF-8";
+
+html {
+  font-size: 100%;
+}
+
+ main {
+    /* margin: 50px auto; */
+    flex: 1;
+} 
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    margin:20px auto 20px;
+}
+
+p {
+    margin:20px auto 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
+/* --------------------問い合わせ関係 -----------------------*/
+
+.toiawase {
+    margin-left: 2%;
+    margin-right: 2%;
+    border-bottom: solid 1px;
+}
+
+.container p {
+    font-weight: bold;
+    text-align: left;
+    margin-top: 45px;
+    font-size: 1.125rem;
+}
+
+
+.input {
+    width:40%;
+    text-align: left;
+}
+
+.container {
+    margin-top:100px;
+    max-width: 100%;
+    padding: 0 25% 0;
+}
+
+textarea {
+    width: 100%;
+    height: 350px;
+    resize: none;
+}
+
+.button {
+    text-align: center;
+}
+
+#kakunin {
+    margin: 40px auto 80px;
+    width: 50%;
+    height: 50px;
+    text-align: center;
+}
+
+.button-matome {
+    display: flex;
+
+}
+
+@media screen and (max-width: 768px) {
+    .toiawase{
+        text-align: center !important;
+    }
+    .container{
+        padding: 0 10% 0;
+    }
+
+    .input {
+        width:100%;
+    }
+}
+
+/* --------------------ヘッダー・フッター関係 -----------------------*/
+
+.title_header {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background-color: rgb(10, 7, 36);
+    align-items: center;
+
+}
+
+.serch {
+    text-align: center;
+    /* background-color: blue; */
+    width: 80%;
+}
+
+#serch_button {
+    width:100px;
+    height: 45px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.link_1 {
+    width: 10%;
+    /* background-color: red; */
+    padding: 0px 20px 6px;
+}
+
+.link_2 {
+    width: 10%;
+    /* background-color: red; */
+    padding: 0px 20px 6px;
+}
+
+.link_1 p {
+    color: white;
+    margin: 0;
+    margin: 20px;
+}
+
+.link_2 p {
+    color: white;
+    margin: 0;
+    text-align: right;
+    margin: 20px;
+}
+
+
+.text_box {
+    width: 50%;
+    height: 50px;
+}
+
+.header_list {
+    width: 100%;
+    height: 120px;
+    background-color: rgb(29, 28, 68);
+    justify-content: center;
+    display: flex;
+}
+
+header a {
+    color: white;
+}
+
+header a:hover {
+    color: white;
+    border: solid 1px;
+}
+
+.title {
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+
+.footer_list{
+    display: flex;
+    padding-top: 30px;
+}
+
+footer {
+    background-color: rgb(29, 28, 68);
+    width: 100%;
+    height: 200px;
+    /* position: absolute;
+    bottom: 0; */
+}
+
+footer li {
+    list-style: none;
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+footer ul {
+    text-align: center;
+}
+
+.list_1 {
+    width: 33%;
+    padding-left: 0;
+}
+
+.list_2 {
+    width: 33%;
+    padding-left: 0;
+}
+
+.list_3 {
+    width: 33%;
+    padding-left: 0;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+    border: solid 1px;
+}
+
+footer p {
+    color: white;
+    font-family: Helvetica;
+    font-size: 0.8rem;
+    margin-top: 33px;
+    text-align: center;
+}
+
+
+
+@media screen and (max-width: 1580px) {
+    .serch {
+        text-align: center;
+        /* background-color: blue; */
+        width: 55%;
+    }
+
+    .link_1 {
+        width: 22.5%;
+        /* background-color: red; */
+        padding: 0px 20px 6px;
+    }
+
+    .link_2 {
+        width: 22.5%;
+        /* background-color: red; */
+        padding: 0px 20px 6px;
+    }
+
+}
+
+@media screen and (max-width: 420px) {
+
+    footer li {
+        font-size: 0.8rem;
+    }
+
+    footer p {
+        font-size: 0.6rem;
+    }
+
+    .list_1 {
+        width: 33%;
+    }
+
+    .list_2 {
+        width: 33%;
+    }
+
+    .list_3 {
+        width: 33%;
+    }
+
+}
+
+/* --------------------管理者画面関係 -----------------------*/
+
+/* 管理画面ほぼ全部TOPページのコピペなんでクラスとかも全部いっしょです。 */
+
+
+.kanri_top h1 {
+    float: left
+}
+
+.admin_button {
+    text-align: right;
+    margin: 30px;
+}
+
+.admin_item_title {
+
+    text-align: center;
+    border: solid 2px;
+    margin: 10px 100px 0;
+}
+
+.admin_item_title span {
+    margin: 10px 7% 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+
+}
+
+.admin_item_title p , .admin_item p{
+    margin: 20px auto 20px;
+    /* text-align: justify; */
+}
+
+.admin_item {
+    text-align: center;
+    margin: 0 100px 0;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    border-right: solid 2px;
+    border-left: solid 2px;
+}
+
+.admin_item span {
+    margin: 10px 7.5% 10px;
+    /* font-weight: bold; */
+    /* font-size: 1.25rem; */
+}
+
+
+.admin_subtitle {
+    clear: both;
+    text-align: center;
+}
+
+.admin_subtitle span {
+    text-align: center;
+}
+
+.admin_subtitle h2{
+    font-weight: normal;
+}
+
+.admin_button_matome {
+    text-align: center;
+    margin: 30px;
+}
+
+.admin_kakunin {
+    text-align: center;
+    margin: 0 200px 0;
+    border: solid 1px;
+    padding: 40px;
+}
+
+.admin_yes {
+    width: 80%;
+    height: 100px;
+    margin-bottom: 40px;
+}
+
+.admin_no {
+    width: 80%;
+    height: 100px;
+}
+
+.admin_form {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* --------------------新規登録関係 -----------------------*/
+
+.touroku_title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.kiyakusyo {
+    margin-bottom: 30px;
+}
+
+.message {
+    margin: 40px;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.input_form table {
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
+}
+
+.input_form table td {
+    border: solid 1px;
+    padding: 25px;
+}
+
+.input_form table th {
+    border: solid 1px;
+    padding: 25px;
+}
+
+.input_form p {
+    margin: 30px auto 0px;
+    text-align: center;
+    color: red;
+}
+
+.input_form .require {
+    color: red;
+    font-size: 0.6rem;
+    text-align: right;
+    width: 100%;
+}
+
+.input_form .error {
+    color: red;
+    font-size: 0.8rem;
+
+}
+
+.textbox {
+    width: 100%
+}
+
+.doui {
+    text-align: center;
+}
+
+.doui .btn {
+    width: 80%;
+    height: 50px;
+    font-size: 1.5rem;
+}
+
+.doui label {
+    margin-bottom: 30px;
+}
+.kiyaku_doui {
+    margin-bottom: 50px;
+}
+
+#login_button {
+    margin: 40px;
+}
+
+@media screen and (max-width: 950px) {
+
+    .input_form td ,.input_form th{
+        display: block;
+        text-align: center;
+    }
+
+    .input_form table {
+        width: auto;
+        border: solid 1px;
+    }
+
+    .input_form table th {
+        padding: 0;
+        border-bottom: none;
+        background-color: rgb(29, 28, 68);
+        color: white;
+    }
+}
+
+/* --------------------ログイン関係 -----------------------*/
+
+
+.login_container {
+    padding-left: 35%;
+    padding-right: 35%;
+
+}
+
+.email {
+    /* padding-left: 33%; */
+    font-size: 1.25rem;
+}
+
+.pass {
+    /* padding-left: 33%; */
+    font-size: 1.25rem;
+}
+
+.login_email , .login_pass{
+    width: 80%;
+    height: 35px;
+}
+
+
+.login_form {
+    border:1px solid #EEE;
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    width: 100%;
+    margin-top: 5%;
+    /* background-color: red; */
+}
+
+.login_form table {
+    margin: 20px auto 20px;
+    /* background-color: blue; */
+    width: 100%;
+}
+
+.login_container .error {
+    color: red;
+    margin: 10px auto 0px;
+    text-align: center;
+
+}
+
+.login_form .error {
+    color: red;
+    margin: 0;
+    text-align: left;
+}
+
+.login_form th {
+    padding-left: 5%;
+}
+
+.sinki_location {
+    text-align: center;
+    font-size: 1rem;
+    margin: 20px auto 30px;
+}
+
+.login_button {
+    text-align: center;
+    width: 80%;
+    margin: 20px auto 20px;
+    border-top: solid 1px rgba(148, 148, 148, 0.575);
+    padding-top: 20px;
+}
+
+.loca_top {
+    text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .login_form td ,.login_form th{
+        display: block;
+        text-align: center;
+        padding: 0%;
+    }
+
+    .login_container {
+        padding: 0;
+    }
+
+    .login_container .error {
+        width: 65%;
+        text-align: center;
+    }
+
+    .login_form .error {
+        padding-left: 10%;
+    }
+}
+
+/* --------------------登録確認関係-----------------------*/
+
+.kakunin_container {
+    /* width: 50%; */
+    padding-left: 35%;
+    padding-right: 35%;
+}
+
+.kakunin_value {
+    border:1px solid #EEE;
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    padding: 3% 10% 10%;
+}
+
+.kakunin_title {
+    font-size: 1.2rem;
+    border-top: solid 1px rgb(204, 204, 204);
+    border-bottom: solid 1px rgb(204, 204, 204);
+}
+
+/* .kakunin_henkou {
+    text-align: center;
+    margin: 20px auto 40px;
+    float: left;
+}
+
+.kakunin_submit {
+    text-align: center;
+    margin: 20px auto 40px;
+} */
+
+.kakunin_buttonmatome_1 {
+
+    margin: 30px auto 40px;
+}
+
+.kakunin_buttonmatome_2 {
+    width: 50%;
+    margin: 30px 30% 0 40px;
+}
+.kakunin_buttonmatome_1 .btn2 {
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+    .kakunin_container {
+        /* width: 50%; */
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .kakunin_value {
+        margin-top: 50px;
+    }
+
+    .kakunin_container h1 {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+}
+
+/* --------------------アカウント登録関係 -----------------------*/
+
+.touroku_container {
+    border:1px solid #EEE;
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    padding: 10% 10% 16%;
+    background-image: url("login/img/カート.png");
+    background-size: cover;
+}
+
+.touroku_back {
+    background-color: white;
+    width: 50%;
+    margin: auto 25% auto;
+    border:1px solid #EEE;
+    box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -webkit-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    -moz-box-shadow:rgba(122, 122, 122, 0.0588235) 0px 0px 6px 3px;
+    border-radius: 10px;
+    padding: 3%;
+}
+
+.touroku_container p {
+    font-weight: normal;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+}
+
+.touroku_container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: rgb(0, 0, 0);
+    font-size: 3rem;
+}
+
+.touroku_login {
+    text-align: center;
+}
+
+.kakutei_title {
+    padding: 1% 1% 1%;
+    font-size: 2.5rem;
+}
+
+.touroku_copy {
+    color: rgb(172, 172, 172);
+    margin: 25px auto 0;
+
+}
+
+@media screen and (max-width: 767px) {
+    .kakutei_title {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .touroku_container {
+        background-position: 50% 0%;
+        height: 550px;
+    }
+
+    .touroku_back {
+        width: auto;
+        margin: auto;
+        margin-top: 10%;
+    }
+
+    .touroku_container p {
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+
+    .touroku_container h1 {
+        font-size: 2.5rem;
+    }
+
+    .touroku_container p span {
+        color: white;
+        font-size: 0px;
+    }
+
+    .touroku_login {
+        margin-bottom: 20px;
+    }
+
+}
+
+/* --------------------会員情報関係-----------------------*/
+
+.kaiin-jouhou {
+    text-align: center;
+    height: 460px;
+}
+.kaiin-jouhou h5 {
+    margin-top: 55px;
+    position: relative;
+    right: 6rem;
+}
+.btn-wrapper button {
+    margin-bottom: 20px;
+    width: 20rem;
+    font-size: 22px;
+}
+
+.btn-pos {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.henkou-inp h1 {
+    text-align: center;
+}
+.kaiin-body h1 {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.henkou-inp form {
+    width: 50vw;
+    margin-left : 25vw;
+}
+.henkou-inp h3 {
+    margin-top: 30px;
+}
+
+.btn-sub {
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-sub button {
+    width: 10em;
+    height: 3em;
+}
+.btn-modoru {
+    margin: 50px;
+}
+
+.btn-kakutei {
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-kakutei button {
+    width: 10em;
+    height: 3em;
+}
+
+.kaiin-container {
+    text-align: center;
+    margin-top: 50px;
+}
+.kaiin-container h1 {
+    margin-bottom: 55px;
+}
+.kaiin-container h4 {
+    margin-top: 20px;
+}
+.kaiin-body {
+    margin: 80px;
+}
+.btn-modoru-rireki {
+    text-align: right;
+    margin: 20px;
+}
+
+.kaiin-body table , .kaiin-body td, .kaiin-body th {
+    border: none;
+    border-collapse: collapse;
+}
+.kaiin-body table {
+    margin-bottom: 30px;
+}
+.kaiin-body td, .kaiin-body th {
+    padding: 10px;
+    width: 65%;
+    height: 70px;
+}
+.rireki-table {
+    margin-left: 20%;
+}
