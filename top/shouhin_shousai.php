@@ -152,6 +152,7 @@ if($rec=$stmt->fetch_assoc()):
               $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
 
 
+
               $stmt_3=$db->query($sql_3);
               $rec3=$stmt_3->fetch_assoc();
               if($rec3['count(*)']==0 ){
