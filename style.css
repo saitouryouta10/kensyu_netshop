@@ -22,11 +22,19 @@ a{
     text-decoration: none;
 }
 
-body {
+ body {
     display: flex;
     flex-flow: column;
     min-height: 100vh;
+
 }
+
+
+img {
+    width: 100%;
+}
+
+
 /* --------------------問い合わせ関係 -----------------------*/
 
 .toiawase {
