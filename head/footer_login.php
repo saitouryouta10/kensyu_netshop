@@ -8,7 +8,7 @@
         <li><a href="../kaiinjouhou/kaiin_jouhou.php">会員情報</a></li>
     </ul>
     <ul class="list_3">
-        <li><a href="#">お気に入り</a></li>
+        <li><a href="../favo/favorite.php">お気に入り</a></li>
         <li><a href="../top/cart.php">カート</a></li>
     </ul>
 </div>

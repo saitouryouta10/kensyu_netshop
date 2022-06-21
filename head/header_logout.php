@@ -3,7 +3,7 @@
 </div>
 <div class="header_list">
     <div class="link_1">
-        <p><a href="#">お気に入り</a></p>
+        <p><a href="../favo/favorite.php">お気に入り</a></p>
         <p><a href="../top/cart.php">カート</a></p>
     </div>
     <div class="serch">
