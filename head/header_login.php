@@ -14,4 +14,5 @@
         <p><a href="../login/login.php">ログイン</a></p>
         <p><a href="../kaiinjouhou/kaiin_jouhou.php">会員情報</a></p>
     </div>
-</div
+</div>
+
