@@ -7,7 +7,7 @@ html {
  main {
     /* margin: 50px auto; */
     flex: 1;
-} 
+}
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
@@ -813,4 +813,24 @@ footer p {
 }
 .rireki-table {
     margin-left: 20%;
+}
+
+.rireki-table img {
+    width: 60%;
+}
+
+@media screen and (min-width: 768px) {
+    .kaiin-body {
+        max-width: 960px;
+        margin: 30px auto;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .kaiin-body td, .kaiin-body th {
+        padding: 0px;
+        width: 40%;
+        height: 45px;
+    }
 }
