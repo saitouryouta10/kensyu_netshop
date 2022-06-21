@@ -4,23 +4,9 @@ $db =dbconnect();
 session_start();
 $item_id=$_GET['id'];
 
-header_inc();
 
 $login=1;
 
-if(isset($_SESSION["id"])){
-  //セッション情報がある場合は普通に画面遷移
-  $userid=$_SESSION['id'];
-  if(isset($_SESSION['nickname'])){
-  $name = $_SESSION['nickname'];
-  }
-}else{
-
-    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
- header('Location:../login/login.php?login='.$login.'');
-   exit();
-
-}
 
 // var_dump($name);
 $userid=$_SESSION['id'];
@@ -82,6 +68,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
+<header>
+  <?php header_inc(); ?>
+</header>
 <main>
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
@@ -157,7 +146,7 @@ if($rec=$stmt->fetch_assoc()):
             // お気に入りに追加ボタンが押されたとき,favoriteデータベースに追加
             if(isset($_POST['favorite_button'])==true){
               $sql3 = 'insert into favorite(user_id,item_id) values('.$userid.','.$item_id.')';
-              $sql_3='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
+              $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
               $stmt_3=$db->query($sql_3);
               $rec3=$stmt_3->fetch_assoc();
               if($rec3['count(*)']==0 ){
@@ -220,7 +209,7 @@ if($rec=$stmt->fetch_assoc()):
               <?php endif ;?>
               <p>評価<?php echo h($result['star']); ?>&nbsp&nbsp&nbsp<?php echo h($result['created']) ; ?></p>
 
-              <?php if($_SESSION['id'] === $result['user_id']): ?>
+              <?php if($_SESSION['id'] == $result['user_id']): ?>
                 <form action="" method="POST">
                   <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
                   <?php //echo $result3['id']; ?>
@@ -249,5 +238,6 @@ if($rec=$stmt->fetch_assoc()):
 footer_inc();
 ?>
 </footer>
+
   </body>
   </html>

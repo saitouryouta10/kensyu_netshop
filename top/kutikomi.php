@@ -4,7 +4,7 @@ require('../library.php');
 
 $item_id=$_GET['id'];
 
-header_inc();
+
 
 $login=1;
 
@@ -76,6 +76,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 
 <body>
+  <header>
+  <?php header_inc(); ?>
+</header>
+
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
@@ -156,9 +160,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
 </div>
 </div>
+<footer>
 <?php
 footer_inc();
 ?>
+</footer>
 
 </body>
 
