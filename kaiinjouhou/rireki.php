@@ -26,27 +26,27 @@ if (isset($_GET['nedan'])) {
   $nedan = $_GET['nedan'];
   switch($nedan) {
   case 1 :
-    $p = 'history.price <= 1000';
+    $p = 'and history.price <= 1000';
     break;
   case 2 :
-    $p = 'history.price >=1001 and history.price <= 5000';
+    $p = 'and history.price >=1001 and history.price <= 5000';
     break;
   case 3 :
-    $p = 'history.price >=5001 and history.price <= 10000';
+    $p = 'and history.price >=5001 and history.price <= 10000';
     break;
   case 4 :
-    $p = 'history.price >=10001 and history.price <= 50000';
+    $p = 'and history.price >=10001 and history.price <= 50000';
     break;
   case 5 :
-    $p = 'history.price >=50001';
+    $p = 'and history.price >=50001';
     break;
   default :
-    $p = 'history.price >= 0';
+    $p = 'and history.price >= 0';
   }
 }
 
   $db = dbconnect();
-  $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' AND '.$p.' '.$s.'');
+  $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' '.$p.' '.$s.'');
   if (!$stmt) {
     die($db->error);
   }
@@ -125,12 +125,12 @@ if (isset($_GET['nedan'])) {
                 </tr>
                 <tr>
                   <td>
-                      <button onclick="location.href=../top?id=<?php echo $rireki['item_id'];?>">商品レビューを書く</ button>
+                      <a class="btn btn-success" href="../top/kutikomi.php?id=<?php echo $rireki['item_id']; ?>">商品レビューを書く</a>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                      <button onclick="location.href=../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">再度購入</button>
+                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">再度購入</a>
                   </td>
                 </tr>
               </tbody>
