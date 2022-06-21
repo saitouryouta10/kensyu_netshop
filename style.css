@@ -4,10 +4,10 @@ html {
   font-size: 100%;
 }
 
-main {
+ main {
     /* margin: 50px auto; */
     flex: 1;
-}
+} 
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
@@ -22,15 +22,18 @@ a{
     text-decoration: none;
 }
 
-body {
+ body {
     display: flex;
     flex-flow: column;
     min-height: 100vh;
+
 }
 
 img {
     width: 100%;
 }
+
+
 /* --------------------問い合わせ関係 -----------------------*/
 
 .toiawase {
