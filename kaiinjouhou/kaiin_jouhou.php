@@ -2,8 +2,14 @@
 session_start();
 require('../library.php');
 
+<<<<<<< HEAD
 // ログインしているか確認
 
+=======
+
+
+// ログインしているか確認
+>>>>>>> f06340e (修正)
 if (isset($_SESSION['id']) && isset($_SESSION['nickname'])) {
     $id = $_SESSION['id'];
 
