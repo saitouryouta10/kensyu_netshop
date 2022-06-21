@@ -1,5 +1,6 @@
 <?php
 require("../library.php");
+session_start();
 
 $form_add = [];
 
@@ -17,24 +18,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $form_length["name"] = mb_strlen($form_add["name"]);
 
-    if ($form_length["name"] > 9999999999) {
+    if ($form_length["name"] > 255) {
         $error["name"] = "length_error";
     }
 
     /*------------------値段バリデーション------------------*/
 
+    $match["price"] = preg_match('/[0-9]/',$form_add["price"]);
+
     $form_length["price"] = mb_strlen($form_add["price"]);
 
-    if ($form_length["price"] > 9999999999) {
+    if ($form_length["price"] > 10) {
         $error["price"] = "length_error";
+    }
+
+    if ($match["price"] !== 1) {
+        $match_error["price"] = "nomatch";
     }
 
     /*------------------在庫バリデーション------------------*/
 
+    $match["stock"] = preg_match('/[0-9]/',$form_add["stock"]);
+
     $form_length["stock"] = mb_strlen($form_add["stock"]);
 
-    if ($form_length["stock"] > 9999) {
+    if ($form_length["stock"] > 4) {
         $error["stock"] = "length_error";
+    }
+
+    if ($match["stock"] !== 1) {
+        $match_error["stock"] = "nomatch";
     }
 
     /*------------------説明バリデーション------------------*/
@@ -55,10 +68,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     /*------------------画像バリデーション------------------*/
 
-    if ($image["name"] !== "" && $image["error"] === "") {
+    if ($image["name"] !== "" && $image["error"] === 0) {
+        // echo "a";
         $type = mime_content_type($image["tmp_name"]);
-        var_dump($type);
+        if ($type !== "image/png" && $type !== "image/jpeg") {
+            $error["image"] = "type_error";
+        }
     }
+
+    if(!isset($error) && !isset($match_error)) {
+        $filename = date("YmbHis") . "_" . $image["name"];
+        if(!move_uploaded_file($image["tmp_name"], "../items_picture/" . $filename)) {
+            die("ファイルのアップロードに失敗しました。");
+        }
+
+        $_SESSION["form_add"]= $form_add;
+        $_SESSION["image"] = $filename;
+        header("Location: shouhin_kakunin.php");
+        exit();
+    }
+
+    // var_dump($image["name"]);
+    // var_dump($image["error"]);
 }
 
 
@@ -102,13 +133,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form action="" method="post" enctype="multipart/form-data">
     <!-- inputにクラスとかnameとかつけて情報取得してください -->
         <div class="admin_form">
+            
             <p>商品名　<span class="badge bg-danger">必須</span></p>
+            <?php if (isset($error["name"]) && $error["name"] === "length_error"):?>
+            <span class="error">名前は255文字以内にしてください。</span><br>
+            <?php endif;?>
             <input type="text" name="name" required> 
             
             <p>価格　<span class="badge bg-danger">必須</span></p>
+            <?php if (isset($error["price"]) && $error["price"] === "length_error"):?>
+            <span class="error">100億円以上はつけることができません。</span><br>
+            <?php endif;?>
+            <?php if (isset($match_error["price"]) && $match_error["price"] === "nomatch"):?>
+            <span class="error">半角数字で入力してください。</span><br>
+            <?php endif;?>
             <input type="text" name="price" required>円
 
             <p>個数　<span class="badge bg-danger">必須</span></p>
+            <?php if (isset($error["stock"]) && $error["stock"] === "length_error"):?>
+            <span class="error">1万個未満にしてください。</span><br>
+            <?php endif;?>
+            <?php if (isset($match_error["stock"]) && $match_error["stock"] === "nomatch"):?>
+            <span class="error">半角数字で入力してください。</span><br>
+            <?php endif;?>
             <input type="text" name="stock" required>
 
             <p>ジャンル　<span class="badge bg-danger">必須</span></p>
@@ -128,19 +175,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <label for="kaden">家電</label>
 
             <p>画像　<span class="badge bg-danger">必須</span></p>
+            <?php if (isset($error["image"]) && $error["image"] === "type_error"):?>
+            <span class="error">PNGかJPEGにしてください。</span><br>
+            <?php endif;?>
             <input type="file" name="picture" required>
 
             <p>商品説明　<span class="badge bg-danger">必須</span></p>
-            <textarea name="setumei" required>
-            </textarea>
+            <?php if (isset($error["setumei"]) && $error["setumei"] === "length_error"):?>
+            <span class="error">商品説明は255文字以内にしてください。</span><br>
+            <?php endif;?>
+            <textarea name="setumei" required></textarea>
 
             <p>詳細情報　<span class="badge bg-danger">必須</span></p>
-            <textarea name="syousai" required>
-            </textarea>
+            <?php if (isset($error["syousai"]) && $error["syousai"] === "length_error"):?>
+            <span class="error">詳細情報は255文字以内にしてください。</span><br>
+            <?php endif;?>
+            <textarea name="syousai" required></textarea>
         </div>
 
         <div class="admin_button_matome">
-            <a type="button" class="btn btn-primary" onclick="location='kanri_top.php'">戻る</a>
+            <a type="button" class="btn btn-primary" onclick='history.back()'>戻る</a>
             <!-- shouhin_kakunin.phpへ -->
             <button type="submit" class="btn btn-primary">追加する</button>
         </div>

@@ -1,3 +1,10 @@
+<?php
+session_start();
+$form_add = $_SESSION["form_add"];
+$filename = $_SESSION["image"];
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,25 +30,30 @@
     <!-- inputにクラスとかnameとかつけて情報取得してください -->
     <div class="admin_form">
         <p>商品名</p>
-         <!--商品名表示  -->
+         <?php echo $form_add["name"];?>
         
         <p>価格</p>
         <!-- 価格表示 -->
+        <?php echo $form_add["price"];?>
 
         <p>個数</p>
         <!-- 個数表示 -->
+        <?php echo $form_add["stock"];?>
 
         <p>画像</p>
         <!-- 画像表示 -->
+        <img style="width: 100px; height: 100px;"src="../items_picture/<?php echo $filename;?>">
 
         <p>商品説明</p>
         <!-- 商品説明表示 -->
+        <?php echo $form_add["setumei"];?>
 
         <p>詳細情報</p>
         <!-- 詳細情報表示 -->
+        <?php echo $form_add["syousai"];?>
     </div>
     <div class="admin_button_matome">
-        <button type="button" class="btn btn-primary">戻る</button>
+        <a type="button" class="btn btn-primary" onclick='history.back()'>戻る</a>
 
         <!-- shouhin_kakutei.phpへ -->
         <button type="button" class="btn btn-primary">追加する</button>

@@ -1,9 +1,9 @@
 <?php 
-required("library.php");
+require("../library.php");
 
 $db = dbconnect();
 
-$stmt = $db->prepare("select created,name,price,stock from items")?>
+// $stmt = $db->prepare("select created,name,price,stock from items")?>
 
 <!DOCTYPE html>
 <html lang="ja">
