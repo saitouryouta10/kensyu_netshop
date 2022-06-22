@@ -1,3 +1,16 @@
+<?php 
+require("../library.php");
+ssesion_start();
+
+$delete = $_SESSION["id"];
+var_dump($delete);
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>

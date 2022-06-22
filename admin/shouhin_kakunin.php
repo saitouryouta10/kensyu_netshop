@@ -42,7 +42,7 @@ $filename = $_SESSION["image"];
 
         <p>画像</p>
         <!-- 画像表示 -->
-        <img style="width: 100px; height: 100px;"src="../items_picture/<?php echo $filename;?>">
+        <img style="width: 100px; height: 100px;"src="../top/img/<?php echo $filename;?>">
 
         <p>商品説明</p>
         <!-- 商品説明表示 -->
