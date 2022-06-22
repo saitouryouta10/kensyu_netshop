@@ -183,6 +183,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <h1>登録情報変更</h1>
     <?php while ( $stmt->fetch() ): ?>
     <form action="" method="post">
+        <div class="henkou-form">
         <h3>名前</h3>
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="text" name="name" value="<?php echo h($form['name']); ?>">
@@ -331,12 +332,12 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <input type="hidden" name="self_check_email", value="<?php echo h($email); ?>">
-
+    </div>
         <div class="btn-sub">
             <button type="submit" name="info" class="btn btn-warning">送信する</button>
         </div>
-
     </form>
+    </div>
     <?php endwhile; ?>
     <form action="pass_henkou.php" method="post">
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
@@ -344,7 +345,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
             <button type="hidden" class="btn btn-success" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
         </div>
     </form>
-    </div>
+
 
     </main>
     <footer>
