@@ -75,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>商品詳細</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
@@ -100,6 +100,7 @@ if($rec=$stmt->fetch_assoc()):
 
 //if($stmt->fetch()): ?>
  <div class="container">
+ <p>商品詳細</p>
  <div class="btn-modoru-rireki">
     <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
 </div>

@@ -35,7 +35,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['nickname'])){
 
 $db =dbconnect();
 
-//メッセージの投稿
+//メッセージの投稿 削除
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   if(isset($_POST['com_id'])==true){
     $com_id=$_POST['com_id'];
