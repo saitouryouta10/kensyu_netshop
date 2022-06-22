@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 		$error["email"] = "value_error";
 	}
 
-    $db = dbconnect();
-	$records = $db->query("select email from users where email not in ('". $self_check_email ."')");
+    $db2 = dbconnect();
+	$records = $db2->query("select email from users where email not in ('". $self_check_email ."')");
 	if($records){
 		while($record = $records->fetch_assoc()){
 			if($form["email"] === $record["email"]){
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			}
 		}
 	} else {
-        die($db->error);
+        die($db2->error);
         exit();
     }
 
@@ -143,16 +143,16 @@ if (isset($_SESSION['id'])) {
     header('Location: login.php');
     exit();
 }
-$db = dbconnect();
+$db2 = dbconnect();
 $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email, pass from users where id=?';
-$stmt = $db->prepare($sql);
+$stmt = $db2->prepare($sql);
 if (!$stmt) {
-    die($db->error);
+    die($db2->error);
 }
 $stmt->bind_param("i", $id);
 $success = $stmt->execute();
 if (!$success) {
-    die($db->error);
+    die($db2->error);
 }
 $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $pass);
 ?>
