@@ -126,6 +126,7 @@ if (isset($_GET['nedan'])) {
         $result3 = $stmt3->fetch_assoc();
         // print_r($result3);
         ?>
+        <div class="favo">
           <table>
               <tbody>
                 <tr>
@@ -138,13 +139,13 @@ if (isset($_GET['nedan'])) {
                       <?php endif; ?>
                       </a>
                   </td>
-                  <td>商品名 : <?php echo $rireki['name']; ?></td>
+                  <td>商品名 : <span><?php echo $rireki['name']; ?></span></td>
                 </tr>
                 <tr>
-                  <td>金額 : <?php echo $rireki['price']; ?>円</td>
+                  <td>金額 : <span><?php echo $rireki['price']; ?>円</span></td>
                 </tr>
                 <tr>
-                  <td>追加日 : <?php echo $rireki['created']; ?></td>
+                  <td>追加日 : <span><?php echo $rireki['created']; ?></span></td>
                 </tr>
                 <tr>
                   <td>
@@ -161,6 +162,7 @@ if (isset($_GET['nedan'])) {
                 </tr>
               </tbody>
           </table>
+          </div>
       <?php endwhile; ?>
   </div>
 

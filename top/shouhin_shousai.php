@@ -224,13 +224,15 @@ if($rec=$stmt->fetch_assoc()):
           $n= $db->query('select nickname from users where id='.$result['user_id'].'');
           $nr=$n->fetch_assoc();
           ?>
-          <div class="msg">
+          <div class="msg" style="width:100%; word-wrap: break-word;">
             <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?></p>
             <p>コメント<br></p>
             <?php if($result['comment'] == null): ?>
               <p>なし</p>
               <?php else : ?>
-              <?php echo h($result['comment']); ?>
+                <p>
+                  <?php echo h($result['comment']); ?>
+                </p>
               <?php endif ;?>
               <p>評価<?php echo h($result['star']); ?>&nbsp&nbsp&nbsp<?php echo h($result['created']) ; ?></p>
 

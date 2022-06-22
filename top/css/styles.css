@@ -118,7 +118,7 @@ a {
 }
 
 .skaku {
-  background-color: rgb(83, 83, 83);
+  background-color: rgb(19, 18, 18);
   margin: 0 20;
 }
 
@@ -141,13 +141,13 @@ a {
   margin-left: auto;
   margin-right: auto;
 }
-@media screen and (max-width:960px) {
+@media screen and (max-width:959px) {
   .txt_w{
     width: 80%;
   }
 }
 
-@media screen and (min-width:959px) {
+@media screen and (min-width:960px) {
   .txt_w{
     width: 60%;
   }
@@ -194,7 +194,8 @@ a {
   display: flex;
 }
 
-.shousai_b {
+@media screen and (min-width:960px) {
+  .shousai_b {
   display: flex;
   width:100%;
   margin-bottom: 1px;
@@ -203,6 +204,20 @@ a {
 .shousai_f {
   display: flex;
   margin-bottom: 20px;
+}
+}
+
+@media screen and (max-width:959px) {
+  .shousai_b {
+  display: block;
+  width:100%;
+  margin-bottom: 1px;
+}
+
+.shousai_f {
+  display: flex;
+  margin-bottom: 20px;
+}
 }
 
 .cart_number .cart_price {
@@ -215,4 +230,8 @@ a {
 
 .shousai_name {
   width: 50%;
+}
+
+.favo span {
+  display: inline-block;
 }
