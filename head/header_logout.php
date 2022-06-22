@@ -13,14 +13,9 @@ if (isset($_GET['search'])) {
     <h1 class="title"><a href="../top/top.php">HOGEHOGE SHOP</a></h1>
 </div>
 <div class="header_list">
-<<<<<<< HEAD
-    <div class="link_1">
-        <p><a href="../favo/favorite.php">お気に入り</a></p>
-        <p><a href="../top/cart.php">カート</a></p>
-    </div>
-=======
 
->>>>>>> 991c593 (ヘッダーレイアウト調整)
+
+
     <div class="serch">
         <!-- <form action="../top/top.php"  method="get"> -->
         <form action="" method="get">
