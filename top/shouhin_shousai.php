@@ -85,9 +85,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <?php header_inc(); ?>
 </header>
 <main>
-<div class="btn-modoru-rireki">
-    <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
-</div>
+
 
 
 <?php
@@ -102,6 +100,9 @@ if($rec=$stmt->fetch_assoc()):
 
 //if($stmt->fetch()): ?>
  <div class="container">
+ <div class="btn-modoru-rireki">
+    <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
+</div>
 <div class="s_main">
   <div class="shouhin_img">
     <?php if($rec['picture']): ?>
@@ -160,16 +161,13 @@ if($rec=$stmt->fetch_assoc()):
         <div class="shousai_b">
           <button type="submit"name="favorite_button" class="btn btn-warning">お気に入りに追加</button>
         </form>
+
         <p style="color:pink; margin-top:0">
-          <?php
+        <?php
             // お気に入りに追加ボタンが押されたとき,favoriteデータベースに追加
             if(isset($_POST['favorite_button'])==true){
               $sql3 = 'insert into favorite(user_id,item_id) values('.$userid.','.$item_id.')';
-
-
               $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
-
-
               $stmt_3=$db->query($sql_3);
               $rec3=$stmt_3->fetch_assoc();
               if($rec3['count(*)']==0 ){
@@ -180,7 +178,7 @@ if($rec=$stmt->fetch_assoc()):
               }
             }
             ?>
-        </p>
+    </p>
       </div>
 
         <a href="cart.php">カートに行く</a>
@@ -224,7 +222,7 @@ if($rec=$stmt->fetch_assoc()):
           $nr=$n->fetch_assoc();
           ?>
           <div class="msg">
-            <p>ユーザー名：<?php echo h($nr['nickname']); ?></p>
+            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?></p>
             <p>コメント<br></p>
             <?php if($result['comment'] == null): ?>
               <p>なし</p>

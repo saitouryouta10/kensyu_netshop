@@ -99,8 +99,8 @@ $result2 = $stmt2->fetch_assoc();
 <?php while( $rec = $stmt->fetch_assoc()):?>
   <?php $result3 = $stmt3->fetch_assoc();?>
   <?php //print_r($result3);?>
-  <?php if($rec==false): ?>
-      break;
+  <?php if($rec==false):
+      break; ?>
       <?php endif ?>
       <div class="img_s">
       <table>
@@ -144,7 +144,6 @@ $result2 = $stmt2->fetch_assoc();
                       <form action="" method="POST">
                         <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
                       <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
-                      <?php //echo $result3['id'] ;?>
                     </form>
                   </th>
                </th>

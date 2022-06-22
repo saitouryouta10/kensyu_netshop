@@ -86,10 +86,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <div class="container">
 <div id="wrap">
     <div id="head">
-        <h2>レビュー一覧</h2>
+        <h2>すべてのレビュー</h2>
     </div>
     <div id="content">
-        <div style="text-align: right;"><a href="shouhin_shousai.php?id=<?php echo $item_id;?>">商品画面に戻る</a></div>
+        <div style="text-align: right;"><a class="btn btn-outline-secondary btn-block" href="shouhin_shousai.php?id=<?php echo $item_id;?>">商品画面に戻る</a></div>
         <br>
 
         <?php $sql='select count(*) from reviews where user_id='.$userid.' and item_id='.$item_id.'';
@@ -140,7 +140,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <?php $result3 = $stmt3->fetch_assoc(); ?>
             <?php //echo $result2['user_id']. $_SESSION['id']; ?>
         <div class="msg">
-            <p style="border-top:solid 2px lightgray;"><?php echo h($result2['comment']); ?><br><span class="name"><?php echo h($nr['nickname']); ?></span></p>
+            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?><br></p>
+            <p>コメント<br><?php echo h($result2['comment']); ?></p>
             <p>評価<?php echo h($result2['star']); ?></p>
             <p class="day"><?php echo h($result2['created']) ; ?></p>
 
