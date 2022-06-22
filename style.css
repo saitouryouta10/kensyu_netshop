@@ -512,6 +512,13 @@ footer p {
     text-align: center;
 }
 
+.logout_message {
+    border: solid 1px rgb(190, 190, 190);
+    padding: 15px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
 @media screen and (max-width: 1000px) {
 
     .login_form td ,.login_form th{
