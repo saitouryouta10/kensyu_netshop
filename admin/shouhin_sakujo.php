@@ -1,4 +1,36 @@
-<!DOCTYPE html>
+<?php 
+require("../library.php");
+session_start();
+
+$sales = 0;
+
+$reslt = "";
+$error = "";
+
+$db = dbconnect();
+$resluts = $db->query("select * from items order by id desc");
+// $shine = $db->query("select retention_stock from items");
+if(!$resluts){
+    die($db->error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["select"])){
+        $_SESSION["delete"] = $_POST["select"];
+        // var_dump($_SESSION["delete"]);
+        // exit();
+        header("Location: sakujo_kakunin.php");
+        exit();
+    }else {
+        $error = "null";
+    }
+
+}
+
+
+
+
+?><!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -19,27 +51,48 @@
     </div>
     <div class="admin_subtitle">
         <h2>削除する商品を選択してください</h2>
-        <span>出品商品情報</span>
+        <span>出品商品情報</span><br>
+        <?php if($error === "null"):?>
+            <span style="color: red; font-size: 1.25rem;">削除するのを選択しろ</span>
+        <?php endif;?>
     </div>
-    <div class="admin_item_title">
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-    </div>
-    <div class="admin_item">
-        <!-- 下みたいにタグコピペして商品情報出力してください。 -->
-        <!-- メモ：長さ違うとレイアウトぐちゃぐちゃになる。どうしたらいいかわからん
-            top.phpから引っ張ってテーブルをwhileで回してください。携帯画面のcssは暇があったら作ってください。 -->
-        <!-- <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>aaaaaaaa</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span> -->
-    </div>
-    </div>
+    <form action="" method="post">
+        <div class="admin_item">
+            <table>
+            <tbody>
+                <tr class="admin_itemtitle">
+                    <th>日時</th>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>販売数</th>
+                    <th>在庫数</th>
+                </tr>
+                <?php while ($reslut = $resluts->fetch_assoc()):?>
+                    <?php $rs = h((int)$reslut["retention_stock"]);?>
+                    <?php $st = h((int)$reslut["stock"]);?>
+                    <?php $sales = $rs - $st;?>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="select[]" value="<?php echo h($reslut["id"]);?>">
+                            <?php echo h($reslut["created"]);?>
+                        </td>
+                        <td><?php echo h($reslut["name"]);?></td>
+                        <td><?php echo h($reslut["price"]);?></td>
+                        <td><?php echo $sales?></td>
+                        <td><?php echo $st;?></td>
+                    </tr>
+                <?php endwhile;?>
+            </tbody>
+            </table> 
+        </div>
+
     <div class="admin_button_matome">
-        <button type="button" class="btn btn-primary" onclick="location='kanri_top.php'">戻る</button>
+        <a type="button" class="btn btn-primary" onclick='location.href="kanri_top.php"'>戻る</a>
         
         
         <!-- sakujo_kakunin.phpへ -->
-        <button type="button" class="btn btn-primary">削除</button>
+        <button type="subtmit" class="btn btn-primary">削除</button>
     </div>
+    </form>
 </body>
 </html>

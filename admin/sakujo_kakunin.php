@@ -1,3 +1,19 @@
+<?php 
+require("../library.php");
+session_start();
+
+$delete = $_SESSION["delete"];
+var_dump($delete);
+
+$db = dbconnect();
+
+$stmt = $db->$prepare("select name")
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +39,7 @@
     <div class="admin_button_matome">
             <!-- sakujo_kakutei.phpへ -->
             <button type="button" class="btn btn-primary admin_yes">はい -削除する</button>
-            <button type="button" class="btn btn-danger admin_no">いいえ -選択画面に戻る</button>
+            <a type="button" class="btn btn-danger admin_no" onclick="location.href='shouhin_sakujo.php'">いいえ -選択画面に戻る</a>
     </div>
 </body>
 </html>

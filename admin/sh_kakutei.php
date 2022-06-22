@@ -3,19 +3,31 @@ require("../library.php");
 session_start();
 
 
-$form_add = $_SESSION["form_add"];
+$old_form_add = $_SESSION["old_form_add"];
+$new_form_add = $_SESSION["form_add"];
 $filtername = $_SESSION["image"];
 
+// var_dump($new_form_add);
+
 $db = dbconnect();
-$stmt = $db->prepare("insert into items(name,price,stock,jenre_id,retention_stock,setumei,syousai,picture)
-                        values(?,?,?,?,?,?,?,?)");
+$stmt = $db->prepare("update items set name=?, price=?,
+                     stock=?, retention_stock=?, jenre_id=?, setumei=?, syousai=?, picture=? where id=?");
+$newStock = (int)$new_form_add["stock"];
+$oldStock = (int)$old_form_add["stock"];
+$rs = (int)$old_form_add["retention_stock"];
+
+$stock = $newStock + $oldStock;
+$new_rs = $newStock + $rs;
+
+$stmt -> bind_param("siiiisssi",$new_form_add["name"],$new_form_add["price"],$stock,$new_rs,
+                                $new_form_add["jenre_id"],$new_form_add["setumei"],$new_form_add["syousai"],$filtername,$old_form_add["id"]);
+
+
 
 if (!$stmt) {
     die($db->error);
 }
 
-$stmt->bind_param("siiiisss",$form_add["name"],$form_add["price"],$form_add["stock"],
-                            $form_add["jenre_id"],$form_add["stock"],$form_add["setumei"],$form_add["syousai"],$filtername);
 
 $success = $stmt->execute();
 if(!$stmt) {
@@ -23,6 +35,7 @@ if(!$stmt) {
 }else {
     unset($_SESSION["form_add"]);
     unset($_SESSION["image"]);
+    unset($_SESSION["old_form_add"]);
 }
 
 ?>
@@ -46,7 +59,7 @@ if(!$stmt) {
         </div>
     </div>
     <div class="admin_kakunin">
-        <p>追加しました</p>
+        <p>更新しました</p>
     </div>
     </div>
     <div class="admin_button_matome">
