@@ -9,6 +9,9 @@ require('../library.php');
 
 
 
+
+
+
 if (isset($_SESSION['id']) && isset($_SESSION['nickname'])) {
     $id = $_SESSION['id'];
 
