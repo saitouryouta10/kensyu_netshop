@@ -1,29 +1,9 @@
-<?php
+<?php 
+//後付け商品編集画面
 require("../library.php");
 session_start();
 
-
-$form_add = $_SESSION["form_add"];
-$filtername = $_SESSION["image"];
-
-$db = dbconnect();
-$stmt = $db->prepare("insert into items(name,price,stock,jenre_id,retention_stock,setumei,syousai,picture)
-                        values(?,?,?,?,?,?,?,?)");
-
-if (!$stmt) {
-    die($db->error);
-}
-
-$stmt->bind_param("siiiisss",$form_add["name"],$form_add["price"],$form_add["stock"],
-                            $form_add["jenre_id"],$form_add["stock"],$form_add["setumei"],$form_add["syousai"],$filtername);
-
-$success = $stmt->execute();
-if(!$stmt) {
-    die($db->error);
-}else {
-    unset($_SESSION["form_add"]);
-    unset($_SESSION["image"]);
-}
+$name = $_SESSION["old_form_add"];
 
 ?>
 
@@ -46,11 +26,15 @@ if(!$stmt) {
         </div>
     </div>
     <div class="admin_kakunin">
-        <p>追加しました</p>
+        <p>同じ名前の商品があった為、商品追加ではなく商品編集画面へ移行します。よろしいですか？</p>
+        <p>対象：<?php echo h($name["name"]);?></p>
+
     </div>
     </div>
     <div class="admin_button_matome">
-            <a type="button" class="btn btn-primary admin_yes" onclick="location='kanri_top.php'">管理画面にもどる</a>
+            <!-- sakujo_kakutei.phpへ -->
+            <a type="button" class="btn btn-primary admin_yes" onclick="location.href='shouhin_hensyu.php'">はい -編集する</a>
+            <a type="button" class="btn btn-danger admin_no" onclick="location.href='jouhou_add.php'">いいえ -追加画面にもどる</a>
     </div>
 </body>
 </html>

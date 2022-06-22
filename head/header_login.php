@@ -3,10 +3,13 @@
 </div>
 <div class="header_list">
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> master
     <div class="serch">
         <input type="text" class="text_box" name="serch" placeholder="商品名を入力してください">
         <button type="submit" class="btn btn-warning" id="serch_button">検索🔍</button>
@@ -18,5 +21,8 @@
         <p><a href="../login/login.php">ログイン</a></p>
         <p><a href="../kaiinjouhou/kaiin_jouhou.php">会員情報</a></p>
     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 </div>

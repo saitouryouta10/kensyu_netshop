@@ -14,8 +14,6 @@ if (isset($_GET['search'])) {
 </div>
 <div class="header_list">
 
-
-
     <div class="serch">
         <!-- <form action="../top/top.php"  method="get"> -->
         <form action="" method="get">
