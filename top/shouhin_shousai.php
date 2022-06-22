@@ -9,7 +9,20 @@ $login=1;
 
 
 // var_dump($name);
-$userid=$_SESSION['id'];
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+  if(isset($_SESSION['name'])){
+  $name = $_SESSION['name'];
+  }
+}else{
+
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+ header('Location:../login/login.php?login='.$login.'');
+   exit();
+
+}
+
 
 //カートに入れる数を決める
 if(isset($_POST['kazuerabi'])){
@@ -97,7 +110,7 @@ if($rec=$stmt->fetch_assoc()):
           <img src="./img/noimage.png" >
           <?php endif ;?>
         </div>
-     <div>
+     <div class="shousai_name">
       <p><?php echo h($rec['name']); ?><span class="name"></p>
       <div class="shousai_price">
 
@@ -118,29 +131,30 @@ if($rec=$stmt->fetch_assoc()):
       <button type="submit"name="cartin_button" class="btn btn-success">カートに入れる</button>
     </form>
 
-
-    <? else:?>
-      <p style="color:red;">在庫がありません</p>
-      <?php endif; ?>
-      <p style="color:pink; margin-top:0">
-        <?php if($kazuerabi !==null){
-          // カートに入れるボタンが押されたとき,cartデータベースに追加
-          if(isset($_POST['cartin_button'])==true){
-            $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
-            $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
-                  $stmt_2=$db->query($sql_2);
-                  $rec2=$stmt_2->fetch_assoc();
-                  if($rec2['count(*)']==0 ){
-                    $stmt2 =$db ->query($sql2);
-                    echo $kazuerabi ."個カートに入れました";
-                  }else{
-                    echo '追加済み';
-                  }
-                }
-              }
-              ?>
+    <p style="color:pink; margin-top:0">
+      <?php if($kazuerabi !==null){
+        // カートに入れるボタンが押されたとき,cartデータベースに追加
+        if(isset($_POST['cartin_button'])==true){
+          $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
+          $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
+          $stmt_2=$db->query($sql_2);
+          $rec2=$stmt_2->fetch_assoc();
+          if($rec2['count(*)']==0 ){
+            $stmt2 =$db ->query($sql2);
+            echo $kazuerabi ."個カートに入れました";
+          }else{
+            echo '追加済み';
+          }
+        }
+      }
+      ?>
+      </div>
+          <? else:?>
+            <p style="color:red;">在庫がありません</p>
+            <?php endif; ?>
         </p>
       </div>
+
 
       <form action="" method="POST">
         <div class="shousai_b">
@@ -168,7 +182,7 @@ if($rec=$stmt->fetch_assoc()):
             ?>
         </p>
       </div>
-            </div>
+
         <a href="cart.php">カートに行く</a>
         <?php //var_dump($cart); exit(); ?>
       </div>
@@ -239,6 +253,7 @@ if($rec=$stmt->fetch_assoc()):
       <?php  else : ?>
         <p>その商品ページは削除されたか、URLが間違えています</p>
         <?php endif; ?>
+    </div>
     </div>
     </div>
     </div>

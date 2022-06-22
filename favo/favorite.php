@@ -118,7 +118,7 @@ if (isset($_GET['nedan'])) {
                   <td>商品名 : <?php echo $rireki['name']; ?></td>
                 </tr>
                 <tr>
-                  <td>金額 : <?php echo $rireki['price']; ?></td>
+                  <td>金額 : <?php echo $rireki['price']; ?>円</td>
                 </tr>
                 <tr>
                   <td>追加日 : <?php echo $rireki['created']; ?></td>

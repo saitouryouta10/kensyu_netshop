@@ -3,8 +3,7 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
-$userid=$_SESSION['id'];
-// $item_id=$_GET['id'];
+
 
 
 $login=1;
