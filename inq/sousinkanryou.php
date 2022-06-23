@@ -37,7 +37,7 @@ if (!$success) {
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <h1 class="text-center">送信完了しました</h1>
+  <h1 class="text-center">お問い合わせありがとうございます</h1>
   <a class="btn btn-outline-secondary btn-block text-center" href="../top/top.php">トップに戻る</a>
 
 </body>
