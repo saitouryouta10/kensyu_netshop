@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: localhost:8889
--- 生成日時: 2022-06-17 01:43:49
+-- 生成日時: 2022-06-23 02:25:13
 -- サーバのバージョン： 5.7.24
 -- PHP のバージョン: 8.0.1
 
@@ -48,6 +48,13 @@ CREATE TABLE `favorite` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'タイムスタンプ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- テーブルのデータのダンプ `favorite`
+--
+
+INSERT INTO `favorite` (`id`, `user_id`, `item_id`, `created`) VALUES
+(1, 23, 1, '2022-06-21 04:17:48');
+
 -- --------------------------------------------------------
 
 --
@@ -59,9 +66,24 @@ CREATE TABLE `history` (
   `user_id` int(11) NOT NULL COMMENT 'ユーザーID',
   `name` varchar(255) NOT NULL COMMENT '商品名(購入時)',
   `price` int(11) NOT NULL COMMENT '価格(購入時)',
+  `num` int(11) NOT NULL COMMENT 'なんこその商品を買ったか',
   `item_id` int(11) NOT NULL COMMENT '商品リンク',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータのダンプ `history`
+--
+
+INSERT INTO `history` (`id`, `user_id`, `name`, `price`, `num`, `item_id`, `created`) VALUES
+(1, 16, '椅子', 2000, 0, 1, '2022-06-20 05:44:45'),
+(2, 16, '椅子', 2000, 0, 1, '2022-06-20 06:05:23'),
+(3, 1, '椅子', 2000, 0, 1, '2022-06-20 07:39:38'),
+(4, 1, '椅子', 2000, 0, 1, '2022-06-20 07:40:00'),
+(5, 16, '椅子', 2000, 0, 1, '2022-06-20 09:02:39'),
+(6, 2, '俺のリンゴ', 4545, 0, 3, '2022-06-22 07:25:14'),
+(7, 1, 'りんご', 123, 0, 13, '2022-06-23 01:13:01'),
+(8, 1, 'saitou', 22, 0, 12, '2022-06-23 01:22:44');
 
 -- --------------------------------------------------------
 
@@ -73,6 +95,7 @@ CREATE TABLE `inquery` (
   `id` int(11) NOT NULL COMMENT 'お問い合わせID',
   `email` varchar(255) NOT NULL COMMENT 'メールアドレス',
   `inquery_post` text NOT NULL COMMENT 'お問い合わせ内容',
+  `kenmei` varchar(255) NOT NULL COMMENT '件名',
   `name` int(11) NOT NULL COMMENT '名前',
   `qreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '投稿日時'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -88,12 +111,21 @@ CREATE TABLE `items` (
   `name` varchar(255) NOT NULL COMMENT '商品名',
   `price` int(11) NOT NULL COMMENT '値段',
   `jenre_id` int(11) NOT NULL COMMENT 'ジャンルID\r\n',
+  `retention_stock` int(11) NOT NULL COMMENT '初期在庫の保持',
   `stock` int(11) NOT NULL COMMENT '在庫数',
   `setumei` varchar(255) NOT NULL COMMENT '商品説明',
   `syousai` varchar(255) NOT NULL COMMENT '詳細情報',
   `picture` varchar(255) NOT NULL COMMENT '商品画像',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '追加日時'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータのダンプ `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `price`, `jenre_id`, `retention_stock`, `stock`, `setumei`, `syousai`, `picture`, `created`) VALUES
+(14, 'イス', 2000, 0, 110, 110, 'とても座りやすいです', '高さ２２２ｃｍ', 'isu.png', '2022-06-23 02:17:50'),
+(15, 'カート', 10200, 0, 200, 200, '女性です', 'いいにおいがします', 'publicdomainq-0043731gomdgf.jpg', '2022-06-23 02:18:32');
 
 -- --------------------------------------------------------
 
@@ -121,6 +153,15 @@ CREATE TABLE `reviews` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- テーブルのデータのダンプ `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `comment`, `star`, `user_id`, `item_id`, `created`) VALUES
+(3, '', 4, 16, 1, '2022-06-20 06:44:16'),
+(5, '', 5, 1, 1, '2022-06-20 07:42:53'),
+(6, '私が神です', 1, 1, 11, '2022-06-22 08:23:32');
+
 -- --------------------------------------------------------
 
 --
@@ -142,6 +183,14 @@ CREATE TABLE `users` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日',
   `updatetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータのダンプ `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `name_kana`, `nickname`, `sex`, `birthday`, `zipcode`, `address`, `tell`, `email`, `pass`, `created`, `updatetime`) VALUES
+(1, '齋藤亮太', 'サウンド', '神', 2, NULL, '000-2222', 'ああああ', '000-2222-2222', 'manuke1290@gmail.com', '$2y$10$M39LZepiU55aLMrXCbubXeh8SNe.NiiJqxCoMXCoUyRdDRl5GHK1S', '2022-06-21 08:38:24', '2022-06-21 08:38:24'),
+(2, 'sass', 'アア', 'ss', 2, NULL, '000-2222', 'fff', '000-2222-2222', 'saito@s.co.jp', '$2y$10$TxL.jbTGowQS4Ms7DvrPd.FVpkZ92rz9yq92NX0yKbCRYf5ozmZpC', '2022-06-21 08:43:54', '2022-06-21 08:43:54');
 
 --
 -- ダンプしたテーブルのインデックス
@@ -204,19 +253,19 @@ ALTER TABLE `users`
 -- テーブルの AUTO_INCREMENT `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'カートID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'カートID', AUTO_INCREMENT=3;
 
 --
 -- テーブルの AUTO_INCREMENT `favorite`
 --
 ALTER TABLE `favorite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'お気に入りID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'お気に入りID', AUTO_INCREMENT=2;
 
 --
 -- テーブルの AUTO_INCREMENT `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '注文履歴ID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '注文履歴ID', AUTO_INCREMENT=9;
 
 --
 -- テーブルの AUTO_INCREMENT `inquery`
@@ -228,7 +277,7 @@ ALTER TABLE `inquery`
 -- テーブルの AUTO_INCREMENT `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'アイテムID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'アイテムID', AUTO_INCREMENT=16;
 
 --
 -- テーブルの AUTO_INCREMENT `m_jenre`
@@ -240,13 +289,13 @@ ALTER TABLE `m_jenre`
 -- テーブルの AUTO_INCREMENT `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'レビューID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'レビューID', AUTO_INCREMENT=9;
 
 --
 -- テーブルの AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ユーザーID';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ユーザーID', AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,6 +2,15 @@
 require("../library.php");
 session_start();
 
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
 $sales = 0;
 
 $reslt = "";

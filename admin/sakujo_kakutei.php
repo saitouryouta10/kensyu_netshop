@@ -1,9 +1,33 @@
 <?php 
 require("../library.php");
-ssesion_start();
+session_start();
 
-$delete = $_SESSION["id"];
-var_dump($delete);
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
+$delete = $_SESSION["delete"];
+
+foreach($delete as $del){
+    $db = dbconnect();
+    // echo $del;
+    $stmt = $db->prepare("delete from items where id=?");
+    if(!$stmt){
+        echo "エラーだよ！";
+        die($db->error);
+    }
+    $stmt->bind_param("i",$del);
+    $success = $stmt->execute();
+    if(!$success){
+        echo "エラーじゃ！";
+        die($db->error);
+    }
+}
 
 
 
@@ -34,7 +58,7 @@ var_dump($delete);
     </div>
     </div>
     <div class="admin_button_matome">
-            <button type="button" class="btn btn-primary admin_yes">管理画面にもどる</button>
+            <button type="button" class="btn btn-primary admin_yes" onclick="location.href='kanri_top.php'">管理画面にもどる</button>
     </div>
 </body>
 </html>
