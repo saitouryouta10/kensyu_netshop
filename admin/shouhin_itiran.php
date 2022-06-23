@@ -59,8 +59,13 @@ if(!$resluts){
                     <th>在庫数</th>
                 </tr>
                 <?php while ($reslut = $resluts->fetch_assoc()):?>
+                    <!-- 在庫保持カラムをintにキャストして変数に代入 -->
                     <?php $rs = h((int)$reslut["retention_stock"]);?>
+                    
+                    <!-- 現在の在庫カラムをintにキャストして変数に代入 -->
                     <?php $st = h((int)$reslut["stock"]);?>
+
+                    <!-- 元の在庫から現在の在庫を引いた数(販売数)を変数に代入 -->
                     <?php $sales = $rs - $st;?>
                     <tr>
                         <td>

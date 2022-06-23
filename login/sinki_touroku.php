@@ -34,8 +34,6 @@ if(isset($_SESSION["form"])){
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 	$form["name"] = filter_input(INPUT_POST,"name",FILTER_SANITIZE_STRING);
-	var_dump($form["name"]);
-	exit();
 	$form["name_kana"] = filter_input(INPUT_POST,"name_kana",FILTER_SANITIZE_STRING);
 	$form["nickname"] = filter_input(INPUT_POST,"nickname",FILTER_SANITIZE_STRING);
 	$form["zipcode"] = filter_input(INPUT_POST,"zipcode",FILTER_SANITIZE_STRING);
