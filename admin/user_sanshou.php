@@ -51,7 +51,7 @@ $stmt=$db->query($sql);
         <table class="admin_item_title">
 	<tbody>
 		<tr>
-            <th></th>
+            <th>選択</th>
 			<th>ID</th>
 			<th>名前</th>
 			<th>購入金額</th>
@@ -60,7 +60,8 @@ $stmt=$db->query($sql);
 		</tr>
         <?php
 while($rec=$stmt->fetch_assoc()):
-    $sql2='select sum(price) from  history where user_id = '.$rec['id'].'';
+    $total=0;
+    $sql2='select sum(price*num) from  history where user_id = '.$rec['id'].'';
     $sql3='select count(*) from history where user_id = '.$rec['id'].'';
     $sql4='select count(*) from reviews where user_id = '.$rec['id'].'';
     $stmt2=$db->query($sql2);
@@ -69,6 +70,7 @@ while($rec=$stmt->fetch_assoc()):
     if($rec2=$stmt2->fetch_assoc()):
         if($rec3=$stmt3->fetch_assoc()):
             if($rec4=$stmt4->fetch_assoc()):
+                $total+= $rec2['sum(price*num)'];
     // print_r($rec);
     // print_r($rec2);
     // print_r($rec3);
@@ -77,12 +79,12 @@ while($rec=$stmt->fetch_assoc()):
         <tr class="admin_item">
             <form method="POST" action="user_review.php">
             <td>
-            <?php echo $rec['id']; ?>
+            <?php //echo $rec['id']; ?>
                         <input type="radio"  name="kutikomi_jump" value="<?php echo $rec['id']; ?>">
                     </td>
                     <td><?php echo $rec['id']; ?></td>
                     <td><?php echo $rec['name']; ?></td>
-                    <td><?php echo $rec2['sum(price)']; ?></td>
+                    <td><?php echo $total; ?></td>
                     <td><?php echo $rec3['count(*)']; ?></td>
                     <td><?php echo $rec4['count(*)']; ?></td>
 		</tr>
