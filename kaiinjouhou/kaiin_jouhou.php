@@ -1,21 +1,24 @@
 <?php
-session_start();
 require('../library.php');
 
+session_start();
+$userid=$_SESSION['id'];
 
-// ログインしているか確認
-
-
-if (isset($_SESSION['id']) && isset($_SESSION['nickname'])) {
-    $id = $_SESSION['id'];
-
-    $name = $_SESSION['nickname'];
-} else {
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+  if(isset($_SESSION['name'])){
+    $name = $_SESSION['name'];
+  }
+}else{
     $login = 1;
     //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
     header('Location:../login/login.php?login='.$login.'');
     exit();
+
 }
+
+$db = dbconnect();
 
 // $_SESSION["id"] = 1;
 // $name = "hogehoge";
