@@ -2,7 +2,14 @@
 session_start();
 require('../library.php');
 
-$item_id=$_GET['id'];
+if(isset($_GET['id'])){
+  $item_id=$_GET['id'];
+}
+  if(!preg_match('/^([0-9]{1,100})$/',$item_id)) {
+    echo '入力したURLが当サイトのページと一致しません';
+    echo '<br><a href="./top.php">トップに戻る</a>';
+    exit();
+  }
 
 
 
@@ -146,7 +153,7 @@ if($rec=$stmt->fetch_assoc()):?>
         ?>
             <?php $result3 = $stmt3->fetch_assoc(); ?>
             <?php //echo $result2['user_id']. $_SESSION['id']; ?>
-        <div class="msg">
+        <div class="msg" style="width:100%; word-wrap: break-word;">
             <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?><br></p>
             <p>コメント<br><?php echo h($result2['comment']); ?></p>
             <p>評価<?php echo h($result2['star']); ?></p>

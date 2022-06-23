@@ -111,24 +111,28 @@ if($rec3['count(*)']>0):
                 $sql2='select price from  history right outer join users on history.user_id = users.id';
                 $sql2='select name from  items where id = '.$rec['item_id'].'';
                 $stmt2=$db->query($sql2);
-                if($rec2=$stmt2->fetch_assoc()):
-                            // print_r($rec);
+                // print_r($rec);
+                $rec2=$stmt2->fetch_assoc()
                             // print_r($rec2);
                             ?>
                             <tr class="admin_item" style="overflow-wrap : break-word;">
                                 <form method="POST" action="">
                                     <td>
-                                        <?php echo $rec['id']; ?>
+                                        <?php //echo $rec['id']; ?>
                                         <input type="radio"  name="review_del" value="<?php echo $rec['id']; ?>">
                                     </td>
                                     <td><?php echo $rec['id']; ?></td>
                                     <td><?php echo $rec['comment']; ?></td>
                                     <td><?php echo $rec['star']; ?></td>
+                                   <?php if(isset($rec2['name'])): ?>
                                     <td><?php echo $rec2['name']; ?></td>
+                                    <?php else: ?>
+                                        <td>削除された商品です</td>
+                                        <?php endif; ?>
                                     <td><?php echo $rec['created']; ?></td>
                                 </tr>
 
-                                <?php endif; ?>
+                                <?php //endif; ?>
                                 <?php endwhile; ?>
                             </tbody>
                         </table>

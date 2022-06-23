@@ -2,8 +2,17 @@
 require('../library.php');
 $db =dbconnect();
 session_start();
-$item_id=$_GET['id'];
 
+$item_id='';
+
+if(isset($_GET['id'])){
+  $item_id=$_GET['id'];
+}
+  if(!preg_match('/^([0-9]{1,100})$/',$item_id)) {
+    echo '入力したURLが当サイトのページと一致しません';
+    echo '<br><a href="./top.php">トップに戻る</a>';
+    exit();
+  }
 
 $login=1;
 
