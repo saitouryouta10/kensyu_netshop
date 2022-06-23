@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
         $stmt_p->bind_result($password);
         $stmt_p->fetch();
 
-        if(password_verify($form['old_pass'], $password)){
+        if(!password_verify($form['old_pass'], $password)){
           $error['pass'] = "not_match";
         }
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
 </head>
 <body>
 <header>
-        <?php header_inc(); ?>
+
     </header>
 
     <main class="kaiin-body">

@@ -1,33 +1,12 @@
 <?php
-  require('../library.php');
-  $db =dbconnect();
-
-  session_start();
-
-  //セッション情報があったら
-  if(isset($_SESSION['id'])){
-    $userid=$_SESSION['id'];
-    $sql1 ='select * from users where id='.$userid.'';
-    $stmt1= $db->query($sql1);
-
-    //idから情報をすべて抜き出し名前をセッションへ追加
-    while($rec1 =$stmt1->fetch_assoc()){
-      echo $rec1['name'] . 'さん　おかえりなさい';
-      $user_name = $rec1["nickname"];
-      $_SESSION["nickname"] = $user_name;
-    }
-
-  //なければゲストと表示
-  }else{
-    echo 'ゲストさん';
-  }
-
-
-
-
+require('../library.php');
+$db =dbconnect();
+session_start();
+isset($_SESSION['id']);
 $_SESSION['img_id']='';
 
 $s='';
+$sc='';
 
 // 商品並び替えのため、変数にsql文を渡す
 if(isset($_POST['narabikae'])){
@@ -60,7 +39,7 @@ if(isset($_POST['narabikae'])){
 </head>
 <body class="top_b">
 <header>
-  <?php header_inc(); ?>
+    <?php header_inc(); ?>
 </header>
 <main>
 
@@ -92,7 +71,7 @@ if(isset($_POST['narabikae'])){
 <div class="itiran">
 
   <?php
-  $sql ='select setumei, name,price,picture,id from items '.$s.'';
+  $sql ='select setumei, name,price,picture,id from items '.$sc.' '.$s.'';
   $stmt= $db->query($sql);
   $db = null;
   ?>

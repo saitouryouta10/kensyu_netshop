@@ -10,11 +10,14 @@ if (isset($_SESSION['id'])) {
     header('Location:../login/login.php?login='.$login.'');
     exit();
 }
-$db = dbconnect();
+
+var_dump($id);
+
+$db2 = dbconnect();
 $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email from users where id=?';
-$stmt = $db->prepare($sql);
+$stmt = $db2->prepare($sql);
 if (!$stmt) {
-    die($db->error);
+    die($db2->error);
 }
 $stmt->bind_param("i", $id);
 $success = $stmt->execute();

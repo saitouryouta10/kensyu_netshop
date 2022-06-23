@@ -5,7 +5,17 @@ session_start();
 
 
 
-$update = "";
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
+// $update = "";
+
 $form_add = [
     "name" => "",
     "price" => "",
@@ -45,9 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // var_dump($reslt["name"]);
             if($form_add["name"] === $reslt["name"]){
                 // echo "aaaaaaa";
-                $update = "yes";
-                $old_data = $reslt;
-                $_SESSION["old_form_add"] = $old_data;
+                // $update = "yes";
+                // $old_data = $reslt;
+                $_SESSION["old_form_add"] = $reslt;
                 header("Location: shouhin_up.php");
                 exit();
 
@@ -57,7 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // exit();
     }
 
-
+    /*------------------ジャンルバリデーション------------------*/
+    if ($form_add["jenre_id"] === NUll){
+        $form_add["jenre_id"] = "0";
+    }
     /*------------------値段バリデーション------------------*/
 
     $match["price"] = preg_match("/[0-9]/",$form_add["price"]);
@@ -202,6 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="text" name="stock" value="<?php echo h($form_add["stock"]);?>" >
 
             <p>ジャンル</p>
+            <span style="color: red;">※選択しなかった場合自動的に[その他]になります</span><br>
             <input type="radio" name="jenre" id="kagu" value="1" <?= $form_add["jenre_id"] === "1" ? "checked" : '' ?> >
             <label for="kagu">家具</label>
 
@@ -216,6 +230,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <input type="radio" name="jenre" id="kaden" value="5"  <?= $form_add["jenre_id"] === "5" ? "checked" : "" ?> >
             <label for="kaden">家電</label>
+
+            <input type="radio" name="jenre" id="sonota" value="0"  <?= $form_add["jenre_id"] === "0" ? "checked" : "" ?> >
+            <label for="sonota">その他</label>
 
             <p>画像　<span class="badge bg-danger">必須</span></p>
             <?php if (isset($error["image"]) && $error["image"] === "type_error"):?>
@@ -239,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php if (isset($error["syousai"]) && $error["syousai"] === "length_error"):?>
             <span class="error">詳細情報は1文字以上255文字以内にしてください。</span><br>
             <?php endif;?>
-            <textarea name="syousai" ><?php echo h($form_add["setumei"]);?></textarea>
+            <textarea name="syousai" ><?php echo h($form_add["syousai"]);?></textarea>
         </div>
 
         <div class="admin_button_matome">

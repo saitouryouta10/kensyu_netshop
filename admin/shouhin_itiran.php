@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php 
+require("../library.php");
+session_start();
+
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
+$sales = 0;
+
+$reslt = "";
+
+$db = dbconnect();
+$resluts = $db->query("select * from items order by id desc");
+// $shine = $db->query("select retention_stock from items");
+if(!$resluts){
+    die($db->error);
+}
+
+
+
+
+?><!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +36,7 @@
     <title>HOGEHOGE SHOP</title>
 </head>
 <body>
+    
     <div class="kanri_top">
         <h1>管理画面</h1>
         <div class="admin_button">
@@ -17,22 +45,42 @@
         </div>
     </div>
     <div class="admin_subtitle">
-        <h2>過去の出品</h2>
-        <span>出品商品情報</span>
+        <h2>出品商品情報</h2><br>
     </div>
-    <div class="admin_item_title">
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-    </div>
-    <div class="admin_item">
-        <!-- 下みたいにタグコピペして商品情報出力してください。 -->
-        <!-- メモ：長さ違うとレイアウトぐちゃぐちゃになる。どうしたらいいかわからん
-            top.phpから引っ張ってテーブルをwhileで回してください。携帯画面のcssは暇があったら作ってください。 -->
-        <!-- <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>aaaaaaaa</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span> -->
-    </div>
-    </div>
+    <form action="" method="post">
+        <div class="admin_item">
+            <table>
+            <tbody>
+                <tr class="admin_itemtitle">
+                    <th>日時</th>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>販売数</th>
+                    <th>在庫数</th>
+                </tr>
+                <?php while ($reslut = $resluts->fetch_assoc()):?>
+                    <!-- 在庫保持カラムをintにキャストして変数に代入 -->
+                    <?php $rs = h((int)$reslut["retention_stock"]);?>
+                    
+                    <!-- 現在の在庫カラムをintにキャストして変数に代入 -->
+                    <?php $st = h((int)$reslut["stock"]);?>
+
+                    <!-- 元の在庫から現在の在庫を引いた数(販売数)を変数に代入 -->
+                    <?php $sales = $rs - $st;?>
+                    <tr>
+                        <td>
+                            <?php echo h($reslut["created"]);?>
+                        </td>
+                        <td><?php echo h($reslut["name"]);?></td>
+                        <td><?php echo h($reslut["price"]);?></td>
+                        <td><?php echo $sales?></td>
+                        <td><?php echo $st;?></td>
+                    </tr>
+                <?php endwhile;?>
+            </tbody>
+            </table> 
+        </div>
+</html>
     <div class="admin_button_matome">
         <button type="button" class="btn btn-primary" onclick="location='kanri_top.php'">戻る</button>
         <button type="button" class="btn btn-primary" onclick="location='shouhin_sakujo.php'">削除</button>
