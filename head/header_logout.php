@@ -33,6 +33,7 @@ if (isset($_GET['search'])) {
     <h1 class="title"><a href="../top/top.php">HOGEHOGE SHOP</a></h1>
 </div>
 <div class="header_list">
+
     <div class="serch">
         <div class="header-message">
             <div class="header-message-left">

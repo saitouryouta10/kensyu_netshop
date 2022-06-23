@@ -35,6 +35,7 @@ if(isset($_POST['narabikae'])){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
+
 </head>
 <body class="top_b">
 <header>
@@ -91,9 +92,8 @@ if(isset($_POST['narabikae'])){
                       <img src="./img/noimage.png">
                     <?php else: ?>
                       <img src="./img/<?php echo $rec['picture'];?>" >
-
-              <div>
-                 <?php endif ?>
+                      <?php endif ?>
+                    </div>
 
               </th>
                <th class="th_name">
@@ -112,7 +112,7 @@ if(isset($_POST['narabikae'])){
        </a>
 
        <?php endwhile; ?>
-      </div>
+      <!-- </div> -->
 
 
     </div>

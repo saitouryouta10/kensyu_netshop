@@ -4,6 +4,7 @@ require("../library.php");
 session_start();
 
 
+
 if (isset($_SESSION["id"])){
     if($_SESSION["id"] !== 1){
         header("Location: ../top/top.php");
@@ -14,6 +15,7 @@ if (isset($_SESSION["id"])){
 
 
 // $update = "";
+
 $form_add = [
     "name" => "",
     "price" => "",
@@ -41,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $db = dbconnect();
     $reslts = $db->query("select * from items");
-    
+
     $form_length["name"] = mb_strlen($form_add["name"]);
 
     if ($form_length["name"] > 255) {
@@ -58,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION["old_form_add"] = $reslt;
                 header("Location: shouhin_up.php");
                 exit();
-                
+
             }
-            
+
         }
         // exit();
     }
@@ -186,14 +188,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form action="" method="post" enctype="multipart/form-data">
     <!-- inputにクラスとかnameとかつけて情報取得してください -->
         <div class="admin_form">
-            
+
             <p>商品名　<span class="badge bg-danger">必須</span></p>
             <?php if (isset($error["name"]) && $error["name"] === "length_error"):?>
             <span class="error">名前は1文字以上255文字以内にしてください。</span><br>
             <?php endif;?>
-            
-            <input type="text" name="name" value="<?php echo h($form_add["name"]);?>" required> 
-            
+
+            <input type="text" name="name" value="<?php echo h($form_add["name"]);?>" required>
+
             <p>価格　<span class="badge bg-danger">必須</span></p>
             <?php if (isset($error["price"]) && $error["price"] === "length_error"):?>
             <span class="error">値段は1円以上10億円未満でつけてください。</span><br>
@@ -216,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <span style="color: red;">※選択しなかった場合自動的に[その他]になります</span><br>
             <input type="radio" name="jenre" id="kagu" value="1" <?= $form_add["jenre_id"] === "1" ? "checked" : '' ?> >
             <label for="kagu">家具</label>
-            
+
             <input type="radio" name="jenre" id="syokuzai" value="2"  <?= $form_add["jenre_id"] === "2" ? "checked" : "" ?> >
             <label for="syokuzai">食材</label>
 

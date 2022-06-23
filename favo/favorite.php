@@ -2,7 +2,7 @@
 require('../library.php');
 session_start();
 if (isset($_SESSION['id'])) {
-    $user_id = $_SESSION['id'];
+    $userid = $_SESSION['id'];
 } else {
     header('Location: login.php');
     exit();
@@ -20,6 +20,11 @@ if (isset($_GET['narabikae'])) {
   else if($narabikae === 'shoujun'){
     $s ='order by f.created asc';
   }
+}
+
+if(isset($_POST['itemid'])==true){
+  $itemid=$_POST['itemid'];
+  //  echo $itemid;
 }
 
 if (isset($_GET['nedan'])) {
@@ -46,11 +51,22 @@ if (isset($_GET['nedan'])) {
 }
 
   $db = dbconnect();
-  $stmt = $db->query('select f.id, f.user_id, f.created, f.item_id, i.id, i.picture,i.name, i.price from favorite f left join items i on item_id=i.id where user_id='.$user_id.' '.$p.' '.$s.'');
+
+  if(isset($_POST['sakujo_button'])==true){
+    $sqls='delete from favorite where id=?';
+    $stmts =$db ->prepare($sqls);
+    $stmts->bind_Param("s",$itemid);
+    $stmts->execute();
+  }
+  $stmt = $db->query('select f.id, f.user_id, f.created, f.item_id, i.id, i.picture,i.name, i.price from favorite f left join items i on item_id=i.id where user_id='.$userid.' '.$p.' '.$s.'');
   if (!$stmt) {
     die($db->error);
   }
+
+  $sql3='select id from favorite where user_id='.$userid.'';
+  $stmt3=$db->query($sql3);
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -103,6 +119,14 @@ if (isset($_GET['nedan'])) {
   <h1>お気に入り</h1>
   <div class="rireki-table">
       <?php while( $rireki = $stmt->fetch_assoc()): ?>
+        <?php if($rireki==false):
+      break; ?>
+      <?php endif ?>
+      <?php
+        $result3 = $stmt3->fetch_assoc();
+        // print_r($result3);
+        ?>
+        <div class="favo">
           <table>
               <tbody>
                 <tr>
@@ -115,26 +139,30 @@ if (isset($_GET['nedan'])) {
                       <?php endif; ?>
                       </a>
                   </td>
-                  <td>商品名 : <?php echo $rireki['name']; ?></td>
+                  <td>商品名 : <span><?php echo $rireki['name']; ?></span></td>
                 </tr>
                 <tr>
-                  <td>金額 : <?php echo $rireki['price']; ?></td>
+                  <td>金額 : <span><?php echo $rireki['price']; ?>円</span></td>
                 </tr>
                 <tr>
-                  <td>追加日 : <?php echo $rireki['created']; ?></td>
+                  <td>追加日 : <span><?php echo $rireki['created']; ?></span></td>
                 </tr>
                 <tr>
                   <td>
-                      <a class="btn btn-success" href="../top/kutikomi.php?id=<?php echo $rireki['item_id']; ?>">商品レビューを書く</a>
+                  <form action="" method="POST">
+                        <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
+                      <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
+                    </form>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">再度購入</a>
+                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">購入</a>
                   </td>
                 </tr>
               </tbody>
           </table>
+          </div>
       <?php endwhile; ?>
   </div>
 

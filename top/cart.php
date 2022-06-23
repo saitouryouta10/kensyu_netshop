@@ -3,8 +3,7 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
-$userid=$_SESSION['id'];
-// $item_id=$_GET['id'];
+
 
 
 $login=1;
@@ -100,8 +99,8 @@ $result2 = $stmt2->fetch_assoc();
 <?php while( $rec = $stmt->fetch_assoc()):?>
   <?php $result3 = $stmt3->fetch_assoc();?>
   <?php //print_r($result3);?>
-  <?php if($rec==false): ?>
-      break;
+  <?php if($rec==false):
+      break; ?>
       <?php endif ?>
       <div class="img_s">
       <table>
@@ -124,13 +123,14 @@ $result2 = $stmt2->fetch_assoc();
                <th class="th_price">
                  <p> <?php echo $rec['price']; ?>円 </p>
                </th>
-               <th>
+               <th class="cart_number">
                  <p><?php echo $rec['number'];  ?>個</p>
                </th>
-               <th>
+               <th class="cart_price">
                  <p>計<?php echo $rec['number'] * $rec['price'];  ?>円</p>
                  <?php $total+=$rec['number'] * $rec['price']; ?>
-                 <th>
+
+                 <th class="cart_button">
 
                    <form action="" method="POST">
                      <select name="kazuerabi">
@@ -144,7 +144,6 @@ $result2 = $stmt2->fetch_assoc();
                       <form action="" method="POST">
                         <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
                       <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
-                      <?php //echo $result3['id'] ;?>
                     </form>
                   </th>
                </th>

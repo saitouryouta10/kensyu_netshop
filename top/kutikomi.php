@@ -35,7 +35,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['nickname'])){
 
 $db =dbconnect();
 
-//メッセージの投稿
+//メッセージの投稿 削除
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   if(isset($_POST['com_id'])==true){
     $com_id=$_POST['com_id'];
@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ひとこと掲示板</title>
+    <title>レビュー</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
@@ -79,17 +79,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <header>
   <?php header_inc(); ?>
 </header>
+<main>
+
+  <div class="container">
+<?php
+$sql = 'select * from items where id='.$item_id.'';
+$stmt =$db ->query($sql);
+
+if($rec=$stmt->fetch_assoc()):?>
 
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
-  <div class="container">
 <div id="wrap">
     <div id="head">
-        <h2>レビュー一覧</h2>
+        <h2>すべてのレビュー</h2>
     </div>
     <div id="content">
-        <div style="text-align: right;"><a href="shouhin_shousai.php?id=<?php echo $item_id;?>">商品画面に戻る</a></div>
+        <div style="text-align: right;"><a class="btn btn-outline-secondary btn-block" href="shouhin_shousai.php?id=<?php echo $item_id;?>">商品画面に戻る</a></div>
         <br>
 
         <?php $sql='select count(*) from reviews where user_id='.$userid.' and item_id='.$item_id.'';
@@ -140,7 +147,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <?php $result3 = $stmt3->fetch_assoc(); ?>
             <?php //echo $result2['user_id']. $_SESSION['id']; ?>
         <div class="msg">
-            <p style="border-top:solid 2px lightgray;"><?php echo h($result2['comment']); ?><br><span class="name"><?php echo h($nr['nickname']); ?></span></p>
+            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?><br></p>
+            <p>コメント<br><?php echo h($result2['comment']); ?></p>
             <p>評価<?php echo h($result2['star']); ?></p>
             <p class="day"><?php echo h($result2['created']) ; ?></p>
 
@@ -156,10 +164,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             </p>
         </div>
         <?php endwhile; ?>
-
+      <?php  else : ?>
+        <p>その商品ページは削除されたか、URLが間違えています</p>
+        <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
+        <?php endif; ?>
     </div>
 </div>
 </div>
+      </main>
 <footer>
 <?php
 footer_inc();

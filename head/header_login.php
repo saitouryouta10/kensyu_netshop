@@ -22,6 +22,10 @@ if (isset($_GET['search'])) {
     <h1 class="title"><a href="../top/top.php">HOGEHOGE SHOP</a></h1>
 </div>
 <div class="header_list">
+
+
+
+
     <div class="serch">
         <div class="header-message">
             <div class="header-message-left">
@@ -47,4 +51,5 @@ if (isset($_GET['search'])) {
             <p><a href="../kaiinjouhou/kaiin_jouhou.php">会員情報</a></p>
         </div>
     </div>
+
 </div>

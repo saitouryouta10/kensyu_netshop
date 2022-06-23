@@ -9,7 +9,20 @@ $login=1;
 
 
 // var_dump($name);
-$userid=$_SESSION['id'];
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+  if(isset($_SESSION['name'])){
+  $name = $_SESSION['name'];
+  }
+}else{
+
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+ header('Location:../login/login.php?login='.$login.'');
+   exit();
+
+}
+
 
 //カートに入れる数を決める
 if(isset($_POST['kazuerabi'])){
@@ -62,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>商品詳細</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
@@ -72,23 +85,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <?php header_inc(); ?>
 </header>
 <main>
-<div class="btn-modoru-rireki">
-    <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
-</div>
 
 
+
+  <div class="container">
 <?php
 $sql = 'select * from items where id='.$item_id.'';
 $stmt =$db ->query($sql);
-
-
 
 if($rec=$stmt->fetch_assoc()):
 
 // print_r($rec);
 
 //if($stmt->fetch()): ?>
- <div class="container">
+ <p>商品詳細</p>
+ <div class="btn-modoru-rireki">
+    <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
+</div>
 <div class="s_main">
   <div class="shouhin_img">
     <?php if($rec['picture']): ?>
@@ -97,74 +110,78 @@ if($rec=$stmt->fetch_assoc()):
           <img src="./img/noimage.png" >
           <?php endif ;?>
         </div>
-     <div>
+     <div class="shousai_name">
       <p><?php echo h($rec['name']); ?><span class="name"></p>
-      <p><?php echo h($rec['price']); ?>円</span></p>
+      <div class="shousai_price">
 
-      <?php if($rec['stock'] >0): ?>
+        <p><?php echo h($rec['price']); ?>円</span></p>
 
+        <?php if($rec['stock'] >0): ?>
 
-         <form action="" method="POST">
-          <select name="kazuerabi" >
-           <?php for($i=1; $i<=$rec['stock'];$i++):?>
-           <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
-           <?php endfor ;?>
-          </select>
-          <div class="shousai_b">
-            <button type="submit"name="cartin_button" class="btn btn-success" >カートに入れる</button>
-          </form>
+<div>
 
+  <form action="" method="POST">
+    <select name="kazuerabi" >
+      <?php for($i=1; $i<=$rec['stock'];$i++):?>
+        <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
+        <?php endfor ;?>
+      </select>
+    </div>
+    <div class="shousai_b">
+      <button type="submit"name="cartin_button" class="btn btn-success">カートに入れる</button>
+    </form>
 
+    <p style="color:pink; margin-top:0">
+      <?php if($kazuerabi !==null){
+        // カートに入れるボタンが押されたとき,cartデータベースに追加
+        if(isset($_POST['cartin_button'])==true){
+          $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
+          $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
+          $stmt_2=$db->query($sql_2);
+          $rec2=$stmt_2->fetch_assoc();
+          if($rec2['count(*)']==0 ){
+            $stmt2 =$db ->query($sql2);
+            echo $kazuerabi ."個カートに入れました";
+          }else{
+            echo '追加済み';
+          }
+        }
+      }
+      ?>
+      </div>
           <? else:?>
             <p style="color:red;">在庫がありません</p>
             <?php endif; ?>
-            <p style="color:pink; margin-top:0">
-              <?php if($kazuerabi !==null){
-                // カートに入れるボタンが押されたとき,cartデータベースに追加
-                if(isset($_POST['cartin_button'])==true){
-                  $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
-                  $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
-                  $stmt_2=$db->query($sql_2);
-                  $rec2=$stmt_2->fetch_assoc();
-                  if($rec2['count(*)']==0 ){
-                    $stmt2 =$db ->query($sql2);
-                    echo $kazuerabi ."個カートに入れました";
-            }else{
-              echo 'この商品は既にカートに入っています';
-            }
-          }
-        }
-        ?>
         </p>
       </div>
 
-        <form action="" method="POST">
+
+      <form action="" method="POST">
         <div class="shousai_b">
-         <button type="submit"name="favorite_button" class="btn btn-outline-warning">お気に入りに追加</button>
+          <button type="submit"name="favorite_button" class="btn btn-warning">お気に入りに追加</button>
         </form>
+
         <p style="color:pink; margin-top:0">
-          <?php
+        <?php
             // お気に入りに追加ボタンが押されたとき,favoriteデータベースに追加
             if(isset($_POST['favorite_button'])==true){
               $sql3 = 'insert into favorite(user_id,item_id) values('.$userid.','.$item_id.')';
-
-
               $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
-
 
 
               $stmt_3=$db->query($sql_3);
               $rec3=$stmt_3->fetch_assoc();
               if($rec3['count(*)']==0 ){
-              $stmt3 =$db ->query($sql3);
-              echo "お気に入りに追加しました";
-            }else{
-              echo '追加済み';
-            }
+                $stmt3 =$db ->query($sql3);
+                echo "お気に入りに追加しました";
+              }else{
+                echo '追加済み';
               }
-       ?>
-        </p>
-            </div>
+            }
+            ?>
+    </p>
+      </div>
+
         <a href="cart.php">カートに行く</a>
         <?php //var_dump($cart); exit(); ?>
       </div>
@@ -205,13 +222,15 @@ if($rec=$stmt->fetch_assoc()):
           $n= $db->query('select nickname from users where id='.$result['user_id'].'');
           $nr=$n->fetch_assoc();
           ?>
-          <div class="msg">
-            <p>ユーザー名：<?php echo h($nr['nickname']); ?></p>
+          <div class="msg" style="width:100%; word-wrap: break-word;">
+            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?></p>
             <p>コメント<br></p>
             <?php if($result['comment'] == null): ?>
               <p>なし</p>
               <?php else : ?>
-              <?php echo h($result['comment']); ?>
+                <p>
+                  <?php echo h($result['comment']); ?>
+                </p>
               <?php endif ;?>
               <p>評価<?php echo h($result['star']); ?>&nbsp&nbsp&nbsp<?php echo h($result['created']) ; ?></p>
 
@@ -234,7 +253,9 @@ if($rec=$stmt->fetch_assoc()):
 
       <?php  else : ?>
         <p>その商品ページは削除されたか、URLが間違えています</p>
+        <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
         <?php endif; ?>
+    </div>
     </div>
     </div>
     </div>
