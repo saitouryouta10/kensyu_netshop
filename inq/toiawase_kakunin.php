@@ -1,3 +1,12 @@
+<?php
+session_start();
+$name = $_SESSION['name'];
+$email = $_SESSION['email'];
+$kenmei = $_SESSION['kenmei'];
+$inquiry = $_SESSION['inquiry'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -10,26 +19,29 @@
 </head>
 <body>
     <div class="form">
-        <h1 class="toiawase">お問い合わせ内容確認</h1>
-        <div class="container">
-            <form action="#" method="post">
-                <p>お名前</p>
-                <!-- 名前出力 -->
-                <p>メールアドレス</p>
-                <!-- メールアドレス出力 -->
-                <p>件名</p>
-                <!-- 件名出力 -->
-                <p>お問い合わせ内容</p>
-                <!-- お問い合わせ内容出力 -->
-                
 
-                <!-- TODO：ボタンの間に隙間を開けたい -->
+        <h1 class="text-center" style="margin-top: 50px">お問い合わせ内容確認</h1>
+        <hr>
+
+        <div class="container">
+            <form action="sousinkanryou.php" method="post">
+                <p>お名前</p>
+                <p><?php echo $name; ?></p>
+                <p>メールアドレス</p>
+                <p><?php echo $email; ?></p>
+                <p>件名</p>
+                <p><?php echo $kenmei; ?></p>
+                <p>お問い合わせ内容</p>
+                <p><?php echo $inquiry; ?></p>
+
                 <div class="button-matome">
-                    <button class="btn btn-outline-secondary btn-block" onclick="location.href='toiawase.php'" id="kakunin">戻る</button>
-                    <button type="submit" class="btn btn-warning" id="kakunin" style="font-weight: bold;">送信する</button>
+                    <button type="submit" class="btn btn-warning btn-matome-pos" style="font-weight: bold;">送信する</button>
+                    <a class="btn btn-outline-secondary btn-block btn-matome-pos" onclick="location.href='toiawase.php'">戻る</a>
                 </div>
             </form>
         </div>
     </div>
+    <hr>
+    <p class="text-center" style="margin-bottom: 30px">© 2022 Kensyu_netshop</p>
 </body>
 </html>

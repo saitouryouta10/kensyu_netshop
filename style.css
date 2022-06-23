@@ -34,13 +34,28 @@ img {
     width: 100%;
 }
 
+footer {
+    margin-top: 30px;
+}
+
 
 /* --------------------問い合わせ関係 -----------------------*/
+
+.top-pos {
+    margin: 30px 50px;
+}
+
+
+hr {
+    border-style: none;
+    border-top: 4px solid #2e99a9;
+}
 
 .toiawase {
     margin-left: 2%;
     margin-right: 2%;
-    border-bottom: solid 1px;
+    white-space: nowrap;
+    margin-top: 30px;
 }
 
 .container p {
@@ -81,8 +96,14 @@ textarea {
 
 .button-matome {
     display: flex;
-
+    margin-top: 30px;
 }
+.btn-matome-pos {
+    margin: 40px auto 80px;
+    width: 35%;
+    text-align: center;
+}
+
 
 @media screen and (max-width: 768px) {
     .toiawase{
@@ -106,7 +127,6 @@ textarea {
     height: 60px;
     background-color: rgb(10, 7, 36);
     align-items: center;
-
 }
 
 .title a {
@@ -825,4 +845,8 @@ footer p {
         width: 40%;
         height: 45px;
     }
+}
+
+.inq_body {
+    margin: 30px !important;
 }

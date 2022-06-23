@@ -13,4 +13,4 @@
         <li><a href="../top/cart.php">カート</a></li>
     </ul>
 </div>
-<p class="copyright">© 2022 Kensyu_netshop<
+<p class="copyright">© 2022 Kensyu_netshop</p>
