@@ -116,7 +116,7 @@ if($rec=$stmt->fetch_assoc()):?>
                   <dl>
                       <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
                       <dd>
-                          <textarea name="comment" cols="50" rows="5"></textarea>
+                          <textarea name="comment" maxlength="255" cols="50" rows="5"></textarea>
                       </dd>
                   </dl>
                   <div class="kutikomi_butotn">

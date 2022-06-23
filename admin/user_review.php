@@ -85,7 +85,7 @@ if($rec3['count(*)']>0):
         <table style="table-layout: fixed; width:100%">
             <tbody>
                 <tr class="admin_item_title" >
-                    <th></th>
+                    <th>選択</th>
                     <th>ID</th>
                     <th>コメント</th>
                     <th>星</th>
