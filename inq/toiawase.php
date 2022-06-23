@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="text-end">
                 <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
             </div>
-           <h1 class="toiawase">お問い合わせ</h1>
+           <h1 class="toiawase">HOGEHOGE SHOP-お問い合わせ</h1>
         </div>
 
         <hr>

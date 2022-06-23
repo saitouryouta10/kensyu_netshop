@@ -251,7 +251,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <!-- Boot strap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
-    <title>HOGEHOGE SHOP</title>
+    <title>HOGEHOGE SHOP-新規登録</title>
 </head>
 <body>
     <a class="button btn btn-outline-secondary btn-block" id="login_button" onclick="location.href='login.php'">ログインページへ</a>

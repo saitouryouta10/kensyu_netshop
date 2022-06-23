@@ -20,7 +20,7 @@ $inquiry = $_SESSION['inquiry'];
 <body>
     <div class="form">
 
-        <h1 class="text-center" style="margin-top: 50px">お問い合わせ内容確認</h1>
+        <h1 class="text-center" style="margin-top: 50px">HOGEHOGE SHOP-お問い合わせ内容確認</h1>
         <hr>
 
         <div class="container">
