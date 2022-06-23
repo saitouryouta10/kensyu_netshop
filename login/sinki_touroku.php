@@ -134,6 +134,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 	if($form["sex"] == ""){
 		$form["sex"] = 3;
+		// var_dump($form["sex"]);
+		// exit();
 	}
 	/*--------------------郵便番号のバリデーション-------------------------*/
 
