@@ -59,7 +59,7 @@ $stmt=$db->query($sql);
                             </tr>
                             <?php
                         for($i=0;$i<3;$i++):
-                            $rec=$stmt->fetch_assoc();
+                            if($rec=$stmt->fetch_assoc()):
                             ?>
                            <!-- 在庫保持カラムをintにキャストして変数に代入 -->
                            <?php $rs = h((int)$rec["retention_stock"]);?>
@@ -77,6 +77,7 @@ $stmt=$db->query($sql);
                                 <td><?php echo $sales; ?></td>
                                 <td><?php echo $rec['stock']; ?></td>
                             </tr>
+                            <?php endif; ?>
 <?php endfor; ?>
 </tbody>
 </table>
