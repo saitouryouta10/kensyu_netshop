@@ -198,7 +198,9 @@ if($rec=$stmt->fetch_assoc()):
       </div>
 
     </div>
+    <h5>商品説明</h5>
     <p ><?php echo h($rec['setumei']) ; ?></p>
+    <h5 style="margin-top:20px">商品詳細</h5>
     <p ><?php echo h($rec['syousai']) ; ?></p>
 
 
