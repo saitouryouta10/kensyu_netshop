@@ -11,7 +11,7 @@ if (isset($_SESSION['id'])) {
     exit();
 }
 
-var_dump($id);
+// var_dump($id);
 
 $db2 = dbconnect();
 $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email from users where id=?';

@@ -45,7 +45,7 @@ $email = $_SESSION['email'];
         } ?>
      </p>
      <?php if (empty($birthday)) : ?>
-        <p>登録していません</p>
+        <p>生年月日<br>登録していません</p>
     <?php else : ?>
         <p>生年月日<br><?php echo h($birthday); ?></p>
     <?php endif; ?>
