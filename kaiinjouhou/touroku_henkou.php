@@ -162,7 +162,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登録情報変更</title>
+    <title>HOGEHOGE SHOP-登録情報変更</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
 </head>
@@ -174,7 +174,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <main class="kaiin-body">
     <div class="btn-modoru">
     <form action="kaiin_jouhou.php" method="get">
-        <button type="submit" class="btn btn-outline-secondary btn-block">戻る</button>
+        <button type="submit" class="btn btn-outline-secondary btn-block text-end">戻る</button>
     </form>
     </div>
 

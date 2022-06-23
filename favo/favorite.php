@@ -4,8 +4,10 @@ session_start();
 if (isset($_SESSION['id'])) {
     $userid = $_SESSION['id'];
 } else {
-    header('Location: login.php');
-    exit();
+  $login = 1;
+  //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+  header('Location:../login/login.php?login='.$login.'');
+  exit();
 }
 $s = '';
 $p = '';
@@ -73,7 +75,7 @@ if (isset($_GET['nedan'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お気に入り</title>
+    <title>HOGEHOGE SHOP-お気に入り</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
 
