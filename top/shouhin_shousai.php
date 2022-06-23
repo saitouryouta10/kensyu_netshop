@@ -88,18 +88,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
 
+  <div class="container">
 <?php
 $sql = 'select * from items where id='.$item_id.'';
 $stmt =$db ->query($sql);
-
-
 
 if($rec=$stmt->fetch_assoc()):
 
 // print_r($rec);
 
 //if($stmt->fetch()): ?>
- <div class="container">
  <p>商品詳細</p>
  <div class="btn-modoru-rireki">
     <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
@@ -255,6 +253,7 @@ if($rec=$stmt->fetch_assoc()):
 
       <?php  else : ?>
         <p>その商品ページは削除されたか、URLが間違えています</p>
+        <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
         <?php endif; ?>
     </div>
     </div>

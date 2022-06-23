@@ -58,14 +58,6 @@ $stmt=$db->query($sql);
 			<th>購入回数</th>
 			<th>レビュー数</th>
 		</tr>
-
-        <!-- 下みたいにタグコピペして商品情報出力してください。 -->
-        <!-- メモ：長さ違うとレイアウトぐちゃぐちゃになる。どうしたらいいかわからん
-            top.phpから引っ張ってテーブルをwhileで回してください。携帯画面のcssは暇があったら作ってください。 -->
-        <!-- <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>aaaaaaaa</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span>
-        <p><span>日時</span><span>商品名</span><span>価格</span><span>販売数</span><span>在庫数</span> -->
         <?php
 while($rec=$stmt->fetch_assoc()):
     $sql2='select sum(price) from  history where user_id = '.$rec['id'].'';

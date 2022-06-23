@@ -35,6 +35,18 @@ if(isset($_POST['review_del'])==true){
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="../style.css">
         <title>HOGEHOGE SHOP</title>
+
+        <style type="text/css">
+
+            @media screen and (min-width:960px) {
+                .table_m {
+                    margin: 10px 100px 0;
+                }
+
+            }
+
+        </style>
+
     </head>
     <body >
 
@@ -50,7 +62,7 @@ if(isset($_POST['review_del'])==true){
             <h2>登録者情報</h2>
             <span>コメント一覧</span>
             </div>
-            <div style="margin: 10px 100px 0; text-align:center;">
+            <div class="table_m" style="text-align:center;">
             <?php
 
 

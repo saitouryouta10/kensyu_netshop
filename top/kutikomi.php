@@ -79,11 +79,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <header>
   <?php header_inc(); ?>
 </header>
+<main>
+
+  <div class="container">
+<?php
+$sql = 'select * from items where id='.$item_id.'';
+$stmt =$db ->query($sql);
+
+if($rec=$stmt->fetch_assoc()):?>
 
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
   </a> -->
-  <div class="container">
 <div id="wrap">
     <div id="head">
         <h2>すべてのレビュー</h2>
@@ -157,10 +164,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             </p>
         </div>
         <?php endwhile; ?>
-
+      <?php  else : ?>
+        <p>その商品ページは削除されたか、URLが間違えています</p>
+        <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
+        <?php endif; ?>
     </div>
 </div>
 </div>
+      </main>
 <footer>
 <?php
 footer_inc();

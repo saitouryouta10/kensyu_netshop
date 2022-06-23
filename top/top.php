@@ -113,9 +113,8 @@ if(isset($_POST['narabikae'])){
                       <img src="./img/noimage.png">
                     <?php else: ?>
                       <img src="./img/<?php echo $rec['picture'];?>" >
-
-              <div>
-                 <?php endif ?>
+                      <?php endif ?>
+                    </div>
 
               </th>
                <th class="th_name">
@@ -134,7 +133,7 @@ if(isset($_POST['narabikae'])){
        </a>
 
        <?php endwhile; ?>
-      </div>
+      <!-- </div> -->
 
 
     </div>
