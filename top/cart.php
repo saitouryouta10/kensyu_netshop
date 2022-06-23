@@ -21,9 +21,14 @@ if(isset($_SESSION["id"])){
    exit();
 
 }
-
+// echo "aaaaaaaaaaaaaaa";
+// exit();
 if(isset($_POST['kazuerabi'])){
+
   $kazuerabi=$_POST['kazuerabi'];
+  $_SESSION["num"] = $kazuerabi;
+  // var_dump($_SESSION["num"]);
+  // exit();
 }else{
   $kazuerabi=null;
 }

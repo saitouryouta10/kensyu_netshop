@@ -6,6 +6,8 @@ session_start();
 $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
 $total=$_SESSION['total'];
+$num = $_SESSION["num"];
+
 
 if(isset($_SESSION["id"])){
   //セッション情報がある場合は普通に画面遷移
@@ -50,7 +52,7 @@ if(isset($_SESSION['id'])==true){
     // print_r($rec2['price']);
     $item_name=$rec2['name'];
     $item_price=$rec2['price'];
-    $sqlt='insert into history(user_id,name,price,item_id) values('.$userid.',"'.$item_name.'",'.$item_price.','.$item_id.')';
+    $sqlt='insert into history(user_id,name,price,num,item_id) values('.$userid.',"'.$item_name.'",'.$item_price.','.$num.','.$item_id.')';
     if(isset($rec['number'])&& isset($rec2['stock'])){
     $newstock=($rec2['stock'])-($rec['number']);
     // echo $newstock;

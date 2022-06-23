@@ -27,7 +27,9 @@ if(isset($_SESSION["id"])){
 //カートに入れる数を決める
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
-
+  $_SESSION["num"] = $kazuerabi;
+  // var_dump($_SESSION["number"]);
+  // exit();
 }else{
   $kazuerabi=null;
 }
