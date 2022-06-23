@@ -172,9 +172,9 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     </header>
 
     <main class="kaiin-body">
-    <div class="btn-modoru">
-    <form action="kaiin_jouhou.php" method="get">
-        <button type="submit" class="btn btn-outline-secondary btn-block text-end">戻る</button>
+    <div>
+    <form action="kaiin_jouhou.php" method="get" class="text-end">
+        <button type="submit" class="btn btn-outline-secondary btn-block">戻る</button>
     </form>
     </div>
 

@@ -61,11 +61,11 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
                     </p>
 
                     <?php if (empty($birthday)) : ?>
-                        <p>登録していません</p>
+                        <p>生年月日<br>登録していません</p>
                     <?php else : ?>
                         <p>生年月日<br><?php echo h($birthday); ?></p>
                     <?php endif; ?>
-                    <p>
+                    <p style="width:100%; word-wrap: break-word;">
                         住所<br><?php echo h($zipcode); ?><br>
                         <?php echo h($address); ?>
                     </p>

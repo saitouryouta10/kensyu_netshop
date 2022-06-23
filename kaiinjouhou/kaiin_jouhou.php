@@ -45,9 +45,9 @@ $db = dbconnect();
         <div class="kaiin-jouhou">
 
             <h1>会員情報</h1>
-
+            <h5><?php echo $name ?>さん</h5>
             <div class="btn-wrapper">
-                <h5><?php echo $name ?>さん</h5>
+
                 <p><button class="btn btn-primary" onclick="location.href='touroku_jouhou.php'">登録情報確認する</button></p>
                 <p><button class="btn btn-primary"  onclick="location.href='touroku_henkou.php'">会員情報変更する</button></p>
                 <p><button class="btn btn-primary" onclick="location.href='rireki.php'">注文履歴</button></p>

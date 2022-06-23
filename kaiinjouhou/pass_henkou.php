@@ -70,7 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
   if (empty($error)) {
 
     $id = $form['id'];
-    $hash_pass = password_hash($form["pass"],PASSWORD_DEFAULT);
+    $pass = $form['new_pass'];
+    $hash_pass = password_hash($pass,PASSWORD_DEFAULT);
 
     $db = dbconnect();
     $sql = 'update users set pass=? where id=?';
@@ -107,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
 </head>
 <body>
 <header>
-
-    </header>
+  <?php header_inc(); ?>
+</header>
 
     <main class="kaiin-body">
   <div class="kaiin-container">

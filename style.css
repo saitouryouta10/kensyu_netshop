@@ -89,7 +89,7 @@ textarea {
 
 #kakunin {
     margin: 40px auto 80px;
-    width: 50%;
+    width: 55%;
     height: 50px;
     text-align: center;
 }
@@ -167,6 +167,9 @@ textarea {
     }
     .header_list {
         height: 130px !important;
+    }
+    .footer p {
+        margin-top: 15px !important;
     }
 
 }
@@ -254,7 +257,7 @@ footer p {
     color: white;
     font-family: Helvetica;
     font-size: 0.8rem;
-    margin-top: 33px;
+    margin-top: 18px;
     text-align: center;
 }
 
@@ -280,6 +283,14 @@ footer p {
 
     .list_3 {
         width: 33%;
+    }
+
+    footer p {
+        margin-top: 0px;
+    }
+
+    footer {
+        height: 150px;
     }
 
 }
@@ -769,6 +780,11 @@ footer p {
     position: relative;
     right: 6rem;
 }
+
+.btn-wrapper {
+    text-align: center;
+}
+
 .btn-wrapper button {
     margin-bottom: 20px;
     width: 20rem;
@@ -870,8 +886,24 @@ footer p {
         width: 40%;
         height: 45px;
     }
+    .btn-wrapper button {
+        margin-bottom: 20px;
+        width: 15rem;
+        font-size: 20px;
+    }
+    .henkou-form {
+        width: 50vw;
+        margin-left: 3vw;
+    }
 }
 
 .inq_body {
     margin: 30px !important;
+}
+
+
+@media screen and (max-width: 490px) {
+    .btn-kakutei button {
+        width: 6em;
+    }
 }

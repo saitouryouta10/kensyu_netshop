@@ -40,7 +40,7 @@ if (isset($_GET['search'])) {
                 <p><span><?php echo $user_name; ?></span>&nbsp;さん、おかえりなさい</p>
             </div>
             <div class="header-message-right">
-                <form action="" method="get">
+                <form action="../top/top.php" method="get">
                     <?php if (isset($_GET['search'])) : ?>
                         <input type="text" class="text_box" name="search" value="<?php echo $search ?>">
                     <?php else : ?>

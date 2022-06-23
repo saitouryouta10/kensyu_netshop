@@ -15,12 +15,12 @@ $inquiry = $_SESSION['inquiry'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
-    <title>HOGEHOGE SHOP</title>
+    <title>HOGEHOGE SHOP-お問い合わせ内容確認</title>
 </head>
 <body>
     <div class="form">
 
-        <h1 class="text-center" style="margin-top: 50px">HOGEHOGE SHOP-お問い合わせ内容確認</h1>
+        <h1 class="text-center" style="margin-top: 50px">お問い合わせ内容確認</h1>
         <hr>
 
         <div class="container">
@@ -32,7 +32,7 @@ $inquiry = $_SESSION['inquiry'];
                 <p>件名</p>
                 <p><?php echo $kenmei; ?></p>
                 <p>お問い合わせ内容</p>
-                <p><?php echo $inquiry; ?></p>
+                <p style="width:100%; word-wrap: break-word;"><?php echo $inquiry; ?></p>
 
                 <div class="button-matome">
                     <button type="submit" class="btn btn-warning btn-matome-pos" style="font-weight: bold;">送信する</button>

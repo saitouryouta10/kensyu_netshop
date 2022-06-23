@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
-    <title>HOGEHOGE SHOP</title>
+    <title>HOGEHOGE SHOP-お問い合わせ</title>
 </head>
 <body>
     <div class="form ">
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="text-end">
                 <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
             </div>
-           <h1 class="toiawase">HOGEHOGE SHOP-お問い合わせ</h1>
+           <h1 class="toiawase">お問い合わせ</h1>
         </div>
 
         <hr>
