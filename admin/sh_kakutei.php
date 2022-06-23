@@ -2,6 +2,14 @@
 require("../library.php");
 session_start();
 
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
 
 $old_form_add = $_SESSION["old_form_add"];
 $new_form_add = $_SESSION["form_add"];
@@ -34,7 +42,6 @@ if(!$stmt) {
     die($db->error);
 }else {
     unset($_SESSION["form_add"]);
-    unset($_SESSION["image"]);
     unset($_SESSION["old_form_add"]);
 }
 

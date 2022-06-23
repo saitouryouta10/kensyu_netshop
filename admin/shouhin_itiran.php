@@ -1,3 +1,14 @@
+<?php 
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>

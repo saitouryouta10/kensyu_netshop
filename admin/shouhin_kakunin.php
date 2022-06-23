@@ -3,6 +3,14 @@ session_start();
 $form_add = $_SESSION["form_add"];
 $filename = $_SESSION["image"];
 
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +47,15 @@ $filename = $_SESSION["image"];
         <p>個数</p>
         <!-- 個数表示 -->
         <?php echo $form_add["stock"];?>
+
+        <p>ジャンル</p>
+        <!-- 個数表示 -->
+        <?= $form_add["jenre_id"] === "1" ? "家具" : ""?>
+        <?= $form_add["jenre_id"] === "2" ? "食材" : ""?>
+        <?= $form_add["jenre_id"] === "3" ? "玩具" : ""?>
+        <?= $form_add["jenre_id"] === "4" ? "日用品" : ""?>
+        <?= $form_add["jenre_id"] === "5" ? "家電" : ""?>
+        <?= $form_add["jenre_id"] === "0" ? "その他" : ""?>
 
         <p>画像</p>
         <!-- 画像表示 -->

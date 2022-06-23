@@ -3,6 +3,15 @@
 require("../library.php");
 session_start();
 
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
 $update = "";
 $form_add = [
     "name" => "",
@@ -13,9 +22,8 @@ $form_add = [
     "syousai" => "",
 ];
 
-if (isset($_SESSION["old_form_add"]) && ($_SESSION["old_image"])) {
+if (isset($_SESSION["old_form_add"])) {
     $old_form_add = $_SESSION["old_form_add"];
-    $old_image["name"] = $_SESSION["old_image"];
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -36,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error["name"] = "length_error";
     }
 
+    /*------------------ジャンルバリデーション------------------*/
+    if ($form_add["jenre_id"] === NUll){
+        $form_add["jenre_id"] = "0";
+    }
 
     /*------------------値段バリデーション------------------*/
 
@@ -175,6 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="text" name="stock" value="<?php echo h($form_add["stock"]);?>" required>個追加     　　　<span>残りの在庫：<?php echo h($old_form_add["stock"]);?>個</span>
 
             <p>ジャンル</p>
+            <span style="color: red;">※選択しなかった場合自動的に[その他]になります</span><br>
             <input type="radio" name="jenre" id="kagu" value="1" <?= $old_form_add["jenre_id"] === "1" ? "checked" : '' ?> >
             <label for="kagu">家具</label>
             
@@ -189,6 +202,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <input type="radio" name="jenre" id="kaden" value="5"  <?= $old_form_add["jenre_id"] === "5" ? "checked" : "" ?> >
             <label for="kaden">家電</label> 
+            
+            <input type="radio" name="jenre" id="sonota" value="0"  <?= $old_form_add["jenre_id"] === "0" ? "checked" : "" ?> >
+            <label for="sonota">その他</label> 
 
             <p>画像　<span class="badge bg-danger">必須</span></p>
             <?php if (isset($error["image"]) && $error["image"] === "type_error"):?>
@@ -197,7 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php if (isset($match_error["image"]) && $match_error["image"] === "match"):?>
             <span class="error">同じ名前の画像があります。別の名前に変更してください。</span><br>
             <?php endif;?>
-            <input type="file" name="picture" required>     　　　<span>前の画像：<?php echo h($old_image["name"]);?></span>
+            <input type="file" name="picture" required>     　　　<span>前の画像：<?php echo h($old_form_add["picture"]);?></span>
 
             <p>商品説明　<span class="badge bg-danger">必須</span></p>
             <?php if (isset($error["setumei"]) && $error["setumei"] === "length_error"):?>

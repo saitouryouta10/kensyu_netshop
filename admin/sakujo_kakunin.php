@@ -2,16 +2,35 @@
 require("../library.php");
 session_start();
 
+if (isset($_SESSION["id"])){
+    if($_SESSION["id"] !== 1){
+        header("Location: ../top/top.php");
+    }
+}else{
+    header("Location: ../top/top.php");
+}
+
+
 $delete = $_SESSION["delete"];
-var_dump($delete);
+// var_dump($delete);
 
-$db = dbconnect();
-
-$stmt = $db->$prepare("select name")
-
-
-
-
+foreach($delete as $del){
+    $db = dbconnect();
+    // echo $del;
+    $stmt = $db->prepare("select name from items where id=?");
+    if(!$stmt){
+        echo "エラーだよ！";
+        die($db->error);
+    }
+    $stmt->bind_param("i",$del);
+    $success = $stmt->execute();
+    if(!$success){
+        echo "エラーじゃ！";
+        die($db->error);
+    }
+    $stmt->bind_result($names[]);
+    $stmt->fetch();
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +52,15 @@ $stmt = $db->$prepare("select name")
         </div>
     </div>
     <div class="admin_kakunin">
-        <p>〇〇を削除してもよろしいですか</p>
+        <?php foreach($names as $name):?>
+            <p style="color: red; font-weight: bold;"><?= $name;?><br></p>   
+        <?php endforeach; ?>
+        <p>を削除してもよろしいですか</p>
     </div>
     </div>
     <div class="admin_button_matome">
             <!-- sakujo_kakutei.phpへ -->
-            <button type="button" class="btn btn-primary admin_yes">はい -削除する</button>
+            <button type="button" class="btn btn-primary admin_yes" onclick="location.href='sakujo_kakutei.php'">はい -削除する</button>
             <a type="button" class="btn btn-danger admin_no" onclick="location.href='shouhin_sakujo.php'">いいえ -選択画面に戻る</a>
     </div>
 </body>
