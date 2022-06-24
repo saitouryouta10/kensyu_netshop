@@ -35,6 +35,17 @@ if(isset($_POST['narabikae'])){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
+  <script>
+    function osuna() {
+const x = confirm("絶対押すなよ");
+
+if(x) {
+alert("いいね");
+}else{
+window.open('https://www.google.com/?hl=ja', '_blank');
+}
+}
+  </script>
 </head>
 <body class="top_b">
 <header>
@@ -125,5 +136,5 @@ footer_inc();
 </footer>
 
 </body>
-<script src="../test.js"></script>
+<!-- <script src="../test.js"></script> -->
 </html>
