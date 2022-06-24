@@ -35,7 +35,6 @@ if(isset($_POST['narabikae'])){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
-
 </head>
 <body class="top_b">
 <header>
@@ -43,6 +42,7 @@ if(isset($_POST['narabikae'])){
 </header>
 <main>
 
+<a href="" onclick="osuna()" onclick="osuna()" class="btn">押すな</a>
 <div class="container" style="padding: 0 10%;">
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
@@ -88,11 +88,12 @@ if(isset($_POST['narabikae'])){
           <tr>
             <th class="pic_size">
 
-              <?php if($rec['picture']==null): ?>
-                      <img src="./img/noimage.png">
-                    <?php else: ?>
-                      <img src="./img/<?php echo $rec['picture'];?>" >
-                      <?php endif ?>
+                <?php if($rec['picture']==null): ?>
+                  <img class="img-wrap" src="./img/noimage.png">
+                  <?php else: ?>
+                    <img src="./img/<?php echo $rec['picture'];?>" >
+                    <?php endif ?>
+
                     </div>
 
               </th>
@@ -124,4 +125,5 @@ footer_inc();
 </footer>
 
 </body>
+<script src="../test.js"></script>
 </html>
