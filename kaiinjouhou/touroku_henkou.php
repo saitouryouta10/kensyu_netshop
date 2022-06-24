@@ -57,6 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $form['sex'] = filter_input(INPUT_POST, 'sex', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $form['birthday'] = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    if ($form['birthday'] === '') {
+        $form['birthday'] = NULL;
+    }
 
 
     $form["zipcode"] = filter_input(INPUT_POST,"zipcode",FILTER_SANITIZE_STRING);

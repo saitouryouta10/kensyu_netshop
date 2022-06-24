@@ -11,6 +11,13 @@ $address = $_SESSION['address'];
 $tell = $_SESSION['tell'];
 $email = $_SESSION['email'];
 
+unset($_SESSION['name']);
+unset($_SESSION['nickname']);
+
+$_SESSION['new_name'] = $name;
+$_SESSION['new_nickname'] = $nickname;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
