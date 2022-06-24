@@ -1,7 +1,12 @@
 <?php
 require('../library.php');
 $db =dbconnect();
+
+
 session_start();
+if(isset($_SESSION['kounyuu'])){
+  unset($_SESSION['kounyuu']);
+  }
 isset($_SESSION['id']);
 $_SESSION['img_id']='';
 

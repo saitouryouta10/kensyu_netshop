@@ -3,10 +3,25 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
-$userid=$_SESSION['id'];
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+  if(isset($_SESSION['name'])){
+  $name = $_SESSION['name'];
+  }
+}else{
+
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+ header('Location:../login/login.php?login='.$login.'');
+   exit();
+
+}
 // $item_id=$_GET['id'];
-
-
+if(isset($_SESSION['kounyuu']) && $_SESSION['kounyuu'] ===1){
+  header('Location: top.php');
+  exit();
+  }
+$_SESSION['kounyuu']=2;
 //数の選択
 if(isset($_POST['kazuerabi'])){
   $kazuerabi=$_POST['kazuerabi'];
@@ -138,8 +153,10 @@ $result2 = $stmt2->fetch_assoc();
            </table>
           </div>
           <?php endwhile; ?>
-          <?php if($total<=0){ echo '商品が入っていません'; echo '<a href="top.php" style="color:red">戻る</a>';}else{echo '計'.$total.'円'; $_SESSION['total']=$total;}?>
+          <?php if($total<=0): echo '商品が入っていません'; ?>
+          <?php else: echo '計'.$total.'円'; $_SESSION['total']=$total;?>
           <button type="button" onclick="location.href='tyuumon_kakutei.php';" class="btn btn-success" style="width:100%">注文を確定する</button>
+          <?php endif; ?>
         </div>
       </div>
 
