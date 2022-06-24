@@ -32,9 +32,21 @@ if(isset($_POST['narabikae'])){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOGEHOGE SHOP-トップ</title>
+
+  <!--css-->
+  <link rel="stylesheet" href="css/slider.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
+  
+  <!--js-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="../slider/slider.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(window).on("load", function() {
+      $("#slider").slider();
+    });
+  </script>
 
 </head>
 <body class="top_b">
@@ -42,6 +54,19 @@ if(isset($_POST['narabikae'])){
     <?php header_inc(); ?>
 </header>
 <main>
+  <!--js-->
+<script src="js/slider.js" type="text/javascript"></script>
+<!--1:シンプルなスライドの場合-->
+<script type="text/javascript">
+  $(window).on("load", function() {
+    $("#slider").slider();
+  });
+</script>
+
+  <ul class="slider" id="slider">
+	  <li><img src="img/noimage.png" alt=""/></li>
+    <li><img src="img/noimage.png" alt=""/></li>
+  </ul>
 
 <div class="container" style="padding: 0 10%;">
   <!-- <a href="top.php">
