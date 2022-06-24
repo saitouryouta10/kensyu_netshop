@@ -68,8 +68,11 @@ if(isset($_POST['review_del'])==true){
 
 if(isset($_POST['kutikomi_jump'])):
     $n = $_POST['kutikomi_jump'];
-
-    echo 'ID:' . $n . '<br>';
+    $sqln='select name from users where id='.$n.'';
+    $stmtn=$db->query($sqln);
+    $r=$stmtn->fetch_assoc();
+    // print_r($r);
+    echo 'ID ' . $n . '：'.$r['name'].'さん';
     $sql='select * from reviews where user_id='.$n.'';
     $stmt=$db->query($sql);
 ?>
