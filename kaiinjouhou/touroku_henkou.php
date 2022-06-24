@@ -153,6 +153,8 @@ if (!$success) {
     die($db2->error);
 }
 $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $pass);
+
+var_dump($sex);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -230,37 +232,21 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <div>
         <h3>性別</h3>
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
-            <?php if ($form['sex'] == 1) : ?>
-                <input type="radio" name="sex" id="man" value="1" checked><label for="man">男性</label>
-                <input type="radio" name="sex"id="woman" value="2"><label for="woman">女性</label>
-                <input type="radio" name="sex"id="others" value="3"><label for="others">その他</ label>
-            <?php endif; ?>
-            <?php if ($form['sex'] == 2) : ?>
-                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
-                <input type="radio" name="sex" id="woman" value="2" checked><label for="woman">女性</label>
-                <input type="radio" name="sex" id="others" value="3"><label for="others">その他</label>
-            <?php endif; ?>
-            <?php if ($form['sex'] == 3) : ?>
-                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
-                <input type="radio" name="sex" id="woman" value="2"><label for="woman">女性</label>
-                <input type="radio" name="sex" id="others" value="3" checked><label for="others">その他</label>
-            <?php endif; ?>
+            <input type="radio" id="male" name="sex" value="1" <?= isset($form["sex"]) && $form["sex"] === "1" ? 'checked' : '' ?>>
+			<label for="male">男性</label>
+			<input type="radio" id="female" name="sex" value="2" <?= isset($form["sex"]) && $form["sex"] === "2" ? 'checked' : '' ?>>
+			<label for="female">女性</label>
+			<input type="radio" id="others" name="sex" value="3" <?= isset($form["sex"]) && $form["sex"] === "3" ? 'checked' : '' ?>>
+			<label for="others">その他</label>
+
         <?php else : ?>
-            <?php if ($sex == 1) : ?>
-                <input type="radio" name="sex" id="man" value="1" checked><label for="man">男性</label>
-                <input type="radio" name="sex"id="woman" value="2"><label for="woman">女性</label>
-                <input type="radio" name="sex"id="others" value="3"><label for="others">その他</ label>
-            <?php endif; ?>
-            <?php if ($sex == 2) : ?>
-                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
-                <input type="radio" name="sex" id="woman" value="2" checked><label for="woman">女性</label>
-                <input type="radio" name="sex" id="others" value="3"><label for="others">その他</label>
-            <?php endif; ?>
-            <?php if ($sex == 3) : ?>
-                <input type="radio" name="sex" id="man" value="1"><label for="man">男性</label>
-                <input type="radio" name="sex" id="woman" value="2"><label for="woman">女性</label>
-                <input type="radio" name="sex" id="others" value="3" checked><label for="others">その他</label>
-            <?php endif; ?>
+            <input type="radio" id="male" name="sex" value="1" <?= $sex == 1 ? 'checked' : '' ?>>
+			<label for="male">男性</label>
+			<input type="radio" id="female" name="sex" value="2" <?= $sex == 2 ? 'checked' : '' ?>>
+			<label for="female">女性</label>
+			<input type="radio" id="others" name="sex" value="3" <?= $sex ==3 ? 'checked' : '' ?>>
+			<label for="others">その他</label>
+
         <?php endif; ?>
         </div>
 
