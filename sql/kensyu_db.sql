@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: localhost:8889
--- 生成日時: 2022-06-23 02:25:13
+-- 生成日時: 2022-06-23 04:16:13
 -- サーバのバージョン： 5.7.24
 -- PHP のバージョン: 8.0.1
 
@@ -88,15 +88,15 @@ INSERT INTO `history` (`id`, `user_id`, `name`, `price`, `num`, `item_id`, `crea
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `inquery`
+-- テーブルの構造 `inquiry`
 --
 
-CREATE TABLE `inquery` (
+CREATE TABLE `inquiry` (
   `id` int(11) NOT NULL COMMENT 'お問い合わせID',
   `email` varchar(255) NOT NULL COMMENT 'メールアドレス',
-  `inquery_post` text NOT NULL COMMENT 'お問い合わせ内容',
+  `inquiry_post` text NOT NULL COMMENT 'お問い合わせ内容',
   `kenmei` varchar(255) NOT NULL COMMENT '件名',
-  `name` int(11) NOT NULL COMMENT '名前',
+  `name` varchar(255) NOT NULL COMMENT '名前',
   `qreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '投稿日時'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -118,14 +118,6 @@ CREATE TABLE `items` (
   `picture` varchar(255) NOT NULL COMMENT '商品画像',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '追加日時'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- テーブルのデータのダンプ `items`
---
-
-INSERT INTO `items` (`id`, `name`, `price`, `jenre_id`, `retention_stock`, `stock`, `setumei`, `syousai`, `picture`, `created`) VALUES
-(14, 'イス', 2000, 0, 110, 110, 'とても座りやすいです', '高さ２２２ｃｍ', 'isu.png', '2022-06-23 02:17:50'),
-(15, 'カート', 10200, 0, 200, 200, '女性です', 'いいにおいがします', 'publicdomainq-0043731gomdgf.jpg', '2022-06-23 02:18:32');
 
 -- --------------------------------------------------------
 
@@ -215,9 +207,9 @@ ALTER TABLE `history`
   ADD PRIMARY KEY (`id`);
 
 --
--- テーブルのインデックス `inquery`
+-- テーブルのインデックス `inquiry`
 --
-ALTER TABLE `inquery`
+ALTER TABLE `inquiry`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -268,16 +260,16 @@ ALTER TABLE `history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '注文履歴ID', AUTO_INCREMENT=9;
 
 --
--- テーブルの AUTO_INCREMENT `inquery`
+-- テーブルの AUTO_INCREMENT `inquiry`
 --
-ALTER TABLE `inquery`
+ALTER TABLE `inquiry`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'お問い合わせID';
 
 --
 -- テーブルの AUTO_INCREMENT `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'アイテムID', AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'アイテムID', AUTO_INCREMENT=17;
 
 --
 -- テーブルの AUTO_INCREMENT `m_jenre`
