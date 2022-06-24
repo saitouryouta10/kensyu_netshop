@@ -41,18 +41,7 @@ if(isset($_POST['narabikae'])){
     <?php header_inc(); ?>
 </header>
 <main>
-  <script>
-    function osuna() {
-  const x = confirm("絶対押すなよ");
 
-  if(x) {
-    alert("いいね");
-  }else{
-    window.open('https://www.google.com/?hl=ja', '_blank');
-  }
-}
-
-  </script>
 <a href="" onclick="osuna()" onclick="osuna()" class="btn">押すな</a>
 <div class="container" style="padding: 0 10%;">
   <!-- <a href="top.php">
@@ -99,11 +88,12 @@ if(isset($_POST['narabikae'])){
           <tr>
             <th class="pic_size">
 
-              <?php if($rec['picture']==null): ?>
-                      <img src="./img/noimage.png">
-                    <?php else: ?>
-                      <img src="./img/<?php echo $rec['picture'];?>" >
-                      <?php endif ?>
+                <?php if($rec['picture']==null): ?>
+                  <img class="img-wrap" src="./img/noimage.png">
+                  <?php else: ?>
+                    <img src="./img/<?php echo $rec['picture'];?>" >
+                    <?php endif ?>
+
                     </div>
 
               </th>
@@ -135,4 +125,5 @@ footer_inc();
 </footer>
 
 </body>
+<script src="../test.js"></script>
 </html>

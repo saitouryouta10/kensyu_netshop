@@ -80,6 +80,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
   <link rel="stylesheet" type="text/css" href="../style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+  $("textarea").keyup(function(){
+    var counter = $(this).val().length;
+    $("#countUp").text(counter);
+
+    if(counter == 0){
+      $("#countUp").text("0");
+    }
+    if(counter >= 255){
+      $("#countUp").css("color","red");
+    } else {
+      $("#countUp").css("color","#666");
+    }
+  });
+});
+  </script>
 </head>
 
 <body>
@@ -116,7 +134,9 @@ if($rec=$stmt->fetch_assoc()):?>
                   <dl>
                       <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
                       <dd>
-                          <textarea name="comment" maxlength="255" cols="50" rows="5"></textarea>
+                      <p>255文字まで入力できます。</p>
+                          <textarea name="comment" cols="50" rows="5"></textarea>
+                          <sapn id="countUp">0</span>
                       </dd>
                   </dl>
                   <div class="kutikomi_butotn">
