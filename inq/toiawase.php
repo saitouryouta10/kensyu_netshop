@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <form action="#" method="post">
                 <p>お名前　<span class="badge bg-danger">必須</span></p>
                 <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
-                    <input type="text" name="name" value="<?php echo h($form['name']); ?>">
+                    <input type="text" name="name" maxlength="20" value="<?php echo h($form['name']); ?>">
                 <?php else : ?>
                     <input type="text" name="name" maxlength="20">
                 <?php endif; ?>
