@@ -117,7 +117,7 @@ if($rec=$stmt->fetch_assoc()):?>
                       <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
                       <dd>
                       <p>255文字まで入力できます。</p>
-                          <textarea name="comment" cols="50" rows="5"></textarea>
+                          <textarea name="comment" cols="50" rows="5" maxlength="255"></textarea>
                           <sapn id="countUp">0</span>
                       </dd>
                   </dl>
