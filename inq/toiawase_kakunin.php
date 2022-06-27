@@ -1,4 +1,5 @@
 <?php
+require("../library.php");
 session_start();
 $name = $_SESSION['name'];
 $email = $_SESSION['email'];
@@ -26,13 +27,13 @@ $inquiry = $_SESSION['inquiry'];
         <div class="container">
             <form action="sousinkanryou.php" method="post">
                 <p>お名前</p>
-                <p><?php echo $name; ?></p>
+                <p><?php echo h($name); ?></p>
                 <p>メールアドレス</p>
-                <p><?php echo $email; ?></p>
+                <p><?php echo h($email); ?></p>
                 <p>件名</p>
-                <p><?php echo $kenmei; ?></p>
+                <p><?php echo h($kenmei); ?></p>
                 <p>お問い合わせ内容</p>
-                <p style="width:100%; word-wrap: break-word;"><?php echo $inquiry; ?></p>
+                <p style="width:100%; word-wrap: break-word;"><?php echo h($inquiry); ?></p>
 
                 <div class="button-matome">
                     <button type="submit" class="btn btn-warning btn-matome-pos" style="font-weight: bold;">送信する</button>
