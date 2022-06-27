@@ -119,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	if($form["nickname"] === ""){
 		$error["nickname"] = "blank";
 	//21文字以上だった場合
-	}else if($form_length["nickname"] > 20){
+	}else if($form_length["nickname"] > 8){
 		$error["nickname"] = "string";
 	}
 	/*--------------------生年月日のバリデーション-------------------------*/
@@ -346,7 +346,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 			<td>
 				<div class="address_margin">
                 	<label>〒</label><br>
-                	<input type="text" name="zipcode" value="<?php echo h($form["zipcode"])?>"><br>
+                	<input type="text" name="zipcode" maxlength="255" value="<?php echo h($form["zipcode"])?>"><br>
 					例)123-4567 (半角数字でご入力ください。)<br>
 				<?php if(isset($error["zipcode"]) && $error["zipcode"] === "blank"):?>
 				<span class="error">郵便番号を入力して下さい。</span>
