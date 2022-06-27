@@ -93,12 +93,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     /*------------------画像バリデーション------------------*/
     $db = dbconnect();
-    $reslts = $db->query("select picture from items");
+    $reslts = $db->query("select * from items");
 
     if ($reslts){
         while ($reslt = $reslts->fetch_assoc()) {
             // var_dump($image["name"]);
-            if($image["name"] === $reslt["picture"] && $old_form_add["id"] === $reslt["id"]) {
+            if($image["name"] === $reslt["picture"] && $old_form_add["id"] !== $reslt["id"]) {
+                // var_dump($reslt["picture"]);
+                // var_dump($reslt["id"]);
+                // var_dump($old_form_add["id"]);
                 $match_error["image"] = "match";
                 // echo "aaaaaaaaaaaaaaaaaaaaa";
             }
