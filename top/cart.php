@@ -21,8 +21,8 @@ if(isset($_SESSION["id"])){
    exit();
 
 }
-// echo "aaaaaaaaaaaaaaa";
-// exit();
+
+// 数量受け取り
 if(isset($_POST['kazuerabi'])){
 
   $kazuerabi=$_POST['kazuerabi'];
@@ -37,12 +37,13 @@ if(isset($_SESSION['cart'])==true){
 $cart=$_SESSION['cart'];
 }
 // echo $userid;
-
+// 商品IDの受け取り
 if(isset($_POST['itemid'])==true){
   $itemid=$_POST['itemid'];
   // echo $itemid;
   }
 
+  // 削除ボタンを押された時カートDBから削除
 if(isset($_POST['sakujo_button'])==true){
   $sqls='delete from cart where id=?';
   $stmts =$db ->prepare($sqls);
@@ -50,6 +51,7 @@ if(isset($_POST['sakujo_button'])==true){
   $stmts->execute();
 }
 
+// 数量変更ボタンを押されたときDBのnumberを更新
 if(isset($_POST['change_button'])==true){
   $sql2 = 'update cart set number='.$kazuerabi.' where id in('.$itemid.')';
   $stmt2 =$db ->query($sql2);
@@ -83,7 +85,6 @@ $total=0;
 
   <?php
 $sql='select * from cart  inner join items on cart.item_id=items.id where user_id='.$userid.'';
-// $sql = 'select id,user_id,item_id,number from cart where user_id='.$userid.'';
 $sql2= 'select count(*) from cart where user_id='.$userid.'';
 $sql3='select id from cart where user_id='.$userid.'';
 
@@ -92,10 +93,6 @@ $stmt2=$db->query($sql2);
 $stmt3=$db->query($sql3);
 $db=null;
 
-// $stmt->bind_Param("s",$userid);
-// $stmt->execute();
-
-// $stmt->bind_result($id,$user_id,$item_id,$number,$created);
 ?>
 
 <?php
@@ -107,6 +104,7 @@ $result2 = $stmt2->fetch_assoc();
   <?php if($rec==false):
       break; ?>
       <?php endif ?>
+      <!-- カートの商品を表示 -->
       <div class="img_s">
       <table>
     <tr>

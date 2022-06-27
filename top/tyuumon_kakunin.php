@@ -89,10 +89,6 @@ $stmt2=$db->query($sql2);
 $stmt3=$db->query($sql3);
 $db=null;
 
-// $stmt->bind_Param("s",$userid);
-// $stmt->execute();
-
-// $stmt->bind_result($id,$user_id,$item_id,$number,$created);
 ?>
 
 <?php
@@ -104,6 +100,8 @@ $result2 = $stmt2->fetch_assoc();
   <?php if($rec==false): ?>
       break;
       <?php endif ?>
+
+      <!-- 商品の表示 -->
       <div class="img_s">
       <table>
     <tr>
@@ -131,24 +129,7 @@ $result2 = $stmt2->fetch_assoc();
                <th>
                  <p>計<?php echo $rec['number'] * $rec['price'];  ?>円</p>
                  <?php $total+=$rec['number'] * $rec['price']; ?>
-                 <th>
-
-                   <!-- <form action="" method="POST">
-                     <select name="kazuerabi">
-                       <?php for($i=1; $i<=$rec['stock'];$i++):?>
-                        <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
-                        <?php endfor ;?>
-                      </select>
-                      <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
-                      <input type="submit" value="変更する" name="change_button">
-                       </form>
-                      <form action="" method="POST">
-                        <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
-                      <input type="submit" value="削除する" name="sakujo_button">
-                      <?php //echo $result3['id'] ;?>
-                    </form> -->
-                  </th>
-               </th>
+                </th>
              </tr>
            </table>
           </div>
@@ -160,13 +141,8 @@ $result2 = $stmt2->fetch_assoc();
         </div>
       </div>
 
-<div>
 
-</div>
-
-
-
-                       </main>
+</main>
 <footer>
   <?php
 footer_inc();

@@ -58,7 +58,7 @@ window.open('https://www.google.com/?hl=ja', '_blank');
 </header>
 <main>
 
-<a href="" onclick="osuna()" onclick="osuna()" class="btn">押すな</a>
+<a href="" onclick="osuna()" onclick="osuna()" class="btn" style="color:antiquewhite">押すな</a>
 <div class="container" style="padding: 0 10%;">
   <!-- <a href="top.php">
     <h1 class="title_name">HOGEHOGE SHOP</h1>
@@ -98,6 +98,8 @@ window.open('https://www.google.com/?hl=ja', '_blank');
       break;
       <?php endif ?>
 <?php //print_r($rec);?>
+
+<!-- 商品一覧を表示させるテーブル -->
       <a class="top_a" href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
         <div class="img_s">
         <table class="top_table">
