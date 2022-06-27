@@ -3,6 +3,12 @@ require('../library.php');
 $db =dbconnect();
 
 session_start();
+if(!isset($_SESSION['kounyuu'])){
+  header('Location: top.php');
+  exit();
+  }
+$_SESSION['kounyuu']=1;
+
 $userid=$_SESSION['id'];
 // $item_id=$_GET['id'];
 $total=$_SESSION['total'];

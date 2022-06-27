@@ -15,22 +15,7 @@ if(isset($_GET['id'])){
 
 $login=1;
 
-// if(isset($_SESSION["id"])){
-//   //セッション情報がある場合は普通に画面遷移
-//   $userid=$_SESSION['id'];
-//   if(isset($_SESSION['nickname'])){
-//   $name = $_SESSION['nickname'];
-//   }
-// }else{
 
-//     //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
-//  header('Location:../login/login.php?login='.$login.'');
-//    exit();
-
-// }
-// var_dump($userid);
-// var_dump($name);
-// exit();
 if(isset($_SESSION['id']) && isset($_SESSION['nickname'])){
     $userid =$_SESSION['id'];
     $name = $_SESSION['nickname'];
@@ -113,9 +98,6 @@ $stmt =$db ->query($sql);
 
 if($rec=$stmt->fetch_assoc()):?>
 
-  <!-- <a href="top.php">
-    <h1 class="title_name">HOGEHOGE SHOP</h1>
-  </a> -->
 <div id="wrap">
     <div id="head">
         <h2>すべてのレビュー</h2>
@@ -135,7 +117,7 @@ if($rec=$stmt->fetch_assoc()):?>
                       <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
                       <dd>
                       <p>255文字まで入力できます。</p>
-                          <textarea name="comment" cols="50" rows="5"></textarea>
+                          <textarea name="comment" cols="50" rows="5" maxlength="255"></textarea>
                           <sapn id="countUp">0</span>
                       </dd>
                   </dl>
@@ -148,7 +130,7 @@ if($rec=$stmt->fetch_assoc()):?>
                   </select>
                   <div>
                           <button type="submit"class="btn btn-success">投稿する</button>
-                          <!-- <input type="submit" value="投稿する"/> -->
+
                   </div>
                     </div>
                 </form>
@@ -158,13 +140,6 @@ if($rec=$stmt->fetch_assoc()):?>
         $stmt1= $db->query('select r.comment,r.star,r.created,r.user_id from reviews r where item_id='.$item_id.'');
         $sql3='select id from reviews where item_id='.$item_id.'';
         $stmt3=$db->query($sql3);
-        // if(!$stmt){
-        //     die($db->error);
-        // }
-        // $succsess = $stmt->execute();
-        // if(!$succsess){
-        //     die($db->error);
-        // }
 
         while($result2=$stmt1->fetch_assoc()):
         $n= $db->query('select nickname from users where id='.$result2['user_id'].'');
