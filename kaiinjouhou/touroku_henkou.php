@@ -157,7 +157,6 @@ if (!$success) {
 }
 $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $pass);
 
-var_dump($sex);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
