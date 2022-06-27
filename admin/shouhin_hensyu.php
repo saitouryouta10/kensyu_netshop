@@ -54,15 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $match["price"] = preg_match("/[0-9]/",$form_add["price"]);
 
     $form_length["price"] = mb_strlen($form_add["price"]);
-
-    if ($form_length["price"] > 10) {
+    if ($form_length["price"] > 10 || $form_add["price"] < 1 ) {
         $error["price"] = "length_error";
     }
 
     if (!$match["price"]) {
         $match_error["price"] = "nomatch";
     }
-
     /*------------------在庫バリデーション------------------*/
 
     $match["stock"] = preg_match('/[0-9]/',$form_add["stock"]);
