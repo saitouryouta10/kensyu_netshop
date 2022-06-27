@@ -1,5 +1,14 @@
 <?php
 session_start();
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+}else{
+    $login = 1;
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+  header('Location:../login/login.php?login='.$login.'');
+  exit();
+}
 require('../library.php');
 
 $id = $_SESSION['id'];

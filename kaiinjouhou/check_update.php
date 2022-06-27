@@ -56,7 +56,7 @@ $_SESSION['new_nickname'] = $nickname;
     <?php else : ?>
         <p>生年月日<br><?php echo h($birthday); ?></p>
     <?php endif; ?>
-    <p>
+    <p style="width:100%; word-wrap: break-word;">
         住所<br><?php echo h($zipcode); ?><br>
         <?php echo h($address); ?>
     </p>

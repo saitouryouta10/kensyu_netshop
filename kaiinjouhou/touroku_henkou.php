@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     if ($form['nickname'] === '') {
         $form['nickname'] = '';
         $error['nickname'] = 'blank';
-    } else if($form_length["nickname"] > 20){
+    } else if($form_length["nickname"] > 8){
 		$error["nickname"] = "string";
 	}
 
@@ -138,10 +138,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 }
 
 session_start();
-if (isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
-} else {
-    header('Location: login.php');
+if(isset($_SESSION["id"])){
+    //セッション情報がある場合は普通に画面遷移
+    $id=$_SESSION['id'];
+}else{
+      $login = 1;
+      //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+    header('Location:../login/login.php?login='.$login.'');
     exit();
 }
 $db2 = dbconnect();
@@ -228,7 +231,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
             <p class="error">ニックネームを入力してください</p>
         <? endif; ?>
         <?php if(isset($error["nickname"]) && $error["nickname"] === "string"):?>
-			<p class="error">ニックネームは20文字以内で入力してください。</p>
+			<p class="error">ニックネームは8文字以内で入力してください。</p>
 		<?php endif;?>
 
         <div>
@@ -280,7 +283,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
             <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
                 <input type="text" name="address" value="<?php echo h($form['address']); ?>">
             <?php else : ?>
-                <input type="text" name="address" value="<?php echo h($address); ?>">
+                <input type="text" name="address" maxlength="255" value="<?php echo h($address); ?>">
             <? endif; ?>
             <?php if (isset($error['address']) && $error['address'] === 'blank'): ?>
                 <p class="error">住所を入力してください</p>
