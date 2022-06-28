@@ -13,6 +13,7 @@ class DBController
      * @var mysqli
      */
 
+
     protected $dbh = null;
 
 
@@ -21,6 +22,7 @@ class DBController
      *
      * @var int
      */
+
 
     protected $fetch_mode = MYSQLI_ASSOC;
 
@@ -130,7 +132,9 @@ class DBController
      * @param mixed ...$vars
      * @return boolean
      */
+
     function executeInsert($sql,$types = null, ...$vars)
+
     {
         $data = true;
 
@@ -139,10 +143,13 @@ class DBController
             $stmt = $this->dbh->prepare($sql);
 
             if($types && $vars) {
+
+
                 $stmt->bind_param($types, ...$vars);
             }
 
             $stmt->execute();
+
 
         } catch (mysqli_sql_exception $e) {
             $data = false;

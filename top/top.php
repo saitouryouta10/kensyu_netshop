@@ -1,6 +1,8 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
-$db =dbconnect();
+// $db =dbconnect();
+$db = new DBController;
 
 
 session_start();
@@ -92,41 +94,45 @@ window.open('https://www.google.com/?hl=ja', '_blank');
 
   <?php
   $sql ='select setumei, name,price,picture,id from items '.$sc.' '.$s.'';
-  $stmt= $db->query($sql);
-  $db = null;
+  $rec=$db->executeQuery($sql, $types = null);
+  // $stmt= $db->query($sql);
+  // $db = null;
+  // print_r($rec);
+  // echo count($rec);
+  // exit();
   ?>
 
 <!-- データベースから商品一覧を表示させるもの。 -->
-  <?php while( $rec = $stmt->fetch_assoc()): ?>
+  <?php foreach($rec as $value): ?>
     <?php if($rec==false): ?>
-      break;
+      <?php break;?>
       <?php endif ?>
 <?php //print_r($rec);?>
 
 <!-- 商品一覧を表示させるテーブル -->
-      <a class="top_a" href="shouhin_shousai.php?id=<?php echo $rec['id'];?>">
+      <a class="top_a" href="shouhin_shousai.php?id=<?php echo $value['id'];?>">
         <div class="img_s">
         <table class="top_table">
           <tr>
             <th class="pic_size">
 
-                <?php if($rec['picture']==null): ?>
+                <?php if($value['picture']==null): ?>
                   <img class="img-wrap" src="./img/noimage.png">
                   <?php else: ?>
-                    <img src="./img/<?php echo $rec['picture'];?>" >
+                    <img src="./img/<?php echo $value['picture'];?>" >
                     <?php endif ?>
 
                     </div>
 
               </th>
                <th class="th_name">
-                 <p> <?php echo $rec['name']; ?> </p>
+                 <p> <?php echo $value['name']; ?> </p>
                </th>
                <th class="th_price">
-                 <p> <?php echo $rec['price']; ?>円 </p>
+                 <p> <?php echo $value['price']; ?>円 </p>
                </th>
                <th class="th_txt">
-                 <p><?php echo $rec['setumei'];  ?></p>
+                 <p><?php echo $value['setumei'];  ?></p>
                </th>
              </tr>
            </table>
@@ -134,7 +140,7 @@ window.open('https://www.google.com/?hl=ja', '_blank');
        </div>
        </a>
 
-       <?php endwhile; ?>
+       <?php endforeach; ?>
       <!-- </div> -->
 
 

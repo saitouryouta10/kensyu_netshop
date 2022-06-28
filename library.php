@@ -3,13 +3,13 @@ function h($value){
     return htmlspecialchars($value,ENT_QUOTES);
 }
 
-function dbconnect(){
+// function dbconnect(){
 
-    require_once( dirname( __FILE__ , 2) . '/config/db.php');
-    $db = new mysqli(HOST, USER, PASS, DBName);
+//     require_once( dirname( __FILE__ , 2) . '/config/db.php');
+//     $db = new mysqli(HOST, USER, PASS, DBName);
 
-    return $db;
-}
+//     return $db;
+// }
 
 function header_inc() {
     if(isset($_SESSION['id'])){

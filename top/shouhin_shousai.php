@@ -1,6 +1,9 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
-$db =dbconnect();
+// $db =dbconnect();
+$db = new DBController;
+
 session_start();
 
 $item_id='';
@@ -53,31 +56,46 @@ if(isset($_SESSION['cart'])==true){
 
 
 
-//メッセージの投稿
+// メッセージの投稿 削除
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   if(isset($_POST['com_id'])==true){
     $com_id=$_POST['com_id'];
     //  echo $com_id;
     $sqls='delete from reviews where id=?';
-    $stmts =$db ->prepare($sqls);
-    $stmts->bind_Param("i",$com_id);
-    $stmts->execute();
-
+    $db->insert_query($sqls,'i',$com_id);
     }elseif(isset($_POST['star'])==true){
     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
     $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
-
-    $stmt = $db->prepare('insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)');
-
-    $stmt->bind_param('siii',$comment,$userid,$star,$item_id);
-    $succsess = $stmt->execute();
-    if(!$succsess){
-        die($db->error);
-    }
+    $sqlc='insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)';
+    $db->insert_query($sqlc,'siii',$comment,$userid,$star,$item_id);
     header('Location: ');
     exit();
   }
 }
+// if($_SERVER['REQUEST_METHOD'] === 'POST'){
+//   if(isset($_POST['com_id'])==true){
+//     $com_id=$_POST['com_id'];
+//     //  echo $com_id;
+//     $sqls='delete from reviews where id=?';
+//     $stmts =$db ->prepare($sqls);
+//     $stmts->bind_Param("i",$com_id);
+//     $stmts->execute();
+
+//     }elseif(isset($_POST['star'])==true){
+//     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
+//     $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
+
+//     $stmt = $db->prepare('insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)');
+
+//     $stmt->bind_param('siii',$comment,$userid,$star,$item_id);
+//     $succsess = $stmt->execute();
+//     if(!$succsess){
+//         die($db->error);
+//     }
+//     header('Location: ');
+//     exit();
+//   }
+// }
 
 ?>
 
@@ -103,9 +121,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <div class="container">
 <?php
 $sql = 'select * from items where id='.$item_id.'';
-$stmt =$db ->query($sql);
-
-if($rec=$stmt->fetch_assoc()):
+$rec= $db->executeQuery($sql, $types = null);
+print_r($rec);
+if($rec):
 
 // print_r($rec);
 
@@ -116,25 +134,25 @@ if($rec=$stmt->fetch_assoc()):
 </div>
 <div class="s_main">
   <div class="shouhin_img">
-    <?php if($rec['picture']): ?>
-        <img src="./img/<?php echo h($rec['picture']); ?>" >
+    <?php if($rec[0]['picture']): ?>
+        <img src="./img/<?php echo h($rec[0]['picture']); ?>" >
         <?php else: ?>
           <img src="./img/noimage.png" >
           <?php endif ;?>
         </div>
      <div class="shousai_name">
-      <p><?php echo h($rec['name']); ?><span class="name"></p>
+      <p><?php echo h($rec[0]['name']); ?><span class="name"></p>
       <div class="shousai_price">
 
-        <p><?php echo h($rec['price']); ?>円</span></p>
+        <p><?php echo h($rec[0]['price']); ?>円</span></p>
 
-        <?php if($rec['stock'] >0): ?>
+        <?php if($rec[0]['stock'] >0): ?>
 
 <div>
 
   <form action="" method="POST">
     <select name="kazuerabi" >
-      <?php for($i=1; $i<=$rec['stock'];$i++):?>
+      <?php for($i=1; $i<=$rec[0]['stock'];$i++):?>
         <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
         <?php endfor ;?>
       </select>
@@ -149,10 +167,10 @@ if($rec=$stmt->fetch_assoc()):
         if(isset($_POST['cartin_button'])==true){
           $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
           $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
-          $stmt_2=$db->query($sql_2);
-          $rec2=$stmt_2->fetch_assoc();
-          if($rec2['count(*)']==0 ){
-            $stmt2 =$db ->query($sql2);
+          $rec2= $db->executeQuery($sql_2, $types = null);
+          // print_r($rec2);
+          if($rec2[0]['count(*)']==0 ){
+            $db->insert_query($sql2, $types = null);
             echo $kazuerabi ."個カートに入れました";
           }else{
             echo '追加済み';
@@ -182,10 +200,9 @@ if($rec=$stmt->fetch_assoc()):
               $sql_3='select count(*) from favorite where item_id='.$item_id.' and user_id='.$userid.'';
 
 
-              $stmt_3=$db->query($sql_3);
-              $rec3=$stmt_3->fetch_assoc();
-              if($rec3['count(*)']==0 ){
-                $stmt3 =$db ->query($sql3);
+              $rec3= $db->executeQuery($sql_3, $types = null);
+              if($rec3[0]['count(*)']==0 ){
+                $db ->insert_query($sql3,$types = null);
                 echo "お気に入りに追加しました";
               }else{
                 echo '追加済み';
@@ -201,59 +218,57 @@ if($rec=$stmt->fetch_assoc()):
 
     </div>
     <h5>商品説明</h5>
-    <p ><?php echo h($rec['setumei']) ; ?></p>
+    <p ><?php echo h($rec[0]['setumei']) ; ?></p>
     <h5 style="margin-top:20px">商品詳細</h5>
-    <p ><?php echo h($rec['syousai']) ; ?></p>
+    <p ><?php echo h($rec[0]['syousai']) ; ?></p>
 
 
   <div>
 
   <!-- 商品レビューを表示 -->
 <br>
-<p class="shousai_r">レビュー<button type="button" onclick="location.href='kutikomi.php?id=<?php echo $item_id;?>';" class="btn btn-success">一覧</button></p>
+<p class="shousai_r">レビュー<a type="button" href="kutikomi.php?id=<?php echo $item_id;?>" class="btn btn-success">一覧</a></p>
 <br>
 <?php
 
 
-          $stmt= $db->query('select r.comment,r.star,r.created, r.user_id from reviews r where item_id='.$item_id.'');
-          $sql3='select id from reviews where user_id='.$userid.'';
-          $sql4='select avg(star) from reviews where item_id='.$item_id.'';
-          $s=$db->query($sql4);
-          $r=$s->fetch_assoc();
-          // print_r($r);
-          $stmt3=$db->query($sql3);
+          $rv= $db->executeQuery('select r.comment,r.star,r.created, r.user_id from reviews r where item_id='.$item_id.'',$types = null);
+          $sql4='select id from reviews where user_id='.$userid.'';
+          $sql5='select avg(star) from reviews where item_id='.$item_id.'';
+          $r= $db->executeQuery($sql5, $types = null);
+
+          $rec4=$db->executeQuery($sql4, $types = null);
 
           // 評価の平均を表示、評価がない場合レビューがないと表示
-          if($r['avg(star)']>0) :?>
-          <p>評価平均<?php echo $r['avg(star)'] ;?></p><br>
-          <?php elseif($r['avg(star)']==0): ?>
+          if($r[0]['avg(star)']>0) :?>
+          <p>評価平均<?php echo $r[0]['avg(star)'] ;?></p><br>
+          <?php elseif($r[0]['avg(star)']==0): ?>
             <p>レビューはまだありません</p><br><br>
           <?php endif; ?>
           <?php
 
-          $result3 = $stmt3->fetch_assoc();
           // $result=$stmt->fetch_assoc();
-          // print_r($result['user_id']);
 
-          while($result=$stmt->fetch_assoc()):
-          $n= $db->query('select nickname from users where id='.$result['user_id'].'');
-          $nr=$n->fetch_assoc();
+          foreach($rv as $value):
+            // print_r($value);
+          $nr= $db->executeQuery('select nickname from users where id='.$value['user_id'].'', $types = null);
+
           ?>
           <div class="msg" style="width:100%; word-wrap: break-word;">
-            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?></p>
+            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr[0]['nickname']); ?></p>
             <p>コメント<br></p>
-            <?php if($result['comment'] == null): ?>
+            <?php if($value['comment'] == null): ?>
               <p>なし</p>
               <?php else : ?>
                 <p>
-                  <?php echo h($result['comment']); ?>
+                  <?php echo h($value['comment']); ?>
                 </p>
               <?php endif ;?>
-              <p>評価<?php echo h($result['star']); ?>&nbsp&nbsp&nbsp<?php echo h($result['created']) ; ?></p>
+              <p>評価<?php echo h($value['star']); ?>&nbsp&nbsp&nbsp<?php echo h($value['created']) ; ?></p>
 
-              <?php if($_SESSION['id'] == $result['user_id']): ?>
+              <?php if($_SESSION['id'] == $value['user_id']): ?>
                 <form action="" method="POST">
-                  <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
+                  <input type="hidden" name="com_id" value="<?php echo $rec4[0]['id']; ?>">
                   <?php //echo $result3['id']; ?>
                   <button type="submit"class="btn btn-danger">削除</button>
                   <!-- <input type="submit" value="削除"/> -->
@@ -263,7 +278,7 @@ if($rec=$stmt->fetch_assoc()):
                 <br>
               </p>
           </div>
-          <?php endwhile ; ?>
+          <?php endforeach ; ?>
       </div>
 
 

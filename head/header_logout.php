@@ -4,23 +4,24 @@ global $user_name;
 global $search;
 global $sc;
 
-$db = dbconnect();
+// require('../lib/DBController.php');
 
 $userid = $_SESSION['id'];
-$sql1 ='select * from users where id='.$userid.'';
-$stmt1 = $db->query($sql1);
+$sql ='select * from users where id='.$userid.'';
+$rec=$db->executeQuery($sql, $types = null);
 //idから情報をすべて抜き出し名前をセッションへ追加
-while($rec1 =$stmt1->fetch_assoc()){
-  $user_name = $rec1["nickname"];
+foreach($rec as $value) {
+    // print_r($value);
+  $user_name = $value["nickname"];
   $_SESSION["nickname"] = $user_name;
-  $_SESSION["name"] = $rec1["name"];
+  $_SESSION["name"] = $value["name"];
 }
 
 
 if (isset($_GET['search'])) {
     $search = h($_GET['search']);
     $search_value = $search;
-    $db = dbconnect();
+    // $db = dbconnect();
     $sc = "where name LIKE '%$search%'";
 
 } else {

@@ -1,6 +1,8 @@
 <?php
 session_start();
 require('../library.php');
+require('../lib/DBController.php');
+$db = new DBController;
 
 if(isset($_GET['id'])){
   $item_id=$_GET['id'];
@@ -25,7 +27,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['nickname'])){
 }
 
 
-$db =dbconnect();
 
 //メッセージの投稿 削除
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -33,21 +34,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $com_id=$_POST['com_id'];
     //  echo $com_id;
     $sqls='delete from reviews where id=?';
-    $stmts =$db ->prepare($sqls);
-    $stmts->bind_Param("i",$com_id);
-    $stmts->execute();
-
+    $db->insert_query($sqls,'i',$com_id);
     }else{
     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
     $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
 
-    $stmt = $db->prepare('insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)');
-
-    $stmt->bind_param('siii',$comment,$userid,$star,$item_id);
-    $succsess = $stmt->execute();
-    if(!$succsess){
-        die($db->error);
-    }
+    $sqlc='insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)';
+    $db->insert_query($sqlc,'siii',$comment,$userid,$star,$item_id);
     header('Location: kutikomi.php?id='.$item_id.'');
     exit();
   }
@@ -94,9 +87,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <div class="container">
 <?php
 $sql = 'select * from items where id='.$item_id.'';
-$stmt =$db ->query($sql);
-
-if($rec=$stmt->fetch_assoc()):?>
+$rec=$db->executeQuery($sql,$types=null);
+if($rec):?>
 
 <div id="wrap">
     <div id="head">
@@ -107,11 +99,10 @@ if($rec=$stmt->fetch_assoc()):?>
         <br>
 
         <?php $sql='select count(*) from reviews where user_id='.$userid.' and item_id='.$item_id.'';
-            $stmtc= $db->query($sql);
-            $recc =$stmtc->fetch_assoc();
-            // print_r($recc);
+           $recc= $db->executeQuery($sql, $types = null);
+            print_r($recc);
             ?>
-            <?php if($recc['count(*)']==0): ?>
+            <?php if($recc[0]['count(*)']==0): ?>
               <form action="" method="post">
                   <dl>
                       <dt><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
@@ -137,26 +128,25 @@ if($rec=$stmt->fetch_assoc()):?>
           <?php endif; ?>
 
         <?php
-        $stmt1= $db->query('select r.comment,r.star,r.created,r.user_id from reviews r where item_id='.$item_id.'');
-        $sql3='select id from reviews where item_id='.$item_id.'';
-        $stmt3=$db->query($sql3);
+        $result2=$db->executeQuery('select r.comment,r.star,r.created,r.user_id, r.id from reviews r where item_id='.$item_id.'', $types = null);
+        // $sql3='select id from reviews where item_id='.$item_id.'';
+        // $result3=$db->executeQuery($sql3, $types = null);
 
-        while($result2=$stmt1->fetch_assoc()):
-        $n= $db->query('select nickname from users where id='.$result2['user_id'].'');
-        $nr=$n->fetch_assoc();
-        // print_r($result2);
+        foreach($result2 as $value):
+
+        $sql4='select nickname from users where id='.$value['user_id'].'';
+        $nr=$db->executeQuery($sql4, $types = null);
         ?>
-            <?php $result3 = $stmt3->fetch_assoc(); ?>
-            <?php //echo $result2['user_id']. $_SESSION['id']; ?>
+            <?php //echo $value['user_id']. $_SESSION['id']; ?>
         <div class="msg" style="width:100%; word-wrap: break-word;">
-            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr['nickname']); ?><br></p>
-            <p>コメント<br><?php echo h($result2['comment']); ?></p>
-            <p>評価<?php echo h($result2['star']); ?></p>
-            <p class="day"><?php echo h($result2['created']) ; ?></p>
+            <p style="border-top:solid 2px lightgray;">ユーザー名：<?php echo h($nr[0]['nickname']); ?><br></p>
+            <p>コメント<br><?php echo h($value['comment']); ?></p>
+            <p>評価<?php echo h($value['star']); ?></p>
+            <p class="day"><?php echo h($value['created']) ; ?></p>
 
-            <?php if($_SESSION['id'] == $result2['user_id']): ?>
+            <?php if($_SESSION['id'] == $value['user_id']): ?>
               <form action="" method="POST">
-              <input type="hidden" name="com_id" value="<?php echo $result3['id']; ?>">
+              <input type="hidden" name="com_id" value="<?php echo $value['id']; ?>">
               <?php //echo $result3['id']; ?>
               <button type="submit"class="btn btn-danger">削除</button>
                 <!-- <input type="submit" value="削除"/> -->
@@ -165,7 +155,7 @@ if($rec=$stmt->fetch_assoc()):?>
                 <?php endif; ?>
             </p>
         </div>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
       <?php  else : ?>
         <p>その商品ページは削除されたか、URLが間違えています</p>
         <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>
