@@ -1,5 +1,6 @@
 <?php
 require('../library.php');
+require('../lib/DBcontroller.php');
 
 
 session_start();
@@ -18,7 +19,10 @@ if(isset($_SESSION["id"])){
     exit();
 }
 
-$db = dbconnect();
+
+$dbc = new DBcontroller();
+
+// $db = dbconnect();
 
 // $_SESSION["id"] = 1;
 // $name = "hogehoge";

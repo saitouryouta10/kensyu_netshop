@@ -1,5 +1,6 @@
 <?php
 require('../library.php');
+require('../lib/DBcontroller.php');
 session_start();
 if(isset($_SESSION["id"])){
   //セッション情報がある場合は普通に画面遷移
@@ -48,11 +49,18 @@ if (isset($_GET['nedan'])) {
   }
 }
 
-  $db = dbconnect();
-  $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='.$user_id.' '.$p.' '.$s.'');
-  if (!$stmt) {
-    die($db->error);
-  }
+$dbc = new DBcontroller();
+
+$sql = "select history.name, history.price, history.created, item_id, items.id, items.picture from history left join items on item_id=items.id where user_id='".$user_id."' '".$p."' '".$s."'";
+
+$dataArray = $dbc->executeQuery($sql, $types = null, "");
+
+
+// $stmt = $db->query('select history.name, history.price, history.created, item_id, items.id, items.picture fromhistory left join items on item_id=items.id where user_id='.$user_id.' '.$p.' '.$s.'');
+// if (!$stmt) {
+//   die($db->error);
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -105,7 +113,7 @@ if (isset($_GET['nedan'])) {
   </form>
   <h1>注文履歴</h1>
   <div class="rireki-table">
-      <?php while( $rireki = $stmt->fetch_assoc()): ?>
+      <?php foreach($dataArray as $rireki): ?>
           <table>
               <tbody>
                 <tr>
@@ -138,7 +146,7 @@ if (isset($_GET['nedan'])) {
                 </tr>
               </tbody>
           </table>
-      <?php endwhile; ?>
+      <?php endforeach; ?>
   </div>
 
 

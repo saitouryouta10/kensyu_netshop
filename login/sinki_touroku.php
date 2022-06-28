@@ -1,5 +1,8 @@
 <?php
 require("../library.php");
+require_once('../lib/DBController.php');
+require_once("../lib/UserDBController.php");
+
 session_start();
 
 $form = [
@@ -175,20 +178,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 	/*データベース関係*/
 
-	$db = dbconnect();
+	$db = new UserDBController;
 
-	$records = $db->query("select email from users");
-
-	if($records){
-		while($record = $records->fetch_assoc()){
-			if($form["email"] === $record["email"]){
-				$match_error["email"] = "dup";
-			}
-		}
-	}else{
-		die($db->error);
-		exit();
-	}
+	$email_matcherror = $db->userExecuteQuery($form["email"]);
 
 	//フィルターにはじかれたとき
 	if($form["email"] !== "" && !filter_var($form["email"], FILTER_VALIDATE_EMAIL)){
@@ -235,7 +227,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 	// var_dump($match_error);
 	// var_dump($form["doui"]);
 
-	if(empty($error) && empty($match_error) && $form["doui"]){
+	// var_dump($error);
+	// var_dump($email_matcherror);
+	// var_dump($form["doui"]);
+
+	if(empty($error) && empty($match_error) && $form["doui"] && empty($email_matcherror)){
+		echo "aaa";
 		$_SESSION["form"] = $form;
 		// var_dump($form["birthday"]);
 		// exit();
@@ -386,7 +383,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 				<?php if(isset($error["email"]) && $error["email"] === "value_error"):?>
 				<span class="error">正しいメールアドレスを入力して下さい。</span><br>
 				<?php endif;?>
-				<?php if(isset($match_error["email"]) && $match_error["email"] === "dup"):?>
+				<?php if(isset($email_matcherror) && $email_matcherror === "dup"):?>
 				<span class="error">そのメールアドレスは既に登録されています。</span><br>
 				<span class="error">ログインは<a href="login.php">こちら</a></span>
 				<?php endif;?>

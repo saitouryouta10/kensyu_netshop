@@ -1,4 +1,5 @@
 <?php
+require('../lib/DBcontroller.php');
 session_start();
 if(isset($_SESSION["id"])){
   //セッション情報がある場合は普通に画面遷移
@@ -22,18 +23,27 @@ $address = $_SESSION['address'];
 $tell = $_SESSION['tell'];
 $email = $_SESSION['email'];
 
-$db = dbconnect();
+$dbc = new DBcontroller();
 $sql = 'update users set name=?, name_kana=?, nickname=?, sex=?, birthday=?, zipcode=?, address=?, tell=?, email=? where id=?';
-$stmt = $db->prepare($sql);
+$types = 'sssisssssi';
 
-if (!$stmt) {
-    die($db->error);
+$dataArray = $dbc->executeUpdate($sql,$types, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
+if (!$dataArray) {
+    die($dbc->error);
 }
-$stmt->bind_param('sssisssssi', $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
-$success = $stmt->execute();
-if (!$success) {
-    die($db->error);
-}
+
+// $db = dbconnect();
+// $sql = 'update users set name=?, name_kana=?, nickname=?, sex=?, birthday=?, zipcode=?, address=?, tell=?, email=? where id=?';
+// $stmt = $db->prepare($sql);
+
+// if (!$stmt) {
+//     die($db->error);
+// }
+// $stmt->bind_param('sssisssssi', $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
+// $success = $stmt->execute();
+// if (!$success) {
+//     die($db->error);
+// }
 
 ?>
 <!DOCTYPE html>

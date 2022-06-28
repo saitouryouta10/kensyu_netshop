@@ -12,14 +12,23 @@ class DBController
      *
      * @var mysqli
      */
+
+
+    protected $dbh = null;
     private $dbh = null;
+
 
     /**
      * 実行結果形式(MYSQLI_ASSOC: カラム名をキーにした連想配列)
      *
      * @var int
      */
+
+
+    protected $fetch_mode = MYSQLI_ASSOC;
+
     private $fetch_mode = MYSQLI_ASSOC;
+
 
     /**
      * SQL実行結果の取得形式
@@ -34,7 +43,12 @@ class DBController
 
     /**
      * コンストラクタ
+
+
      * 
+
+     *
+
      * @return DBController
      */
     function __construct()
@@ -79,10 +93,17 @@ class DBController
         try {
             // 実行準備
             $stmt = $this->dbh->prepare($sql);
+
+
             
             // 変数を使用する場合バインド
             if ($types && $vars) {
+
+
+            // 変数を使用する場合バインド
+            if ($types && $vars) {
                 $vars = (array)$vars;
+
                 $stmt->bind_param($types, ...$vars);
             }
 
@@ -116,26 +137,45 @@ class DBController
      * @param mixed ...$vars
      * @return boolean
      */
-    function insert_query($sql,$types = null, ...$vars)
+
+    function insertQuery($sql,$types = null, ...$vars)
+
+
+    // TODO: 更新関数
+
+    function executeUpdate($sql, $types = null, ...$vars)
+
     {
-        $data = null;
+        $data = true;
 
         try {
+
 
             $stmt = $this->dbh->prepare($sql);
 
             if($types && $vars) {
+            $stmt = $this->dbh->prepare($sql);
+            if ($types && $vars) {
+
                 $vars = (array)$vars;
                 $stmt->bind_param($types, ...$vars);
             }
 
             $stmt->execute();
-            $data = true;
+
 
         } catch (mysqli_sql_exception $e) {
-            $data = false;
+            $data = $e->getMessage();
         }
 
         return $data;
     }
 }
+            $data = false;
+        }
+
+        // NOTE: 実行元でfalseチェックしてエラー処理を実装する
+        return $data;
+    }
+}
+
