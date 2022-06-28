@@ -19,6 +19,7 @@ class UserDBController extends DBController
         $sql = "SELECT email FROM users";
         $data_are = parent::executeQuery($sql,"");
 
+
         if (!$data_are) {
             exit();
         } else {
@@ -45,7 +46,7 @@ class UserDBController extends DBController
     {
         $password = password_hash($form["pass"],PASSWORD_DEFAULT);
 
-        $sql = "insert into users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
+        $sql = "INSERT INTO users(name,name_kana,nickname,sex,birthday,zipcode,address,tell,email,pass)
                 VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         $types = "sssissssss";
@@ -54,6 +55,18 @@ class UserDBController extends DBController
                                     $form["address"],$form["tell"],$form["email"],$password);
 
         return $bool;
+    }
+
+    function userLoginQuery($email)
+    {
+
+        $sql = "SELECT id,pass FROM users WHERE email=?";
+
+        $types = "s";
+
+        $data = parent::executeQuery($sql,$types,$email);
+
+        return $data;
     }
 
 
