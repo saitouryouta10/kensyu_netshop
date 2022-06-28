@@ -14,7 +14,6 @@ class DBController
      */
 
     protected $dbh = null;
-    private $dbh = null;
 
 
     /**
@@ -25,7 +24,6 @@ class DBController
 
     protected $fetch_mode = MYSQLI_ASSOC;
 
-    private $fetch_mode = MYSQLI_ASSOC;
 
 
     /**
@@ -91,10 +89,6 @@ class DBController
             // 実行準備
             $stmt = $this->dbh->prepare($sql);
 
-            
-            // 変数を使用する場合バインド
-            if ($types && $vars) {
-
 
             // 変数を使用する場合バインド
             if ($types && $vars) {
@@ -133,42 +127,49 @@ class DBController
      * @param mixed ...$vars
      * @return boolean
      */
-    function insertQuery($sql,$types = null, ...$vars)
-
-
-    // TODO: 更新関数
-
-    function executeUpdate($sql, $types = null, ...$vars)
-
+    function executeInsert($sql,$types = null, ...$vars)
     {
         $data = true;
 
         try {
 
-
             $stmt = $this->dbh->prepare($sql);
 
             if($types && $vars) {
-            $stmt = $this->dbh->prepare($sql);
-            if ($types && $vars) {
-                $vars = (array)$vars;
                 $stmt->bind_param($types, ...$vars);
             }
 
             $stmt->execute();
 
         } catch (mysqli_sql_exception $e) {
-            $data = $e->getMessage();
-        }
-
-        return $data;
-    }
-}
             $data = false;
         }
 
-        // NOTE: 実行元でfalseチェックしてエラー処理を実装する
         return $data;
     }
-}
 
+
+    // TODO: 更新関数
+
+    function executeUpdate($sql,$types = null, ...$vars)
+    {
+        $data = true;
+
+        try {
+
+            $stmt = $this->dbh->prepare($sql);
+
+            if($types && $vars) {
+                $stmt->bind_param($types, ...$vars);
+            }
+
+            $stmt->execute();
+
+        } catch (mysqli_sql_exception $e) {
+            $data = false;
+        }
+
+        return $data;
+    }
+
+}
