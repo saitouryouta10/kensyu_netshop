@@ -1,37 +1,49 @@
 <?php
+require('../lib/DBcontroller.php');
 session_start();
+if(isset($_SESSION["id"])){
+  //セッション情報がある場合は普通に画面遷移
+  $userid=$_SESSION['id'];
+}else{
+    $login = 1;
+    //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+  header('Location:../login/login.php?login='.$login.'');
+  exit();
+}
 require('../library.php');
 
-if (isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
-    $name = $_SESSION['name'];
-    $name_kana = $_SESSION['name_kana'];
-    $nickname = $_SESSION['nickname'];
-    $sex = $_SESSION['sex'];
-    $birthday = $_SESSION['birthday'];
-    $zipcode = $_SESSION['zipcode'];
-    $address = $_SESSION['address'];
-    $tell = $_SESSION['tell'];
-    $email = $_SESSION['email'];
+$id = $_SESSION['id'];
+$name = $_SESSION['new_name'];
+$name_kana = $_SESSION['name_kana'];
+$nickname = $_SESSION['new_nickname'];
+$sex = $_SESSION['sex'];
+$birthday = $_SESSION['birthday'];
+$zipcode = $_SESSION['zipcode'];
+$address = $_SESSION['address'];
+$tell = $_SESSION['tell'];
+$email = $_SESSION['email'];
 
-    $db = dbconnect();
-    $sql = 'update users set name=?, name_kana=?, nickname=?, sex=?, birthday=?, zipcode=?, address=?, tell=?, email=? where id=?';
+$dbc = new DBcontroller();
+$sql = 'update users set name=?, name_kana=?, nickname=?, sex=?, birthday=?, zipcode=?, address=?, tell=?, email=? where id=?';
+$types = 'sssisssssi';
 
-    $stmt = $db->prepare($sql);
-    if (!$stmt) {
-        die($db->error);
-    }
-
-    $stmt->bind_param('sssisssssi', $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
-    $success = $stmt->execute();
-    if (!$success) {
-        die($db->error);
-    }
-
-} else {
-    header('Location: login.php');
-    exit();
+$dataArray = $dbc->executeUpdate($sql,$types, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
+if (!$dataArray) {
+    die($dbc->error);
 }
+
+// $db = dbconnect();
+// $sql = 'update users set name=?, name_kana=?, nickname=?, sex=?, birthday=?, zipcode=?, address=?, tell=?, email=? where id=?';
+// $stmt = $db->prepare($sql);
+
+// if (!$stmt) {
+//     die($db->error);
+// }
+// $stmt->bind_param('sssisssssi', $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $id);
+// $success = $stmt->execute();
+// if (!$success) {
+//     die($db->error);
+// }
 
 ?>
 <!DOCTYPE html>

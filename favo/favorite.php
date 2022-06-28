@@ -151,15 +151,15 @@ if (isset($_GET['nedan'])) {
                 </tr>
                 <tr>
                   <td>
-                  <form action="" method="POST">
-                        <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
-                      <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
-                    </form>
+                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">購入</a>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">購入</a>
+                  <form action="" method="POST">
+                        <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
+                      <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
+                    </form>
                   </td>
                 </tr>
               </tbody>

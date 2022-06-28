@@ -50,7 +50,7 @@ if(isset($_SESSION["form"])){
                     <p><?php echo h($form["birthday"]);?></p>
                 <?php endif;?>
                 <p class="kakunin_title">
-                    住所</p><p><?php echo h($form["zipcode"]); ?><br>
+                    住所</p><p style="width: 100%; word-wrap: break-word;"><?php echo h($form["zipcode"]); ?><br>
                     <?php echo h($form["address"]); ?>
                 </p>
                 <p class="kakunin_title">電話番号</p><p><?php echo h($form["tell"]); ?></p>

@@ -4,10 +4,10 @@ function h($value){
 }
 
 function dbconnect(){
-    $db = new mysqli("localhost:8889","root","root","kensyu_db");
-    if(!$db){
-		die($db->error);
-	}
+
+    require_once( dirname( __FILE__ , 2) . '/config/db.php');
+    $db = new mysqli(HOST, USER, PASS, DBName);
+
     return $db;
 }
 

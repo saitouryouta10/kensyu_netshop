@@ -34,9 +34,9 @@ if (isset($_GET['search'])) {
             <div class="header-message-right">
                 <form action="../top/top.php" method="get">
                     <?php if (isset($_GET['search'])) : ?>
-                        <input type="text" class="text_box" name="search" value="<?php echo $search ?>">
+                        <input type="text" class="text_box" name="search" maxlength="100" value="<?php echo $search ?>">
                     <?php else : ?>
-                        <input type="text" class="text_box" name="search" placeholder="商品名を入力してください">
+                        <input type="text" class="text_box" name="search" maxlength="100" placeholder="商品名を入力してください">
                     <?php endif; ?>
                         <button type="submit" class="btn btn-warning" id="serch_button">検索🔍</button>
                     </div>

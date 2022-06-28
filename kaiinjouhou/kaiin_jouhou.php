@@ -1,5 +1,6 @@
 <?php
 require('../library.php');
+require('../lib/DBcontroller.php');
 
 
 session_start();
@@ -16,10 +17,12 @@ if(isset($_SESSION["id"])){
     //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
     header('Location:../login/login.php?login='.$login.'');
     exit();
-
 }
 
-$db = dbconnect();
+
+$dbc = new DBcontroller();
+
+// $db = dbconnect();
 
 // $_SESSION["id"] = 1;
 // $name = "hogehoge";

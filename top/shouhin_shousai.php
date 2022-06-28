@@ -5,6 +5,7 @@ session_start();
 
 $item_id='';
 
+// 商品IDにより商品ページを表示、バリデーション
 if(isset($_GET['id'])){
   $item_id=$_GET['id'];
 }
@@ -98,7 +99,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <main>
 
 
-
+<!-- 商品詳細を表示 -->
   <div class="container">
 <?php
 $sql = 'select * from items where id='.$item_id.'';
@@ -160,6 +161,7 @@ if($rec=$stmt->fetch_assoc()):
       }
       ?>
       </div>
+      <!-- 在庫がない場合数量選択、カートへの追加不可 -->
           <? else:?>
             <p style="color:red;">在庫がありません</p>
             <?php endif; ?>
@@ -206,6 +208,7 @@ if($rec=$stmt->fetch_assoc()):
 
   <div>
 
+  <!-- 商品レビューを表示 -->
 <br>
 <p class="shousai_r">レビュー<button type="button" onclick="location.href='kutikomi.php?id=<?php echo $item_id;?>';" class="btn btn-success">一覧</button></p>
 <br>
@@ -220,6 +223,7 @@ if($rec=$stmt->fetch_assoc()):
           // print_r($r);
           $stmt3=$db->query($sql3);
 
+          // 評価の平均を表示、評価がない場合レビューがないと表示
           if($r['avg(star)']>0) :?>
           <p>評価平均<?php echo $r['avg(star)'] ;?></p><br>
           <?php elseif($r['avg(star)']==0): ?>
@@ -263,7 +267,7 @@ if($rec=$stmt->fetch_assoc()):
       </div>
 
 
-
+      <!-- 存在しない商品IDを入力された場合のコメント -->
       <?php  else : ?>
         <p>その商品ページは削除されたか、URLが間違えています</p>
         <a class="btn btn-outline-secondary btn-block" href="../top/top.php">トップに戻る</a>

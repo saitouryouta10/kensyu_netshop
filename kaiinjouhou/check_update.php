@@ -1,6 +1,16 @@
 <?php
 require('../library.php');
 session_start();
+if(isset($_SESSION["id"])){
+    //セッション情報がある場合は普通に画面遷移
+    $userid=$_SESSION['id'];
+}else{
+      $login = 1;
+      //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
+    header('Location:../login/login.php?login='.$login.'');
+    exit();
+}
+
 $name = $_SESSION['name'];
 $name_kana = $_SESSION['name_kana'];
 $nickname = $_SESSION['nickname'];
@@ -10,6 +20,13 @@ $zipcode = $_SESSION['zipcode'];
 $address = $_SESSION['address'];
 $tell = $_SESSION['tell'];
 $email = $_SESSION['email'];
+
+unset($_SESSION['name']);
+unset($_SESSION['nickname']);
+
+$_SESSION['new_name'] = $name;
+$_SESSION['new_nickname'] = $nickname;
+
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +66,7 @@ $email = $_SESSION['email'];
     <?php else : ?>
         <p>生年月日<br><?php echo h($birthday); ?></p>
     <?php endif; ?>
-    <p>
+    <p style="width:100%; word-wrap: break-word;">
         住所<br><?php echo h($zipcode); ?><br>
         <?php echo h($address); ?>
     </p>
