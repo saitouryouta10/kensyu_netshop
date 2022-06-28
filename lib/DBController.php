@@ -40,9 +40,11 @@ class DBController
     /**
      * コンストラクタ
 
+
      * 
 
      *
+
 
      * @return DBController
      */
@@ -88,6 +90,7 @@ class DBController
         try {
             // 実行準備
             $stmt = $this->dbh->prepare($sql);
+
 
 
             // 変数を使用する場合バインド
@@ -172,4 +175,6 @@ class DBController
         return $data;
     }
 
+
 }
+
