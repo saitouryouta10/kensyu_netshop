@@ -93,8 +93,8 @@ window.open('https://www.google.com/?hl=ja', '_blank');
   $rec=$db->executeQuery($sql, $types = null);
   // $stmt= $db->query($sql);
   // $db = null;
-  print_r($rec);
-  echo count($rec);
+  // print_r($rec);
+  // echo count($rec);
   // exit();
   ?>
 

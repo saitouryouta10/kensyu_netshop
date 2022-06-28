@@ -1,5 +1,9 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
+// $db =dbconnect();
+$db = new DBController;
+
 session_start();
 if (isset($_SESSION['id'])) {
     $userid = $_SESSION['id'];
@@ -52,21 +56,16 @@ if (isset($_GET['nedan'])) {
   }
 }
 
-  $db = dbconnect();
 
   if(isset($_POST['sakujo_button'])==true){
     $sqls='delete from favorite where id=?';
-    $stmts =$db ->prepare($sqls);
-    $stmts->bind_Param("s",$itemid);
-    $stmts->execute();
+    $db->insert_query($sqls,'i',$itemid);
   }
-  $stmt = $db->query('select f.id, f.user_id, f.created, f.item_id, i.id, i.picture,i.name, i.price from favorite f left join items i on item_id=i.id where user_id='.$userid.' '.$p.' '.$s.'');
-  if (!$stmt) {
-    die($db->error);
-  }
+  $sql= 'select f.id, f.user_id, f.created, f.item_id, i.id, i.picture,i.name, i.price from favorite f left join items i on item_id=i.id where user_id='.$userid.' '.$p.' '.$s.'';
+  $rec = $db->executeQuery($sql,$types=null);
 
   $sql3='select id from favorite where user_id='.$userid.'';
-  $stmt3=$db->query($sql3);
+ $result3 = $db->executeQuery($sql3,$types=null);
 ?>
 
 <!DOCTYPE html>
@@ -120,44 +119,40 @@ if (isset($_GET['nedan'])) {
   </form>
   <h1>お気に入り</h1>
   <div class="rireki-table">
-      <?php while( $rireki = $stmt->fetch_assoc()): ?>
-        <?php if($rireki==false):
-      break; ?>
-      <?php endif ?>
-      <?php
-        $result3 = $stmt3->fetch_assoc();
-        // print_r($result3);
-        ?>
+    <?php $i=0; ?>
+      <?php foreach($rec as $value): ?>
+        <?php if($value==false){ break; }?>
+
         <div class="favo">
           <table>
               <tbody>
                 <tr>
                   <td rowspan="5">
-                      <a href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id']; ?>">
-                      <?php if ($rireki['picture'] == null): ?>
+                      <a href="../top/shouhin_shousai.php?id=<?php echo $value['item_id']; ?>">
+                      <?php if ($value['picture'] == null): ?>
                         <img src="../top/img/noimage.png">
                       <?php else: ?>
-                        <img src="../top/img/<?php echo $rireki['picture'];?>" >
+                        <img src="../top/img/<?php echo $value['picture'];?>" >
                       <?php endif; ?>
                       </a>
                   </td>
-                  <td>商品名 : <span><?php echo $rireki['name']; ?></span></td>
+                  <td>商品名 : <span><?php echo $value['name']; ?></span></td>
                 </tr>
                 <tr>
-                  <td>金額 : <span><?php echo $rireki['price']; ?>円</span></td>
+                  <td>金額 : <span><?php echo $value['price']; ?>円</span></td>
                 </tr>
                 <tr>
-                  <td>追加日 : <span><?php echo $rireki['created']; ?></span></td>
+                  <td>追加日 : <span><?php echo $value['created']; ?></span></td>
                 </tr>
                 <tr>
                   <td>
-                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $rireki['item_id'];?>">購入</a>
+                      <a class="btn btn-warning" href="../top/shouhin_shousai.php?id=<?php echo $value['item_id'];?>">購入</a>
                   </td>
                 </tr>
                 <tr>
                   <td>
                   <form action="" method="POST">
-                        <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
+                        <input type="hidden" name="itemid" value="<?php echo $result3[$i]['id']; ?>">
                       <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
                     </form>
                   </td>
@@ -165,7 +160,8 @@ if (isset($_GET['nedan'])) {
               </tbody>
           </table>
           </div>
-      <?php endwhile; ?>
+          <?php $i++; ?>
+      <?php endforeach; ?>
   </div>
 
 

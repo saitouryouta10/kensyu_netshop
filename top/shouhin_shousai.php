@@ -56,20 +56,43 @@ if(isset($_SESSION['cart'])==true){
 
 
 
-//メッセージの投稿 削除
+// メッセージの投稿 削除
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  if(isset($_POST['com_id'])==true){
+    $com_id=$_POST['com_id'];
+    //  echo $com_id;
+    $sqls='delete from reviews where id=?';
+    $db->insert_query($sqls,'i',$com_id);
+    }elseif(isset($_POST['star'])==true){
+    $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
+    $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
+    $sqlc='insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)';
+    $db->insert_query($sqlc,'siii',$comment,$userid,$star,$item_id);
+    header('Location: ');
+    exit();
+  }
+}
 // if($_SERVER['REQUEST_METHOD'] === 'POST'){
 //   if(isset($_POST['com_id'])==true){
 //     $com_id=$_POST['com_id'];
 //     //  echo $com_id;
 //     $sqls='delete from reviews where id=?';
-//     $db->insert_query($sqls,'i',$com_id);
-//     }else{
+//     $stmts =$db ->prepare($sqls);
+//     $stmts->bind_Param("i",$com_id);
+//     $stmts->execute();
+
+//     }elseif(isset($_POST['star'])==true){
 //     $comment = filter_input(INPUT_POST,'comment',FILTER_SANITIZE_STRING);
 //     $star = filter_input(INPUT_POST,'star',FILTER_SANITIZE_STRING);
 
-//     $sqlc='insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)';
-//     $db->insert_query($sqlc,'siii',$comment,$userid,$star,$item_id);
-//     header('Location: kutikomi.php?id='.$item_id.'');
+//     $stmt = $db->prepare('insert into reviews (comment,user_id,star,item_id) values(?,?,?,?)');
+
+//     $stmt->bind_param('siii',$comment,$userid,$star,$item_id);
+//     $succsess = $stmt->execute();
+//     if(!$succsess){
+//         die($db->error);
+//     }
+//     header('Location: ');
 //     exit();
 //   }
 // }

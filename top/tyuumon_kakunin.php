@@ -1,6 +1,8 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
-$db =dbconnect();
+// $db =dbconnect();
+$db = new DBController;
 
 session_start();
 if(isset($_SESSION["id"])){
@@ -39,18 +41,6 @@ if(isset($_POST['itemid'])==true){
   // echo $itemid;
   }
 
-if(isset($_POST['sakujo_button'])==true){
-  $sqls='delete from cart where id=?';
-  $stmts =$db ->prepare($sqls);
-  $stmts->bind_Param("s",$itemid);
-  $stmts->execute();
-}
-
-if(isset($_POST['change_button'])==true){
-  $sql2 = 'update cart set number='.$kazuerabi.' where id in('.$itemid.')';
-  $stmt2 =$db ->query($sql2);
-
-}
 
 $total=0;
 ?>
@@ -83,23 +73,15 @@ $sql='select * from cart  inner join items on cart.item_id=items.id where user_i
 // $sql = 'select id,user_id,item_id,number from cart where user_id='.$userid.'';
 $sql2= 'select count(*) from cart where user_id='.$userid.'';
 $sql3='select id from cart where user_id='.$userid.'';
-
-$stmt =$db ->query($sql);
-$stmt2=$db->query($sql2);
-$stmt3=$db->query($sql3);
-$db=null;
+$rec=$db->executeQuery($sql, $types = null);
+$rec2=$db->executeQuery($sql2, $types = null);
 
 ?>
 
-<?php
-$result2 = $stmt2->fetch_assoc();
-?>
-<?while( $rec = $stmt->fetch_assoc()):?>
-  <?php $result3 = $stmt3->fetch_assoc();?>
+<?php foreach($rec as $value):?>
+  <?php $rec3=$db->executeQuery($sql3, $types = null);?>
   <?php //print_r($result3);?>
-  <?php if($rec==false): ?>
-      break;
-      <?php endif ?>
+  <?php if($rec==false){ break;}?>
 
       <!-- 商品の表示 -->
       <div class="img_s">
@@ -107,33 +89,33 @@ $result2 = $stmt2->fetch_assoc();
     <tr>
       <th class="pic_size">
 
-        <a href="shouhin_shousai.php?id=<?php echo $rec['item_id'];?>">
-                   <?php if($rec['picture']==null): ?>
+        <a href="shouhin_shousai.php?id=<?php echo $value['item_id'];?>">
+                   <?php if($value['picture']==null): ?>
                       <img src="./img/noimage.png">
                     <?php else: ?>
-                      <img src="./img/<?php echo $rec['picture'];?>" >
+                      <img src="./img/<?php echo $value['picture'];?>" >
 
                       <div>
                         <?php endif ?>
                       </a>
                       </th>
                <th class="th_name">
-                 <p> <?php echo $rec['name']; ?> </p>
+                 <p> <?php echo $value['name']; ?> </p>
                </th>
                <th class="th_price">
-                 <p> <?php echo $rec['price']; ?>円 </p>
+                 <p> <?php echo $value['price']; ?>円 </p>
                </th>
                <th>
-                 <p><?php echo $rec['number'];  ?>個</p>
+                 <p><?php echo $value['number'];  ?>個</p>
                </th>
                <th>
-                 <p>計<?php echo $rec['number'] * $rec['price'];  ?>円</p>
-                 <?php $total+=$rec['number'] * $rec['price']; ?>
+                 <p>計<?php echo $value['number'] * $value['price'];  ?>円</p>
+                 <?php $total+=$value['number'] * $value['price']; ?>
                 </th>
              </tr>
            </table>
           </div>
-          <?php endwhile; ?>
+          <?php endforeach; ?>
           <?php if($total<=0): echo '商品が入っていません'; ?>
           <?php else: echo '計'.$total.'円'; $_SESSION['total']=$total;?>
           <button type="button" onclick="location.href='tyuumon_kakutei.php';" class="btn btn-success" style="width:100%">注文を確定する</button>

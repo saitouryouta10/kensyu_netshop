@@ -1,6 +1,8 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
-$db =dbconnect();
+// $db =dbconnect();
+$db = new DBController;
 
 session_start();
 if(!isset($_SESSION['kounyuu'])){
@@ -47,38 +49,31 @@ if(isset($_POST['itemid'])==true){
 if(isset($_SESSION['id'])==true){
 
   $sql ='select * from cart where user_id='.$userid.'';
-  $stmt= $db->query($sql);
-  while( $rec = $stmt->fetch_assoc()){
+  $rec=$db->executeQuery($sql, $types = null);
+  foreach($rec as $value) {
   // print_r($rec);
-  $item_id=$rec['item_id'];
-  $sqlitem='select * from items where id='.$item_id.'';
-  $stmtitem= $db->query($sqlitem);
-   while( $rec2 = $stmtitem->fetch_assoc()){
+  $item_id=$value['item_id'];
+  $sqli='select * from items where id='.$item_id.'';
+   $rec2=$db->executeQuery($sqli,$types=null);
+    print_r($rec2);
     // print_r($rec2['stock']);
     // print_r($rec2['price']);
-    $item_name=$rec2['name'];
-    $item_price=$rec2['price'];
+    $item_name=$rec2[0]['name'];
+    $item_price=$rec2[0]['price'];
     $sqlt='insert into history(user_id,name,price,num,item_id) values('.$userid.',"'.$item_name.'",'.$item_price.','.$num.','.$item_id.')';
-    if(isset($rec['number'])&& isset($rec2['stock'])){
-    $newstock=($rec2['stock'])-($rec['number']);
+    if(isset($value['number'])&& isset($rec2[0]['stock'])){
+    $newstock=($rec2[0]['stock'])-($value['number']);
     // echo $newstock;
     $sqlu='update items set stock='.$newstock.' where id='.$item_id.'';
-    $stmtu=$db->query($sqlu);
+    $db->insert_query($sqlu,$types=null);
   }
-}
-$stmtt=$db->query($sqlt);
-}
+
+  $db->insert_query($sqlt,$types=null);
+}//cartデータベースから購入商品を削除
   $sqls='delete from cart where user_id='.$userid.'';
-  $stmts= $db ->query($sqls);
-
+  $db->insert_query($sqls,$types=null);;
 }
 
-
-if(isset($_POST['change_button'])==true){
-  $sql2 = 'update cart set number='.$kazuerabi.' where id in('.$itemid.')';
-  $stmt2 =$db ->query($sql2);
-
-}
 
 ?>
 
@@ -108,20 +103,20 @@ if(isset($_POST['change_button'])==true){
     <p>お客様登録情報</p>
     <?php
       $sql1 ='select * from users where id='.$userid.'';
-      $stmt1= $db->query($sql1);
-      $rec1 =$stmt1->fetch_assoc();?>
+      $rec1 =$db->executeQuery($sql1,$types=null);
+      ?>
 
       <p>名前<br>
-      <?php echo $rec1['name'] ; ?>さん
+      <?php echo $rec1[0]['name'] ; ?>さん
       </p>
       <p>住所<br>
-      <?php echo $rec1['address'] ; ?>
+      <?php echo $rec1[0]['address'] ; ?>
       </p>
       <p>電話番号<br>
-      <?php echo $rec1['tell'] ; ?>
+      <?php echo $rec1[0]['tell'] ; ?>
       </p>
       <p>メールアドレス<br>
-      <?php echo $rec1['email'] ; ?>
+      <?php echo $rec1[0]['email'] ; ?>
       </p>
     </div>
 
