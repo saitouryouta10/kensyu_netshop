@@ -1,6 +1,8 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
-$db =dbconnect();
+// $db =dbconnect();
+$db = new DBController;
 
 session_start();
 
@@ -46,15 +48,14 @@ if(isset($_POST['itemid'])==true){
   // 削除ボタンを押された時カートDBから削除
 if(isset($_POST['sakujo_button'])==true){
   $sqls='delete from cart where id=?';
-  $stmts =$db ->prepare($sqls);
-  $stmts->bind_Param("s",$itemid);
-  $stmts->execute();
+  $db->insert_query($sqls,"s",$itemid);
 }
 
 // 数量変更ボタンを押されたときDBのnumberを更新
 if(isset($_POST['change_button'])==true){
-  $sql2 = 'update cart set number='.$kazuerabi.' where id in('.$itemid.')';
-  $stmt2 =$db ->query($sql2);
+  $sqlu = 'update cart set number='.$kazuerabi.' where id in ('.$itemid.')';
+  $db->insert_query($sqlu, $types = null);
+
 
 }
 
@@ -87,19 +88,15 @@ $total=0;
 $sql='select * from cart  inner join items on cart.item_id=items.id where user_id='.$userid.'';
 $sql2= 'select count(*) from cart where user_id='.$userid.'';
 $sql3='select id from cart where user_id='.$userid.'';
+$rec=$db->executeQuery($sql, $types = null);
+$rec2=$db->executeQuery($sql2, $types = null);
 
-$stmt =$db ->query($sql);
-$stmt2=$db->query($sql2);
-$stmt3=$db->query($sql3);
-$db=null;
 
 ?>
 
-<?php
-$result2 = $stmt2->fetch_assoc();
-?>
-<?php while( $rec = $stmt->fetch_assoc()):?>
-  <?php $result3 = $stmt3->fetch_assoc();?>
+<?php $x=0 ;?>
+<?php foreach($rec as $value):?>
+  <?php $rec3=$db->executeQuery($sql3, $types = null);?>
   <?php //print_r($result3);?>
   <?php if($rec==false):
       break; ?>
@@ -110,42 +107,45 @@ $result2 = $stmt2->fetch_assoc();
     <tr>
       <th class="pic_size">
 
-        <a href="shouhin_shousai.php?id=<?php echo $rec['item_id'];?>">
-                   <?php if($rec['picture']==null): ?>
+        <a href="shouhin_shousai.php?id=<?php echo $value['item_id'];?>">
+                   <?php if($value['picture']==null): ?>
                       <img src="./img/noimage.png">
                     <?php else: ?>
-                      <img src="./img/<?php echo $rec['picture'];?>" >
+                      <img src="./img/<?php echo $value['picture'];?>" >
 
                       <div>
                         <?php endif ?>
                       </a>
                       </th>
                <th class="th_name">
-                 <p> <?php echo $rec['name']; ?> </p>
+                 <p> <?php echo $value['name']; ?> </p>
                </th>
                <th class="th_price">
-                 <p> <?php echo $rec['price']; ?>円 </p>
+                 <p> <?php echo $value['price']; ?>円 </p>
                </th>
                <th class="cart_number">
-                 <p><?php echo $rec['number'];  ?>個</p>
+                 <p><?php echo $value['number'];  ?>個</p>
                </th>
                <th class="cart_price">
-                 <p>計<?php echo $rec['number'] * $rec['price'];  ?>円</p>
-                 <?php $total+=$rec['number'] * $rec['price']; ?>
+                 <p>計<?php echo $value['number'] * $value['price'];  ?>円</p>
+                 <?php $total+=$value['number'] * $value['price'];
+                //  print_r($rec3);
+                //  print_r($rec3[$x]['id']);
+                 ?>
 
                  <th class="cart_button">
 
                    <form action="" method="POST">
                      <select name="kazuerabi">
-                       <?php for($i=1; $i<=$rec['stock'];$i++):?>
+                       <?php for($i=1; $i<=$value['stock'];$i++):?>
                         <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
                         <?php endfor ;?>
                       </select>
-                      <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
+                      <input type="hidden" name="itemid" value="<?php echo $rec3[$x]['id']; ?>">
                       <button type="submit" class="btn btn-warning" name="change_button">変更</button>
                        </form>
                       <form action="" method="POST">
-                        <input type="hidden" name="itemid" value="<?php echo $result3['id']; ?>">
+                        <input type="hidden" name="itemid" value="<?php echo $rec3[$x]['id']; ?>">
                       <button type="submit" name="sakujo_button" class="btn btn-danger">削除</button>
                     </form>
                   </th>
@@ -154,7 +154,8 @@ $result2 = $stmt2->fetch_assoc();
            </table>
 
        </div>
-          <?php endwhile; ?>
+       <?php $x++;?>
+          <?php endforeach; ?>
           <?php if($total<=0): echo '商品が入っていません'; echo '<a href="top.php" style="color:red">&nbsp&nbsp&nbsp戻る</a>';else:echo '計'.$total.'円';?>
           <button type="button" onclick="location.href='tyuumon_kakunin.php';" class="btn btn-success" style="width:100%">購入する</button>
           <?php  endif?>
