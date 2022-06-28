@@ -1,5 +1,6 @@
 <?php
 require('../library.php');
+require('../lib/DBcontroller.php');
 session_start();
 if(isset($_SESSION["id"])){
   //セッション情報がある場合は普通に画面遷移
@@ -36,28 +37,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
 
   //var_dump($form['pass']);
 
+  $dbc = new DBcontroller();
+  $sql = 'select pass from users where id=?';
+  $types = 'i';
 
-  /* ------------------------------------------------------
-    @WARNNING
-  --------------------------------------------------------- */
+  $dataArray = $dbc->executeQuery($sql,$types,$form['id']);
+  if (!$dataArray) {
+    die($dbc->error);
+  }
 
-  $db = dbconnect();
-  $stmt_p = $db->prepare("select pass from users where id=?");
-        if(!$stmt_p){
-            die($db->error);
-        }
-        $stmt_p->bind_param("i", $form['id']);
-        $success = $stmt_p->execute();
-        if(!$success){
-            die($db->error);
-        }
+  foreach($dataArray as $data) {
+    if(!password_verify($form['old_pass'], $data['pass'])){
+      $error['pass'] = "not_match";
+    }
+  }
 
-        $stmt_p->bind_result($password);
-        $stmt_p->fetch();
 
-        if(!password_verify($form['old_pass'], $password)){
-          $error['pass'] = "not_match";
-        }
+  // $db = dbconnect();
+  // $stmt_p = $db->prepare("select pass from users where id=?");
+  // if(!$stmt_p){
+  //     die($db->error);
+  // }
+  // $stmt_p->bind_param("i", $form['id']);
+  // $success = $stmt_p->execute();
+  // if(!$success){
+  //     die($db->error);
+  // }
+  // $stmt_p->bind_result($password);
+  // $stmt_p->fetch();
+  // if(!password_verify($form['old_pass'], $password)){
+  //   $error['pass'] = "not_match";
+  // }
 
         // $aaa = password_verify($form['old_pass'], $password);
         // var_dump($aaa);
@@ -82,22 +92,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  filter_input(INPUT_POST, 'check_va
     $pass = $form['new_pass'];
     $hash_pass = password_hash($pass,PASSWORD_DEFAULT);
 
-    $db = dbconnect();
     $sql = 'update users set pass=? where id=?';
+    $types = 'si';
 
-    $stmt = $db->prepare($sql);
-    if (!$stmt) {
-        die($db->error);
-    }
-    $stmt->bind_param("si", $hash_pass, $id);
-    $success = $stmt->execute();
-    if (!$success) {
-      die($db->error);
+    $dataArray = $dbc->executeUpdate($sql,$types,$hash_pass,$id);
+    if (!$dataArray) {
+      die($dbc->error);
     }
 
-    session_start();
-    $_SESSION['id'] = $id;
-    $_SESSION['pass'] = $hash_pass;
+
+    // $stmt = $db->prepare($sql);
+    // if (!$stmt) {
+    //     die($db->error);
+    // }
+    // $stmt->bind_param("si", $hash_pass, $id);
+    // $success = $stmt->execute();
+    // if (!$success) {
+    //   die($db->error);
+    // }
 
     header("Location: pass_update.php");
     exit();

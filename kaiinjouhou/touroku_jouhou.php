@@ -1,6 +1,10 @@
 <?php
 session_start();
 require('../library.php');
+require('../lib/DBcontroller.php');
+
+$dbc = new DBcontroller();
+
 
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
@@ -13,18 +17,29 @@ if (isset($_SESSION['id'])) {
 
 // var_dump($id);
 
-$db2 = dbconnect();
+//$db2 = dbconnect();
 $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email from users where id=?';
-$stmt = $db2->prepare($sql);
-if (!$stmt) {
-    die($db2->error);
+$types = 'i';
+
+$dataArray = $dbc->executeQuery($sql,$types,$id);
+if (!$dataArray) {
+    die($dbc->error);
 }
-$stmt->bind_param("i", $id);
-$success = $stmt->execute();
-if (!$success) {
-    die($db->error);
-}
-$stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email);
+
+
+// $stmt = $dbc->prepare($sql);
+// if (!$stmt) {
+//     die($dbc->error);
+// }
+// $stmt->bind_param("i", $id);
+// $success = $stmt->execute();
+// if (!$success) {
+//     die($dbc->error);
+// }
+
+//$stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -45,34 +60,34 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <div class="kakunin_container">
             <h2>登録情報</h2>
             <div class="kakunin_value">
-                <?php while ( $stmt->fetch() ): ?>
-                    <p>名前<br><?php echo h($name); ?></p>
-                    <p>名前（フリガナ）<br><?php echo h($name_kana); ?></p>
-                    <p>ニックネーム<br><?php echo h($nickname); ?></p>
+                <?php foreach($dataArray as $data) :?>
+                    <p>名前<br><?php echo h($data['name']); ?></p>
+                    <p>名前（フリガナ）<br><?php echo h($data['name_kana']); ?></p>
+                    <p>ニックネーム<br><?php echo h($data['nickname']); ?></p>
                     <p>
-                        性別<br><?php h($sex);
-                        if(($sex == 1)) {
+                        性別<br><?php h($data['sex']);
+                        if(($data['sex'] == 1)) {
                             echo "男性";
-                        } else if ( ($sex) == 2) {
+                        } else if ( ($data['sex']) == 2) {
                             echo "女性";
                         } else {
                             echo "その他";
                         } ?>
                     </p>
 
-                    <?php if (empty($birthday)) : ?>
+                    <?php if (empty($data['birthday'])) : ?>
                         <p>生年月日<br>登録していません</p>
                     <?php else : ?>
-                        <p>生年月日<br><?php echo h($birthday); ?></p>
+                        <p>生年月日<br><?php echo h($data['birthday']); ?></p>
                     <?php endif; ?>
                     <p style="width:100%; word-wrap: break-word;">
-                        住所<br><?php echo h($zipcode); ?><br>
-                        <?php echo h($address); ?>
+                        住所<br><?php echo h($data['zipcode']); ?><br>
+                        <?php echo h($data['address']); ?>
                     </p>
-                    <p>電話番号<br><?php echo $tell; ?></p>
-                    <p>メールアドレス<br><?php echo h($email); ?></p>
-                <?php endwhile; ?>
+                    <p>電話番号<br><?php echo $data['tell']; ?></p>
+                    <p>メールアドレス<br><?php echo h($data['email']); ?></p>
                     </div>
+            <?php endforeach; ?>
         </div>
         <div class="btn-pos">
                     <button button class="btn btn-outline-secondary btn-block" onclick="location.href='kaiin_jouhou.php'">戻る</button>
