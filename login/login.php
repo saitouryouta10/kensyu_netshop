@@ -1,5 +1,8 @@
 <?php
 require("../library.php");
+require_once('../lib/DBController.php');
+require_once("../lib/UserDBController.php");
+
 session_start();
 
 $login_prease = "";
@@ -39,29 +42,22 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     }
 
     if($error["email"] === "" && $error["pass"] === ""){
-        $db = dbconnect();
+        $db = new UserDBController;
 
-        $stmt = $db->prepare("select id,pass from users where email = ? limit 1");
-        if(!$stmt){
-            die($db->error);
-        }
-        $stmt->bind_param("s",$email);
-        $success = $stmt->execute();
-        if(!$success){
-            die($db->error);
-        }
+        $data = $db->userLoginQuery($email);
 
-        $stmt->bind_result($id,$password);
-        $stmt->fetch();
+        // var_dump($data);
 
-        if(password_verify($pass,$password)){
-            if ($id === 1){
-                $_SESSION["id"] = $id;
+        // var_dump($data["0"]["id"]);
+        // var_dump($data["0"]["pass"]);
+        if(password_verify($pass,$data["0"]["pass"])){
+            if ($data["0"]["id"] === 1){
+                $_SESSION["id"] = $data["0"]["id"];
                 header("Location: ../admin/kanri_top.php");
                 exit();
             }
             session_regenerate_id();
-            $_SESSION["id"] = $id;
+            $_SESSION["id"] = $data["0"]["id"];
             header("Location: ../top/top.php");
             exit();
         }else{
