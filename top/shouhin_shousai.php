@@ -1,6 +1,9 @@
 <?php
+require('../lib/DBController.php');
 require('../library.php');
-$db =dbconnect();
+// $db =dbconnect();
+$db = new DBController;
+
 session_start();
 
 $item_id='';
@@ -103,9 +106,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <div class="container">
 <?php
 $sql = 'select * from items where id='.$item_id.'';
-$stmt =$db ->query($sql);
-
-if($rec=$stmt->fetch_assoc()):
+$rec= $db->executeQuery($sql, $types = null);
+print_r($rec);
+if($rec):
 
 // print_r($rec);
 
@@ -116,25 +119,25 @@ if($rec=$stmt->fetch_assoc()):
 </div>
 <div class="s_main">
   <div class="shouhin_img">
-    <?php if($rec['picture']): ?>
-        <img src="./img/<?php echo h($rec['picture']); ?>" >
+    <?php if($rec[0]['picture']): ?>
+        <img src="./img/<?php echo h($rec[0]['picture']); ?>" >
         <?php else: ?>
           <img src="./img/noimage.png" >
           <?php endif ;?>
         </div>
      <div class="shousai_name">
-      <p><?php echo h($rec['name']); ?><span class="name"></p>
+      <p><?php echo h($rec[0]['name']); ?><span class="name"></p>
       <div class="shousai_price">
 
-        <p><?php echo h($rec['price']); ?>円</span></p>
+        <p><?php echo h($rec[0]['price']); ?>円</span></p>
 
-        <?php if($rec['stock'] >0): ?>
+        <?php if($rec[0]['stock'] >0): ?>
 
 <div>
 
   <form action="" method="POST">
     <select name="kazuerabi" >
-      <?php for($i=1; $i<=$rec['stock'];$i++):?>
+      <?php for($i=1; $i<=$rec[0]['stock'];$i++):?>
         <option value="<?php echo $i; ?>"><? echo $i; ?>個</option>
         <?php endfor ;?>
       </select>
@@ -149,10 +152,10 @@ if($rec=$stmt->fetch_assoc()):
         if(isset($_POST['cartin_button'])==true){
           $sql2 = 'insert into cart(user_id,item_id,number) values('.$userid.','.$item_id.','.$kazuerabi.')';
           $sql_2='select count(*) from cart where item_id='.$item_id.' and user_id='.$userid.'';
-          $stmt_2=$db->query($sql_2);
-          $rec2=$stmt_2->fetch_assoc();
-          if($rec2['count(*)']==0 ){
-            $stmt2 =$db ->query($sql2);
+          $rec2= $db->executeQuery($sql_2, $types = null);
+          print_r($rec2);
+          if($rec2[0]['count(*)']==0 ){
+            $db->executeQuery($sql2, $types = null);
             echo $kazuerabi ."個カートに入れました";
           }else{
             echo '追加済み';
