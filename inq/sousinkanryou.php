@@ -1,29 +1,24 @@
 <?php
-session_start();
-
 require('../library.php');
+require('../lib/DBcontroller.php');
+session_start();
 
 $name = $_SESSION['name'];
 $email = $_SESSION['email'];
 $kenmei = $_SESSION['kenmei'];
 $inquiry = $_SESSION['inquiry'];
 
-$db = dbconnect();
+$dbc = new DBcontroller();
 
-$stmt = $db->prepare("insert into inquiry(name, email, kenmei, inquiry_post) VALUES(?,?,?,?)");
+$sql = "insert into inquiry(name, email, kenmei, inquiry_post) VALUES(?,?,?,?)";
+$types = "ssss";
 
-if (!$stmt) {
-  die($db->error);
-  exit();
-}
+$success = $dbc->insert_query($sql, $types, $name, $email, $kenmei, $inquiry)
 
-$stmt->bind_param("ssss", $name, $email, $kenmei, $inquiry);
-
-$success = $stmt->execute();
 if (!$success) {
   die($db->error);
-  exit();
 }
+
 ?>
 
 <!DOCTYPE html>

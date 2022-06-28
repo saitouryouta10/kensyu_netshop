@@ -1,5 +1,6 @@
 <?php
 require('../library.php');
+require('../lib/DBcontroller.php');
 $form = [];
 $error = [];
 $match_error = [];
@@ -98,18 +99,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 		$error["email"] = "value_error";
 	}
 
-    $db2 = dbconnect();
-	$records = $db2->query("select email from users where email not in ('". $self_check_email ."')");
-	if($records){
-		while($record = $records->fetch_assoc()){
-			if($form["email"] === $record["email"]){
-				$match_error["email"] = "dup";
-			}
-		}
-	} else {
-        die($db2->error);
-        exit();
+    $dbc = new DBcontroller();
+    $sql = "select email from users where email not in ('". $self_check_email ."')";
+    $dataArray = $dbc->executeQuery($sql, $types = null, "");
+    if (!$dataArray) {
+        die($dbc->error);
     }
+
+    foreach ($dataArray as $data) {
+        if ($data['emai'] == $self_check_email) {
+            $match_error["email"] = "dup";
+        }
+    }
+
+	// $records = $db2->query("select email from users where email not in ('". $self_check_email ."')");
+	// if($records){
+	// 	while($record = $records->fetch_assoc()){
+	// 		if($form["email"] === $record["email"]){
+	// 			$match_error["email"] = "dup";
+	// 		}
+	// 	}
+	// } else {
+    //     die($db2->error);
+    // }
 
 	//文字の中のスペースを削除する
     $form["name"] = preg_replace('/　|\s+/', '', $form["name"]);
@@ -140,25 +152,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 session_start();
 if(isset($_SESSION["id"])){
     //セッション情報がある場合は普通に画面遷移
-    $id=$_SESSION['id'];
+    $id = $_SESSION['id'];
 }else{
       $login = 1;
       //セッション情報がなかったらログイン画面に遷移してログイン画面でログインしろ！的なエラーメッセージ出しときます
     header('Location:../login/login.php?login='.$login.'');
     exit();
 }
-$db2 = dbconnect();
+$dbc = new DBcontroller();
 $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email, pass from users where id=?';
-$stmt = $db2->prepare($sql);
-if (!$stmt) {
-    die($db2->error);
+$types = 'i';
+
+$dataArray = $dbc->executeQuery($sql,$types,$id);
+if (!$dataArray) {
+    die($dbc->error);
 }
-$stmt->bind_param("i", $id);
-$success = $stmt->execute();
-if (!$success) {
-    die($db2->error);
-}
-$stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $pass);
+
+
+//$db2 = dbconnect();
+// $sql = 'select id, name, name_kana, nickname, sex, birthday, zipcode, address, tell, email, pass from users where id=?';
+// $stmt = $db2->prepare($sql);
+// if (!$stmt) {
+//     die($db2->error);
+// }
+// $stmt->bind_param("i", $id);
+// $success = $stmt->execute();
+// if (!$success) {
+//     die($db2->error);
+// }
+// $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode, $address, $tell, $email, $pass);
 
 ?>
 <!DOCTYPE html>
@@ -186,14 +208,14 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
     <div class="henkou-inp">
 
     <h1>登録情報変更</h1>
-    <?php while ( $stmt->fetch() ): ?>
+    <?php foreach($dataArray as $data): ?>
     <form action="" method="post">
         <div class="henkou-form">
         <h3>名前</h3>
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="text" name="name" value="<?php echo h($form['name']); ?>">
         <?php else : ?>
-            <input type="text" name="name" value="<?php echo h($name); ?>">
+            <input type="text" name="name" value="<?php echo h($data['name']); ?>">
         <?php endif; ?>
         <?php if (isset($error['name']) && $error['name'] === 'blank'): ?>
             <p class="error">名前を入力してください</p>
@@ -209,7 +231,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="text" name="name_kana" value="<?php echo h($form['name_kana']); ?>">
         <?php else : ?>
-            <input type="text" name="name_kana" value="<?php echo h($name_kana); ?>">
+            <input type="text" name="name_kana" value="<?php echo h($data['name_kana']); ?>">
         <? endif; ?>
         <?php if (isset($error['name_kana']) && $error['name_kana'] === 'blank'): ?>
             <p class="error">フリガナを入力してください</p>
@@ -225,7 +247,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="text" name="nickname" value="<?php echo h($form['nickname']); ?>">
         <?php else : ?>
-            <input type="text" name="nickname" value="<?php echo h($nickname); ?>">
+            <input type="text" name="nickname" value="<?php echo h($data['nickname']); ?>">
         <? endif; ?>
         <?php if (isset($error['nickname']) && $error['nickname'] === 'blank'): ?>
             <p class="error">ニックネームを入力してください</p>
@@ -245,11 +267,11 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 			<label for="others">その他</label>
 
         <?php else : ?>
-            <input type="radio" id="male" name="sex" value="1" <?= $sex == 1 ? 'checked' : '' ?>>
+            <input type="radio" id="male" name="sex" value="1" <?= $data['sex'] == 1 ? 'checked' : '' ?>>
 			<label for="male">男性</label>
-			<input type="radio" id="female" name="sex" value="2" <?= $sex == 2 ? 'checked' : '' ?>>
+			<input type="radio" id="female" name="sex" value="2" <?= $data['sex'] == 2 ? 'checked' : '' ?>>
 			<label for="female">女性</label>
-			<input type="radio" id="others" name="sex" value="3" <?= $sex ==3 ? 'checked' : '' ?>>
+			<input type="radio" id="others" name="sex" value="3" <?= $data['sex'] ==3 ? 'checked' : '' ?>>
 			<label for="others">その他</label>
 
         <?php endif; ?>
@@ -260,7 +282,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="date" name="birthday" value="<?php echo h($form['birthday']); ?>">
         <?php else : ?>
-            <input type="date" name="birthday" value="<?php echo h($birthday); ?>">
+            <input type="date" name="birthday" value="<?php echo h($data['birthday']); ?>">
         <? endif; ?>
         </div>
 
@@ -269,7 +291,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
             <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
                 <input type="text" name="zipcode" value="<?php echo $form['zipcode']; ?>">
             <?php else : ?>
-                <input type="text" name="zipcode" value="<?php echo $zipcode; ?>"><br>
+                <input type="text" name="zipcode" value="<?php echo $data['zipcode']; ?>"><br>
             <? endif; ?>
             <?php if (isset($error['zipcode']) && $error['zipcode'] === 'blank'): ?>
                 <p class="error">郵便番号を入力してください</p>
@@ -283,7 +305,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
             <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
                 <input type="text" name="address" value="<?php echo h($form['address']); ?>">
             <?php else : ?>
-                <input type="text" name="address" maxlength="255" value="<?php echo h($address); ?>">
+                <input type="text" name="address" maxlength="255" value="<?php echo h($data['address']); ?>">
             <? endif; ?>
             <?php if (isset($error['address']) && $error['address'] === 'blank'): ?>
                 <p class="error">住所を入力してください</p>
@@ -294,7 +316,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="text" name="tell" value="<?php echo h($form['tell']); ?>">
         <?php else : ?>
-            <input type="text" name="tell" value="<?php echo $tell; ?>">
+            <input type="text" name="tell" value="<?php echo $data['tell']; ?>">
         <? endif; ?>
         <?php if (isset($error['tell']) && $error['tell'] === 'blank'): ?>
             <p class="error">電話番号を入力してください</p>
@@ -307,7 +329,7 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
             <input type="text" name="email" value="<?php echo h($form['email']); ?>">
         <?php else : ?>
-            <input type="text" name="email" value="<?php echo h($email); ?>">
+            <input type="text" name="email" value="<?php echo h($data['email']); ?>">
         <? endif; ?>
         <?php if (isset($error['email']) && $error['email'] === 'blank'): ?>
         <p class="error">メールアドレスを入力してください</p>
@@ -320,22 +342,22 @@ $stmt->bind_result($id, $name, $name_kana, $nickname, $sex, $birthday, $zipcode,
 		<?php endif; ?>
 
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
-        <input type="hidden" name="self_check_email", value="<?php echo h($email); ?>">
+        <input type="hidden" name="self_check_email", value="<?php echo h($data['email']); ?>">
     </div>
         <div class="btn-sub">
             <button type="submit" name="info" class="btn btn-warning">送信する</button>
         </div>
     </form>
     </div>
-    <?php endwhile; ?>
+
     <form action="pass_henkou.php" method="post">
         <input type="hidden" name="id", value="<?php echo h($id); ?>">
         <div class="btn-sub">
-            <button type="hidden" class="btn btn-success" name="pass" value="<?php echo h($pass); ?>">パスワードを変更する</button>
+            <button type="hidden" class="btn btn-success" name="pass" value="<?php echo h($data['pass']); ?>">パスワードを変更する</button>
         </div>
     </form>
 
-
+    <?php endforeach; ?>
     </main>
     <footer>
         <?php footer_inc(); ?>
