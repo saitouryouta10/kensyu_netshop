@@ -107,5 +107,35 @@ class DBController
 
 
     // TODO: 登録関数
-    
+    /**
+     * SQLを実行し、インサートする
+     * 　成功した場合true　失敗した場合falseを返す
+     *
+     * @param string $sql
+     * @param string $types
+     * @param mixed ...$vars
+     * @return boolean
+     */
+    function insert_query($sql,$types = null, ...$vars)
+    {
+        $data = null;
+
+        try {
+
+            $stmt = $this->dbh->prepare($sql);
+
+            if($types && $vars) {
+                $vars = (array)$vars;
+                $stmt->bind_param($types, ...$vars);
+            }
+
+            $stmt->execute();
+            $data = true;
+
+        } catch (mysqli_sql_exception $e) {
+            $data = false;
+        }
+
+        return $data;
+    }
 }
