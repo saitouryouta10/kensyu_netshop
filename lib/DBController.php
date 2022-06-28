@@ -34,7 +34,11 @@ class DBController
 
     /**
      * コンストラクタ
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 075c008 ([add] データベース操作クラス追加)
      * @return DBController
      */
     function __construct()
@@ -79,7 +83,11 @@ class DBController
         try {
             // 実行準備
             $stmt = $this->dbh->prepare($sql);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 075c008 ([add] データベース操作クラス追加)
             // 変数を使用する場合バインド
             if ($types && $vars) {
                 $vars = (array)$vars;
@@ -107,6 +115,7 @@ class DBController
 
 
     // TODO: 登録関数
+<<<<<<< HEAD
 
     // TODO: 更新関数
 
@@ -131,3 +140,7 @@ class DBController
         return $data;
     }
 }
+=======
+    
+}
+>>>>>>> 075c008 ([add] データベース操作クラス追加)
